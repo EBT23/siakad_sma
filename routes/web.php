@@ -9,14 +9,23 @@ use App\Http\Controllers\AdminController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('admin.dashboard');
 // });
 
-
 Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/siswa', [AdminController::class, 'siswa'])->name('siswa');
+
+
+Route::get('/guru', [AdminController::class, 'guru'])->name('guru');
+Route::get('/pelajaran', [AdminController::class, 'pelajaran'])->name('pelajaran');
+Route::get('/kelas', [AdminController::class, 'kelas'])->name('kelas');
+Route::get('/nilai', [AdminController::class, 'nilai'])->name('nilai');
+Route::get('/jadwalpelajaran', [AdminController::class, 'jadwal_pelajaran'])->name('jadwal_pelajaran');
+Route::get('/jadwalujian', [AdminController::class, 'jadwal_ujian'])->name('jadwal_ujian');
+Route::get('/pengumuman', [AdminController::class, 'pengumuman'])->name('pengumuman');

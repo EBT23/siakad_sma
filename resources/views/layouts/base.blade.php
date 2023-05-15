@@ -31,12 +31,18 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/favicon/favicon-96x96.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicon/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('assets/favicon/manifest.json') }}">
+
+    {{-- data tables --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('assets/favicon/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#ffffff">
     <!-- Vendors styles-->
     <link rel="stylesheet" href="{{ asset('vendors/simplebar/css/simplebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendors/simplebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- We use those styles to show code examples, you should remove them in your application.-->
@@ -56,24 +62,30 @@
       // Bootstrap ID
       gtag('config', 'UA-118965717-5');
     </script>
-    <link href="{{ asset('') }}vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
   </head>
   <body>
 
-       <!-- CoreUI and necessary plugins-->
-       <script src="{{ asset('vendors/@coreui/coreui/js/coreui.bundle.min.js') }}"></script>
-       <script src="{{ asset('vendors/simplebar/js/simplebar.min.js') }}"></script>
-       <!-- Plugins and scripts required by this view-->
-       <script src="{{ asset('vendors/chart.js/js/chart.min.js') }}"></script>
-       <script src="{{ asset('vendors/@coreui/chartjs/js/coreui-chartjs.js') }}"></script>
-       <script src="{{ asset('vendors/@coreui/utils/js/coreui-utils.js') }}"></script>
-       <script src="{{ asset('js/main.js') }}"></script>
-       <script>
-       </script>
-   
 
-   
-     </body>
-   </html>
+    <!-- CoreUI and necessary plugins-->
+    <script src="{{ asset('vendors/@coreui/coreui/js/coreui.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/simplebar/js/simplebar.min.js') }}"></script>
+    <!-- Plugins and scripts required by this view-->
+    <script src="{{ asset('vendors/chart.js/js/chart.min.js') }}"></script>
+    <script src="{{ asset('vendors/@coreui/chartjs/js/coreui-chartjs.js') }}"></script>
+    <script src="{{ asset('vendors/@coreui/utils/js/coreui-utils.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+    </script>
+     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 
+    <script>$(document).ready(function () {
+      $('#dataTabel').DataTable();
+  });</script>
+  </body>
+</html>
