@@ -8,11 +8,11 @@
       </svg>
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-      <li class="nav-item"><a class="nav-link" href="index.html">
+      <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-          </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
-      <li class="nav-title">Theme</li>
+          </svg> Dashboard</a></li>
+      <li class="nav-title">Menu</li>
       <li class="nav-item"><a class="nav-link" href="{{ route('siswa') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-notes"></use>
@@ -25,23 +25,23 @@
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-calculator"></use>
           </svg> Data Pelajaran</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{ route('pelajaran') }}">
+      <li class="nav-item"><a class="nav-link" href="{{ route('kelas') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-star"></use>
           </svg> Data Kelas</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{ route('kelas') }}">
+      <li class="nav-item"><a class="nav-link" href="{{ route('nilai') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-chart-pie"></use>
           </svg> Data Nilai</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{ route('') }}">
+      <li class="nav-item"><a class="nav-link" href="{{ route('jadwal_pelajaran') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
           </svg> Jadwal Pelajaran</a></li>
-      <li class="nav-item"><a class="nav-link" href="colors.html">
+      <li class="nav-item"><a class="nav-link" href="{{ route('jadwal_ujian') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
           </svg> Jadwal Ujian</a></li>
-      <li class="nav-item"><a class="nav-link" href="typography.html">
+      <li class="nav-item"><a class="nav-link" href="{{ route('pengumuman') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
           </svg> Pengumuman</a></li>

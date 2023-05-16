@@ -24,9 +24,34 @@ class AdminController extends Controller
         return view('admin.guru');
     }
 
-    // view guru
+    // view pelajaran
     public function pelajaran()
     {
-        return view('admin.guru');
+        return view('admin.pelajaran');
+    }
+    // view kelas
+    public function kelas()
+    {
+        return view('admin.kelas');
+    }
+    // view nilai
+    public function nilai()
+    {
+        return view('admin.nilai');
+    }
+    // view jadwal Pelajaran
+    public function jadwal_pelajaran()
+    {
+        return view('admin.jadwal_pelajaran');
+    }
+    // view jadwal ujian
+    public function jadwal_ujian()
+    {
+        return view('admin.jadwal_ujian');
+    }
+    // view pengumuman
+    public function pengumuman()
+    {
+        return view('admin.pengumuman');
     }
 }
