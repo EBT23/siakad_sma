@@ -9,49 +9,58 @@ class AdminController extends Controller
     // View dashboard
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $title = 'Dashboard Admin';
+        return view('admin.dashboard',['title'=>$title]);
     }
 
     // view siswa
     public function siswa()
     {
-        return view('admin.siswa');
+        $title = 'Menu Siswa';
+        return view('admin.siswa',['title'=>$title]);
     }
 
     // view guru
     public function guru()
     {
-        return view('admin.guru');
+        $title = 'Menu Guru';
+        return view('admin.guru', ['title'=>$title]);
     }
 
     // view pelajaran
     public function pelajaran()
     {
-        return view('admin.pelajaran');
+        $title = 'Menu Pelajaran';
+        return view('admin.pelajaran', ['title'=>$title]);
     }
     // view kelas
     public function kelas()
     {
-        return view('admin.kelas');
+        $title = 'Menu Kelas';
+        return view('admin.kelas', ['title'=>$title]);
     }
     // view nilai
     public function nilai()
     {
-        return view('admin.nilai');
+        $title = 'Menu Nilai';
+        return view('admin.nilai', ['title'=>$title]);
     }
     // view jadwal Pelajaran
     public function jadwal_pelajaran()
     {
-        return view('admin.jadwal_pelajaran');
+        $title = 'Menu Jadwal Pelajaran';
+        return view('admin.jadwal_pelajaran', ['title'=>$title]);
     }
     // view jadwal ujian
     public function jadwal_ujian()
     {
-        return view('admin.jadwal_ujian');
+        $title = 'Menu Jadwal Ujian';
+        return view('admin.jadwal_ujian', ['title'=>$title]);
     }
     // view pengumuman
     public function pengumuman()
     {
-        return view('admin.pengumuman');
+        $title = 'Menu Pengumuman';
+        return view('admin.pengumuman', ['title'=>$title]);
     }
 }

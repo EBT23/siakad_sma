@@ -1,5 +1,5 @@
 
-    @extends('layouts.base')
+    @extends('layouts.base',['title' => "$title - Admin"])
     @include('layouts.sidebar')
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
       @include('layouts.header')
