@@ -27,6 +27,7 @@ Route::get('/siswa', [AdminController::class, 'siswa'])->name('siswa');
 
 Route::get('/guru', [AdminController::class, 'guru'])->name('guru');
 Route::get('/pelajaran', [AdminController::class, 'pelajaran'])->name('pelajaran');
+Route::get('/kehadiran', [AdminController::class, 'kehadiran'])->name('kehadiran');
 Route::get('/kelas', [AdminController::class, 'kelas'])->name('kelas');
 Route::get('/nilai', [AdminController::class, 'nilai'])->name('nilai');
 Route::get('/jadwalpelajaran', [AdminController::class, 'jadwal_pelajaran'])->name('jadwal_pelajaran');

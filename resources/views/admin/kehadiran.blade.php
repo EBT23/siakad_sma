@@ -18,13 +18,10 @@
                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
                   </div>
                 
-                  <label for="tugas_tambahan" class="form-label">Pilih Mapel</label>
-                  <select class="form-select" name="tugas_tambahan" id="tugas_tambahan" aria-label="Default select example">
-                    <option selected>-pilih-</option>
-                    <option value="1">MIPA 1</option>
-                    <option value="2">MIPA 2</option>
-                    <option value="3">MIPA 3</option>
-                  </select>
+                  <label for="basic-url" class="form-label">Nama Kelas</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                  </div>
                 
                   <select class="form-select" aria-label="Default select example">
                     <option selected>Open this select menu</option>

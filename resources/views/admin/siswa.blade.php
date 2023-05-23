@@ -13,48 +13,33 @@
               <hr>
               <div class="row">
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Siswa</label>
+                  <label for="nis" class="form-label">NIS</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="number" class="form-control" id="nis" name="nis" aria-describedby="basic-addon3">
+                  </div>
+                  <label for="nama" class="form-label">Nama Siswa</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
                   </div>
                 
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                  </div>
-                
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                  
-                 
                 </div>
+
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
+                 
+                  <label for="basic-url" class="form-label">Password Akun</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon3">
                   </div>
-                
-                  
-                  <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-text">.00</span>
-                  </div>
-                  
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                    <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                  </div>
-                  
-                  <div class="input-group">
-                    <span class="input-group-text">With textarea</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
-                  </div>
+                  <label for="kelas" class="form-label">Kelas</label>
+                  <select class="form-select" name="kelas" id="kelas" aria-label="Default select example">
+                    <option selected>-pilih-</option>
+                    <option value="1">MIPA 1</option>
+                    <option value="2">MIPA 2</option>
+                    <option value="3">MIPA 3</option>
+                  </select>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-success" >Simpan</button>
                 </div>
               </div>
              
@@ -66,11 +51,11 @@
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Age</th>
-        <th>Start date</th>
+        <th>NO</th>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th>Kelas</th>
+        <th>Aksi</th>
         <th>Salary</th>
       </tr>
     </thead>

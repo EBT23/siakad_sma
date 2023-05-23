@@ -13,48 +13,34 @@
               <hr>
               <div class="row">
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Siswa</label>
+                  <label for="waktu" class="form-label">Nama Pelajaran</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="waktu" name="waktu" aria-describedby="basic-addon3">
                   </div>
-                
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                  </div>
-                
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <label for="kelas" class="form-label">-kelompok pelajaran-</label>
+                  <select class="form-select" name="kelas" id="kelas" aria-label="Default select example">
+                    <option selected>-pilih-</option>
+                    <option value="1">KELOMPOK A (UMUM)</option>
+                    <option value="1">KELOMPOK B (UMUM)</option>
+                    <option value="1">KELOMPOK C (PEMINATAN MIPA)</option>
+                    <option value="1">KELOMPOK C (PEMINATAN IIS)</option>
+                    <option value="1">  (LINTAS MINAT)</option>
                   </select>
-                  
-                 
+           
                 </div>
+
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
+                  <label for="waktu" class="form-label">Alokasi Waktu</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="waktu" name="waktu" aria-describedby="basic-addon3">
                   </div>
-                
-                  
+                  <label for="kode_mapel" class="form-label">Kode Pelajaran</label>
                   <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-text">.00</span>
+                    <input type="text" class="form-control" id="kode_mapel" name="kode_mapel" aria-describedby="basic-addon3">
                   </div>
-                  
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                    <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                  </div>
-                  
-                  <div class="input-group">
-                    <span class="input-group-text">With textarea</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
-                  </div>
+                </div>
+                <div class="my-3">
+                  <button type="submit" class="btn btn-success" >Simpan</button>
                 </div>
               </div>
              

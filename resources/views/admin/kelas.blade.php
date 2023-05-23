@@ -9,53 +9,20 @@
           <!-- /.row-->
           <div class="card mb-4">
             <div class="card-body">
-              <h5>Form Tambah Data Pelajaran</h5>
+              <h5>Form {{ $title }}</h5>
               <hr>
               <div class="row">
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Siswa</label>
+                  <label for="kelas" class="form-label">Nama Kelas</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="kelas" name="kelas" aria-describedby="basic-addon3">
                   </div>
                 
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                  </div>
-                
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                  
-                 
-                </div>
-                <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                  </div>
-                
-                  
-                  <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-text">.00</span>
-                  </div>
-                  
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                    <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                  </div>
-                  
-                  <div class="input-group">
-                    <span class="input-group-text">With textarea</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                  <div class="my-3">
+                    <button type="submit" class="btn btn-success" >Simpan</button>
                   </div>
                 </div>
+               
               </div>
              
             </div>
@@ -66,8 +33,8 @@
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Position</th>
+        <th>Nama Kelas</th>
+        <th>Aksi</th>
         <th>Office</th>
         <th>Age</th>
         <th>Start date</th>

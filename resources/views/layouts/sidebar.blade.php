@@ -41,6 +41,10 @@
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
           </svg> Jadwal Ujian</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('kehadiran') }}">
+          <svg class="nav-icon">
+            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+          </svg> Kehadiran</a></li>
       <li class="nav-item"><a class="nav-link" href="{{ route('pengumuman') }}">
           <svg class="nav-icon">
             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>

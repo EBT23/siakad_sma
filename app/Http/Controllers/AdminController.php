@@ -57,6 +57,12 @@ class AdminController extends Controller
         $title = 'Menu Jadwal Ujian';
         return view('admin.jadwal_ujian', ['title'=>$title]);
     }
+    // view jadwal kehadiran
+    public function kehadiran()
+    {
+        $title = 'Menu Jadwal Ujian';
+        return view('admin.kehadiran', ['title'=>$title]);
+    }
     // view pengumuman
     public function pengumuman()
     {

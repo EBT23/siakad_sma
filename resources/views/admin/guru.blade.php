@@ -13,48 +13,55 @@
               <hr>
               <div class="row">
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Siswa</label>
+                  <label for="nis" class="form-label">NIY</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="number" class="form-control" id="nis" name="nis" aria-describedby="basic-addon3">
                   </div>
-                
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
+                  <label for="nama" class="form-label">Nama Guru</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
                   </div>
-                
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+                  <label for="nama" class="form-label">Tempat Lahir</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
+                  </div>
+                  <label for="nama" class="form-label">Tanggal Lahir</label>
+                  <div class="input-group mb-3">
+                    <input type="date" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
+                  </div>
                   
-                 
+                  <label for="password" class="form-label">Password Akun</label>
+                  <div class="input-group mb-3">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon3">
+                  </div>
                 </div>
+
                 <div class="col-6">
-                  <label for="basic-url" class="form-label">Nama Kelas</label>
+                  <label for="nama" class="form-label">Pendidikan</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
                   </div>
-                
-                  
+                  <label for="nama" class="form-label">TMK</label>
                   <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-text">.00</span>
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
                   </div>
-                  
+                  <label for="nama" class="form-label">Jabatan</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                    <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
                   </div>
-                  
-                  <div class="input-group">
-                    <span class="input-group-text">With textarea</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
+
+                  <label for="nama" class="form-label">Alamat</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
                   </div>
+
+                  <label for="nama" class="form-label">Keterangan</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
+                  </div>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-success" >Simpan</button>
                 </div>
               </div>
              
@@ -86,7 +93,7 @@
       <tr>
         <td>Garrett Winters</td>
         <td>Accountant</td>
-        <td>Tokyo</td>
+        <td>Garuda</td>
         <td>63</td>
         <td>2011-07-25</td>
         <td>$170,750</td>
