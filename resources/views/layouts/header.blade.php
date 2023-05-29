@@ -21,12 +21,13 @@
               
             <div class="dropdown-header bg-light py-2">
             </div><a class="dropdown-item" href="#">
-              <svg class="icon me-2">
+              {{-- <svg class="icon me-2">
                 <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
               </svg> Profile</a><a class="dropdown-item" href="#">
               <svg class="icon me-2">
                 <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-              </svg> Settings</a><a class="dropdown-item" href="#">
+              </svg> Settings</a> --}}
+              <a class="dropdown-item" href="{{ route('logout') }}">
               <svg class="icon me-2">
                 <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
               </svg> Logout</a>
@@ -39,7 +40,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb my-0 ms-2">
           <li class="breadcrumb-item">
-            <span>{{ $title }}</span>
+            {{-- <span>{{ $title }}</span> --}}
           </li>
         </ol>
       </nav>

@@ -13,7 +13,7 @@
               <hr>
               <div class="row">
                 <div class="col-6">
-                  <label for="nis" class="form-label">NIY</label>
+                  <label for="nis" class="form-label">NIP</label>
                   <div class="input-group mb-3">
                     <input type="number" class="form-control" id="nis" name="nis" aria-describedby="basic-addon3">
                   </div>
