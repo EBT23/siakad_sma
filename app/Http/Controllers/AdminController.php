@@ -23,10 +23,9 @@ class AdminController extends Controller
     {
         
         $title = 'Menu Siswa';
-        $siswa = collect($data);
-        $data = DB::select('SELECT users.*, siswa.id,siswa.id_users,siswa.hp,siswa.alamat, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id;');
+        // $siswa = collect($data);
+        $siswa = DB::select('SELECT users.*, siswa.id,siswa.id_users,siswa.hp,siswa.alamat, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id;');
         $kelas = DB::table('kelas')->get();
-        dd($siswa);
         return view('admin.siswa',['kelas'=>$kelas],['siswa'=>$siswa]);
     }
 
