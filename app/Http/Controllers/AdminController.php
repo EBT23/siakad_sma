@@ -24,27 +24,45 @@ class AdminController extends Controller
         
         $title = 'Menu Siswa';
         // $siswa = collect($data);
-        $siswa = DB::select('SELECT users.*, siswa.id,siswa.id_users,siswa.hp,siswa.alamat, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id;');
+        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
         $kelas = DB::table('kelas')->get();
         return view('admin.siswa',['kelas'=>$kelas],['siswa'=>$siswa]);
     }
 
     public function tambah_siswa(Request $request)
     {
-        $data = [
-            'username' => $request->nis,
+    //     $data = [
+    //         'username' => $request->nis,
+    //         'nama' => $request->nama,
+    //         'password' => Hash::make($request->password),
+    //         'role' => 2,
+    //     ];
+    //     dd($data);
+    //     $data2 = [
+    //         'id_kelas' => $request->id_kelas,
+    //         'hp' => $request->hp,
+    //         'alamat' => $request->alamat,
+    //     ];
+    //    $data1 = DB::table('users')->insert($data);
+    //     DB::table('siswa')->insert($data2);
+
+    $data = DB::table('users')->insert([
+        'username' => $request->nis,
             'nama' => $request->nama,
             'password' => Hash::make($request->password),
             'role' => 2,
-        ];
-        $data2 = [
-            'id_kelas' => $request->id_kelas,
-            'hp' => $request->hp,
-            'alamat' => $request->alamat,
-        ];
-        DB::table('users')->insert($data);
-        DB::table('siswa')->insert($data2);
-        return redirect()->route('siswa');
+    ]);
+
+    $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
+    $query = $query[0]->id;
+    $data1 = DB::table('siswa')->insert([
+        'id_users' => $query,
+        'id_kelas' => $request->id_kelas,
+        'hp' => $request->hp,
+        'alamat' => $request->alamat
+    ]);
+
+        return   redirect()->route('siswa');
     }    
 
     public function edit_siswa(Request $request,$id)
@@ -75,7 +93,7 @@ class AdminController extends Controller
     {
         $title = 'Menu Pelajaran';
         $kelompok = DB::table('kelompok')->get();
-        $pelajaran = DB::select('SELECT pelajaran.*, kelompok.kelompok as nama_kelompok, kelompok.id FROM pelajaran, kelompok where pelajaran.id_kelompok=kelompok.id; ');
+        $pelajaran = DB::select('SELECT pelajaran.nama,pelajaran.kode,pelajaran.id as kp,pelajaran.id_kelompok, kelompok.kelompok , kelompok.id FROM pelajaran, kelompok where pelajaran.id_kelompok=kelompok.id;');
         return view('admin.pelajaran',['pelajaran'=>$pelajaran],['kelompok'=>$kelompok],$title);
     }
 

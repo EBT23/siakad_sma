@@ -14,6 +14,7 @@
               <form action="{{ route('pelajaran.post') }}" method="post">
               @csrf
               <div class="row">
+                
                 <div class="col-6">
                   <label for="nama" class="form-label">Nama Pelajaran</label>
                   <div class="input-group mb-3">
@@ -61,7 +62,7 @@
       <tr>
         <td>{{ $index+1 }}</td>
         <td>{{ $pl->nama }}</td>
-        <td>{{ $pl->nama_kelompok }}</td>
+        <td>{{ $pl->kelompok }}</td>
         <td>{{ $pl->kode }}</td>
         <td class="">    
           <form action="hapuspelajaran/{{$pl->id }}" method="POST">
@@ -69,7 +70,7 @@
             @csrf
             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
         </form>
-          <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $pl->id }}">
+          <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $pl->kp }}">
             Edit
           </button>
         </td>
@@ -79,7 +80,7 @@
   </table>      
 </div>
 @foreach ($pelajaran as $pl )
-<div class="modal fade" id="exampleModal{{ $pl->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal{{ $pl->kp }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,16 +88,16 @@
         <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('edit.pelajaran',['id'=>$pl->id]) }}" method="POST">
+        <form action="{{ route('edit.pelajaran',['id'=>$pl->kp]) }}" method="POST">
           @csrf
           <div class="row">
             <div class="col-12">
               <label for="nama" class="form-label">Nama Pelajaran</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $pl->nama }}">
+              <input type="text" class="form-control" id="nama" name="nama" value="{{ $pl->nama }}">
             </div>
             <div class="col-12">
               <label for="kode" class="form-label">Kode Pelajaran</label>
-                <input type="text" class="form-control" id="kode" name="kode" value="{{ $pl->kode }}">
+              <input type="text" class="form-control" id="kode" name="kode" value="{{ $pl->kode }}">
             </div>
             <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>
                   <select class="form-select" name="id_kelompok" id="id_kelompok" aria-label="Default select example">

@@ -41,7 +41,7 @@
                   <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
                     <option selected>-pilih-</option>
                     @foreach ($kelas as $k )
-                    <option selected>{{ $k->nama }}</option>
+                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -72,11 +72,15 @@
       @foreach ($siswa as $index=>$si )
       <tr>
         <td>{{ $index+1}}</td>
-        <td>{{ $si->$nama}}</td>
         <td>{{ $si->username}}</td>
-        <td>{{ $si->$hp}}</td>
-        <td>{{ $si->$alamat}}</td>
-        <td><button type="submit">dsd</button></td>
+        <td>{{ $si->nama}}</td>
+        <td>{{ $si->hp}}</td>
+        <td>{{ $si->alamat}}</td>
+        <td>{{ $si->nama_kelas}}</td>
+        <td>
+          <button class="btn btn-primary" type="submit">Edit</button>
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </td>
       </tr>
       @endforeach
   </table>      
