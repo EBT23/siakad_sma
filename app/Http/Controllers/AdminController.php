@@ -33,9 +33,9 @@ class AdminController extends Controller
     {
         $data = DB::table('users')->insert([
         'username' => $request->nis,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'role' => 2,
+        'nama' => $request->nama,
+        'password' => Hash::make($request->password),
+        'role' => 2,
     ]);
 
     $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
@@ -157,7 +157,60 @@ class AdminController extends Controller
     public function nilai()
     {
         $title = 'Menu Nilai';
-        return view('admin.nilai', ['title'=>$title]);
+        $siswa = DB::select('SELECT * FROM users WHERE role=2');
+        $pelajaran = DB::table('pelajaran')->get();
+        $nilai = DB::select('SELECT nilai.*, pelajaran.id as id_p,pelajaran.nama as nama_p,pelajaran.kode,users.id as id_u,users.nama from nilai,pelajaran,users WHERE nilai.kd_pelajaran=pelajaran.kode AND users.id=nilai.id_users; ');
+        return view('admin.nilai',compact('siswa','title','pelajaran','nilai'));
+    }
+
+    public function tambah_nilai(Request $request)
+    {
+        $rph = $request->rph;
+        $pts = $request->pts;
+        $pat = $request->pat;
+        $jumlah = (int)$rph+(int)$pts+(int)$pat;
+        $rata_rata = $jumlah/3;
+        $data = [
+            'id_users' => $request->id_users,
+            'kd_pelajaran' => $request->kd_pelajaran,
+            'rph' => $request->rph,
+            'pts' => $request->pts,
+            'pat' => $request->pat,
+            'jumlah'=>$jumlah,
+            'rata_rata'=>$rata_rata,
+            
+        ];
+
+        DB::table('nilai')->insert($data);
+        return redirect()->route('nilai');
+    }
+
+    public function edit_nilai(Request $request, $id)
+    {
+        $rph = $request->rph;                                                   
+        $pts = $request->pts;
+        $pat = $request->pat;
+        $jumlah = (int)$rph+(int)$pts+(int)$pat;
+        $rata_rata = $jumlah/3;
+        DB::table('nilai')->where('id', $id)->update([
+            'id_users' => $request->id_users,
+            'kd_pelajaran' => $request->kd_pelajaran,
+            'rph' => $request->rph,
+            'pts' => $request->pts,
+            'pat' => $request->pat,
+            'jumlah'=>$jumlah,
+            'rata_rata'=>$rata_rata
+
+        ]);
+        return redirect()->route('nilai');
+    }
+    
+
+    function hapus_nilai($id)
+    {
+        DB::table('nilai')->where('id', $id)->delete();
+        // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+        return redirect()->route('nilai');
     }
     // view jadwal Pelajaran
     public function jadwal_pelajaran()

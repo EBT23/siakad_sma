@@ -52,6 +52,10 @@ Route::middleware(['auth'])->group(function (){
 
 
     Route::get('/nilai', [AdminController::class, 'nilai'])->name('nilai');
+    Route::post('/tambahnilai', [AdminController::class, 'tambah_nilai'])->name('nilai.post');
+    Route::post('/editnilai/{id}', [AdminController::class, 'edit_nilai'])->name('edit.nilai');
+    Route::delete('/hapusnilai/{id}', [AdminController::class, 'hapus_nilai'])->name('hapus.nilai');
+
     Route::get('/jadwalpelajaran', [AdminController::class, 'jadwal_pelajaran'])->name('jadwal_pelajaran');
     Route::get('/jadwalujian', [AdminController::class, 'jadwal_ujian'])->name('jadwal_ujian');
     Route::get('/pengumuman', [AdminController::class, 'pengumuman'])->name('pengumuman');
