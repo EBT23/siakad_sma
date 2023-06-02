@@ -23,30 +23,15 @@ class AdminController extends Controller
     {
         
         $title = 'Menu Siswa';
-        // $siswa = collect($data);
-        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
+        $kelompok = DB::table('kelas')->get();
+        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat,siswa.id_kelas, siswa.id, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
         $kelas = DB::table('kelas')->get();
         return view('admin.siswa',['kelas'=>$kelas],['siswa'=>$siswa]);
     }
 
     public function tambah_siswa(Request $request)
     {
-    //     $data = [
-    //         'username' => $request->nis,
-    //         'nama' => $request->nama,
-    //         'password' => Hash::make($request->password),
-    //         'role' => 2,
-    //     ];
-    //     dd($data);
-    //     $data2 = [
-    //         'id_kelas' => $request->id_kelas,
-    //         'hp' => $request->hp,
-    //         'alamat' => $request->alamat,
-    //     ];
-    //    $data1 = DB::table('users')->insert($data);
-    //     DB::table('siswa')->insert($data2);
-
-    $data = DB::table('users')->insert([
+        $data = DB::table('users')->insert([
         'username' => $request->nis,
             'nama' => $request->nama,
             'password' => Hash::make($request->password),
@@ -78,7 +63,14 @@ class AdminController extends Controller
             'alamat' => $request->alamat,
         ]);
         return redirect()->route('siswa');
+        
+    }
 
+    function hapus_siswa($id)
+    {
+        DB::table('kelas')->where('id', $id)->delete();
+        // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+        return redirect()->route('kelas');
     }
 
     // view guru

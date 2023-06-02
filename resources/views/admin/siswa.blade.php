@@ -78,22 +78,63 @@
         <td>{{ $si->alamat}}</td>
         <td>{{ $si->nama_kelas}}</td>
         <td>
-          <button class="btn btn-primary" type="submit">Edit</button>
+          <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $si->id }}">
+            Edit
+          </button>
           <button class="btn btn-danger" type="submit">Delete</button>
         </td>
       </tr>
       @endforeach
   </table>      
 </div>
+@foreach ($siswa as $s )
   
+<div class="modal fade" id="exampleModal{{ $si->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
+        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('edit.siswa',['id'=>$s->id]) }}" method="POST">
+          @csrf
+          <div class="row">
+            <div class="col-12">
+              <label for="nama" class="form-label">Nama Pelajaran</label>
+              <input type="text" class="form-control" id="nama" name="nama" value="{{ $s->nama }}">
+            </div>
+            <div class="col-12">
+              <label for="hp" class="form-label">NIP</label>
+              <input type="text" class="form-control" id="hp" name="hp" value="{{ $s->username }}">
+            </div>
+            <div class="col-12">
+              <label for="hp" class="form-label">Nomor Hp</label>
+              <input type="text" class="form-control" id="hp" name="hp" value="{{ $s->hp }}">
+            </div>
+            <div class="col-12">
+              <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>
+              <select class="form-select" name="id_kelompok" id="id_kelompok" aria-label="Default select example">
+                @foreach ($kelas as $k )
+                <option @if($k->id == $si->id_kelas) selected @endif value="{{ $k->id }}">{{ $k->nama }}</option>
+                @endforeach
+              </select>
+            </div>
+        
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
 </div>
         
-        </div>
+    </div>
       </div>
-
-      
-      <footer class="footer">
-        <div><a href="https://coreui.io">CoreUI </a><a href="https://coreui.io">Bootstrap Admin Template</a> © 2022 creativeLabs.</div>
-        <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
-      </footer>
+      @include('layouts.footer')
     </div>
