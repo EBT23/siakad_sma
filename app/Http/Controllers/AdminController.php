@@ -24,7 +24,7 @@ class AdminController extends Controller
         
         $title = 'Menu Siswa';
         $kelompok = DB::table('kelas')->get();
-        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat,siswa.id_kelas, siswa.id, kelas.id,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
+        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat,siswa.id_kelas, siswa.id as id_s, kelas.id as id_k,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
         $kelas = DB::table('kelas')->get();
         return view('admin.siswa',['kelas'=>$kelas],['siswa'=>$siswa]);
     }
@@ -36,7 +36,7 @@ class AdminController extends Controller
         'nama' => $request->nama,
         'password' => Hash::make($request->password),
         'role' => 2,
-    ]);
+            ]);
 
     $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
     $query = $query[0]->id;
@@ -52,34 +52,90 @@ class AdminController extends Controller
 
     public function edit_siswa(Request $request,$id)
     {
-        DB::table('users')->where('id', $id)->update([
-            'username' => $request->nis,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-        ]);
-        DB::table('siswa')->where('id', $id)->update([
-            'id_kelas' => $request->id_kelas,
-            'hp' => $request->hp,
-            'alamat' => $request->alamat,
-        ]);
+        $nama = $request->nama;
+        $username = $request->nis;
+        $id_kelas = $request->id_kelas;
+        $hp = $request->hp;
+        $alamat = $request->alamat;
+        DB::select("UPDATE users, siswa, kelas
+        SET users.nama = '$nama', users.username = '$username', siswa.id_kelas = $id_kelas, siswa.hp = '$hp', siswa.alamat = '$alamat'
+        WHERE users.id = siswa.id_users
+        AND kelas.id = siswa.id_kelas
+        AND users.id = $id");
         return redirect()->route('siswa');
         
     }
 
-    function hapus_siswa($id)
+    function hapussiswa($id)
     {
-        DB::table('kelas')->where('id', $id)->delete();
+
+        DB::select("DELETE users, siswa FROM users, siswa WHERE users.id = siswa.id_users AND users.id = $id");
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('kelas');
+        return redirect()->route('siswa');
     }
 
     // view guru
     public function guru()
     {
         $title = 'Menu Guru';
-        return view('admin.guru', ['title'=>$title]);
+        $guru = DB::select('SELECT users.id, users.nama, users.username, guru.id AS id_g, 
+        guru.id_users,guru.tempat,guru.tgl_lahir,guru.tempat,guru.pendidikan,guru.tmk,guru.jabatan,
+        guru.alamat,guru.ket 
+        FROM users, guru 
+        WHERE users.id=guru.id_users AND users.role=3');
+        // dd($guru);
+        return view('admin.guru', compact('title','guru'));
     }
 
+    public function tambah_guru(Request $request)
+    {
+        $data = DB::table('users')->insert([
+            'username' => $request->nip,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'role' => 3,
+        ]);
+
+    $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
+    $query = $query[0]->id;
+    $data1 = DB::table('guru')->insert([
+        'id_users' => $query,
+        'tempat' => $request->tempat,
+        'tgl_lahir' => $request->tgl_lahir,
+        'pendidikan' => $request->pendidikan,
+        'jabatan' => $request->jabatan,
+        'tmk' => $request->tmk,
+        'ket' => $request->ket,
+        'alamat' => $request->alamat
+    ]);
+    return redirect()->route('guru');
+    }
+
+public function edit_guru(Request $request,$id)
+{
+    $username = $request->nip;
+    $nama = $request->nama;
+    $tempat = $request->tempat;
+    $tgl_lahir = $request->tgl_lahir;
+    $pendidikan = $request->pendidikan;
+    $tmk = $request->tmk;
+    $jabatan = $request->jabatan;
+    $alamat = $request->alamat;
+    $ket = $request->ket;
+
+        DB::select("UPDATE users, guru
+        SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.ket = '$ket'
+        WHERE users.id = guru.id_users
+        AND users.id = $id");
+    return redirect()->route('guru');
+}
+
+public function hapusguru($id)
+{
+    DB::select("DELETE users, guru FROM users, guru WHERE users.id = guru.id_users AND users.id = $id");
+    // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+    return redirect()->route('guru');
+}
     // view pelajaran
     public function pelajaran()
     {
@@ -216,12 +272,59 @@ class AdminController extends Controller
     public function jadwal_pelajaran()
     {
         $title = 'Menu Jadwal Pelajaran';
-        return view('admin.jadwal_pelajaran', ['title'=>$title]);
+        $guru = DB::select('SELECT * FROM users Where role=3');
+        $pelajaran = DB::table('pelajaran')->get();
+        $kelas = DB::table('kelas')->get();
+        $jadwal_pelajaran = DB::select('SELECT jadwal_pelajaran.*, kelas.id AS id_k, 
+        kelas.nama as nama_kelas, 
+        pelajaran.id as id_p, pelajaran.nama AS nama_pelajaran, 
+        users.id AS id_g, users.nama FROM users, pelajaran,kelas,jadwal_pelajaran 
+        WHERE jadwal_pelajaran.id_guru=users.id 
+        AND pelajaran.id=jadwal_pelajaran.id_pelajaran AND kelas.id=jadwal_pelajaran.id_kelas; ');
+        return view('admin.jadwal_pelajaran', compact('title','guru','pelajaran','kelas','jadwal_pelajaran'));
+    }
+
+    public function tambah_jadwal_pelajaran(Request $request)
+    {
+        $request->validate([
+
+        ]);
+        $data = [
+            'id_guru' => $request->id_guru,
+            'id_kelas' => $request->id_kelas,
+            'id_pelajaran' => $request->id_pelajaran,
+            'jam_mengajar' => $request->jam_mengajar,
+            'jumlah_jam' => $request->jumlah_jam,
+            'jam_mengajar' => $request->jam_mengajar,
+            'tugas_tambahan' => $request->tugas_tambahan,
+        ];
+        DB::table('jadwal_pelajaran')->insert($data);
+        return redirect()->route('jadwal_pelajaran');
+    }
+
+    public function edit_jadwal_pelajaran(Request $request,$id)
+    {
+        DB::table('jadwal_pelajaran')->where('id', $id)->update([
+            'id_guru' => $request->id_guru,
+            'id_kelas' => $request->id_kelas,
+            'id_pelajaran' => $request->id_pelajaran,
+            'jam_mengajar' => $request->jam_mengajar,
+            'jumlah_jam' => $request->jumlah_jam,
+            'tugas_tambahan' => $request->tugas_tambahan,
+        ]);
+        return redirect()->route('jadwal_pelajaran');
+    }
+
+    public function hapus_jadwal_pelajaran($id)
+    {
+        DB::table('jadwal_pelajaran')->where('id', $id)->delete();
+        // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+        return redirect()->route('jadwal_pelajaran');
     }
     // view jadwal ujian
     public function jadwal_ujian()
     {
-        $title = 'Menu Jadwal Ujian';
+        $title = 'Jadwal Ujian';
         return view('admin.jadwal_ujian', ['title'=>$title]);
     }
     // view jadwal kehadiran

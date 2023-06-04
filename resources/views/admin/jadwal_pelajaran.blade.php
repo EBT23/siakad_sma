@@ -11,38 +11,54 @@
             <div class="card-body">
               <h5>Form Tambah Data Pelajaran</h5>
               <hr>
-              <div class="row">
-                <div class="col-6">
-                  <label for="basic-url" class="form-label">NIY-Nama Guru</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+              <form action="{{ route('jadwal_pelajaran.post') }}" method="post">
+                @csrf
+                <div class="row">
+                  <div class="col-6">
+                  <label for="id_guru" class="form-label">NIP - Guru</label>
+                    <select class="form-select mb-3" name="id_guru" id="id_guru" aria-label="Default select example">
+                      <option selected>-pilih-</option>
+                      @foreach ($guru as $g )
+                      <option value="{{ $g->id }}">{{ $g->username." - ".$g->nama }}</option>
+                      @endforeach
+                    </select>
+                    <label for="id_kelas" class="form-label">Kelas</label>
+                    <select class="form-select mb-3" name="id_kelas" id="id_kelas" aria-label="Default select example">
+                      <option selected>-pilih-</option>
+                      @foreach ($kelas as $k )
+                      <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                      @endforeach
+                    </select>
+  
+                    <label for="id_pelajaran" class="form-label">Pelajaran</label>
+                    <select class="form-select mb-3" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example">
+                      <option selected>-pilih-</option>
+                      @foreach ($pelajaran as $p )
+                      <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                      @endforeach
+                    </select>
+                    
                   </div>
-                
-                  <label for="tugas_tambahan" class="form-label">Pilih Pelajaran</label>
-                  <select class="form-select" name="tugas_tambahan" id="tugas_tambahan" aria-label="Default select example">
-                    <option selected>-pilih-</option>
-                    <option value="1">MIPA 1</option>
-                    <option value="2">MIPA 2</option>
-                    <option value="3">MIPA 3</option>
-                  </select>
-                 
-                </div>
-                <div class="col-6">
-                  <label for="basic-url" class="form-label">Jumlah Jam</label>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                  <div class="col-6">
+                    <label for="jam_mengajar" class="form-label">Jam Mengajar</label>
+                    <div class="input-group mb-3">
+                      <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar" aria-describedby="basic-addon3">
+                    </div>
+  
+                    <label for="jumlah_jam" class="form-label">Jumlah Jam</label> <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="jumlah_jam"  name="jumlah_jam" aria-describedby="basic-addon3">
+                    </div>
+  
+                    <label for="tugas_tambahan" class="form-label">Tugas Tambahan</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="tugas_tambahan" id="tugas_tambahan" name="tugas_tambahan" aria-describedby="basic-addon3">
+                    </div>
                   </div>
-
-                  <label for="tugas_tambahan" class="form-label">Tugas Tambahan</label>
-                  <select class="form-select" name="tugas_tambahan" id="tugas_tambahan" aria-label="Default select example">
-                    <option selected>-pilih-</option>
-                    <option value="1">MIPA 1</option>
-                    <option value="2">MIPA 2</option>
-                    <option value="3">MIPA 3</option>
-                  </select>
+                  <div class="">
+                    <button type="submit" class="btn btn-success text-white" >Simpan</button>
+                  </div>
                 </div>
-              </div>
-             
+              </form>
             </div>
           
           </div>
@@ -51,99 +67,93 @@
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
       <tr>
-        <th>No</th>
+        <th width="5%">No</th>
         <th>Nama</th>
-        <th>Pelajaran</th>
         <th>Kelas</th>
+        <th>Pelajaran</th>
+        <th>Jam Mengajar</th>
         <th>Jumlah Jam</th>
+        <th>Tugas Tambahan</th>
         <th>Aksi</th>
       </tr>
     </thead>
     <tbody>
       
+      @foreach ($jadwal_pelajaran as $index=>$jp)
       <tr>
-        <td>Zorita Serrano</td>
-        <td>Software Engineer</td>
-        <td>San Francisco</td>
-        <td>56</td>
-        <td>2012-06-01</td>
-        <td>$115,000</td>
+        <td width="5%">{{ $index+1 }}</td>
+        <td>{{ $jp->nama }}</td>
+        <td>{{ $jp->nama_kelas }}</td>
+        <td>{{ $jp->nama_pelajaran }}</td>
+        <td>{{ $jp->jam_mengajar }}</td>
+        <td>{{ $jp->jumlah_jam }}</td>
+        <td>{{ $jp->tugas_tambahan }}</td>
+        <td><form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+      </form>
+      <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $jp->id }}">
+        Edit
+      </button>
+      <div class="modal fade" id="exampleModal{{ $jp->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit {{ $title }}</h5>
+              <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ route('edit.jadwal_pelajaran',['id'=>$jp->id]) }}" method="post">
+                @csrf
+                <div class="row">
+                  <div class="col-12">
+                      <label for="id_guru" class="form-label">NIP - Guru</label>
+                      <select class="form-select" name="id_guru" id="id_guru" aria-label="Default select example">
+                        @foreach ($guru as $g )
+                        <option @if($g->id == $jp->id_guru) selected @endif value="{{ $g->id }}">{{ $g->nama }}</option>
+                        @endforeach
+                      </select>
+
+                      <label for="id_kelas" class="form-label">Kelas</label>
+                      <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
+                        @foreach ($kelas as $k )
+                        <option @if($k->id == $jp->id_kelas) selected @endif value="{{ $g->id }}">{{ $k->nama }}</option>
+                        @endforeach
+                      </select>
+
+                      <label for="id_pelajaran" class="form-label">Pelajaran</label>
+                      <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example">
+                        @foreach ($pelajaran as $p )
+                        <option @if($p->id == $jp->id_pelajaran) selected @endif value="{{ $p->id }}">{{ $p->nama }}</option>
+                        @endforeach
+                      </select>
+      
+                    <label for="jam_mengajar" class="form-label">Jam Mengajar</label>
+                    <div class="input-group mb-3">
+                      <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar"value="{{ $jp->jam_mengajar }}" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="jumlah_jam" class="form-label">Jumlah Jam</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" id="jumlah_jam" name="jumlah_jam" value="{{ $jp->jumlah_jam }}" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="tugas_tambahan" class="form-label">Tugas Tambahan</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="tugas_tambahan" name="tugas_tambahan" value="{{ $jp->tugas_tambahan }}" aria-describedby="basic-addon3">
+                    </div>
+                  </div>
+                  <div>
+                    <button type="submit" class="btn btn-success" >Simpan</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
       </tr>
-      <tr>
-        <td>Jennifer Acosta</td>
-        <td>Junior Javascript Developer</td>
-        <td>Edinburgh</td>
-        <td>43</td>
-        <td>2013-02-01</td>
-        <td>$75,650</td>
-      </tr>
-      <tr>
-        <td>Cara Stevens</td>
-        <td>Sales Assistant</td>
-        <td>New York</td>
-        <td>46</td>
-        <td>2011-12-06</td>
-        <td>$145,600</td>
-      </tr>
-      <tr>
-        <td>Hermione Butler</td>
-        <td>Regional Director</td>
-        <td>London</td>
-        <td>47</td>
-        <td>2011-03-21</td>
-        <td>$356,250</td>
-      </tr>
-      <tr>
-        <td>Lael Greer</td>
-        <td>Systems Administrator</td>
-        <td>London</td>
-        <td>21</td>
-        <td>2009-02-27</td>
-        <td>$103,500</td>
-      </tr>
-      <tr>
-        <td>Jonas Alexander</td>
-        <td>Developer</td>
-        <td>San Francisco</td>
-        <td>30</td>
-        <td>2010-07-14</td>
-        <td>$86,500</td>
-      </tr>
-      <tr>
-        <td>Shad Decker</td>
-        <td>Regional Director</td>
-        <td>Edinburgh</td>
-        <td>51</td>
-        <td>2008-11-13</td>
-        <td>$183,000</td>
-      </tr>
-      <tr>
-        <td>Michael Bruce</td>
-        <td>Javascript Developer</td>
-        <td>Singapore</td>
-        <td>29</td>
-        <td>2011-06-27</td>
-        <td>$183,000</td>
-      </tr>
-      <tr>
-        <td>Donna Snider</td>
-        <td>Customer Support</td>
-        <td>New York</td>
-        <td>27</td>
-        <td>2011-01-25</td>
-        <td>$112,000</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Age</th>
-        <th>Start date</th>
-        <th>Salary</th>
-      </tr>
-    </tfoot>
+      @endforeach
   </table>      
 </div>
   
@@ -153,8 +163,5 @@
       </div>
 
       
-      <footer class="footer">
-        <div><a href="https://coreui.io">CoreUI </a><a href="https://coreui.io">Bootstrap Admin Template</a> © 2022 creativeLabs.</div>
-        <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
-      </footer>
+      @include('layouts.footer')
     </div>

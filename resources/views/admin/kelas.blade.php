@@ -51,7 +51,7 @@
             @method('DELETE')
             @csrf
             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
-        </form>
+          </form>
           <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $kl->id }}">
             Edit
           </button>

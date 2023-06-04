@@ -74,14 +74,18 @@
         <td>{{ $index+1}}</td>
         <td>{{ $si->username}}</td>
         <td>{{ $si->nama}}</td>
+        <td>{{ $si->nama_kelas}}</td>
         <td>{{ $si->hp}}</td>
         <td>{{ $si->alamat}}</td>
-        <td>{{ $si->nama_kelas}}</td>
         <td>
           <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $si->id }}">
             Edit
           </button>
-          <button class="btn btn-danger" type="submit">Delete</button>
+          <form action="hapussiswa/{{$si->id }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+          </form>
         </td>
       </tr>
       @endforeach
@@ -101,20 +105,24 @@
           @csrf
           <div class="row">
             <div class="col-12">
-              <label for="nama" class="form-label">Nama Pelajaran</label>
+              <label for="nama" class="form-label">Nama </label>
               <input type="text" class="form-control" id="nama" name="nama" value="{{ $s->nama }}">
             </div>
             <div class="col-12">
-              <label for="hp" class="form-label">NIP</label>
-              <input type="text" class="form-control" id="hp" name="hp" value="{{ $s->username }}">
+              <label for="nis" class="form-label">NIP</label>
+              <input type="text" class="form-control" id="nis" name="nis" value="{{ $s->username }}">
             </div>
             <div class="col-12">
               <label for="hp" class="form-label">Nomor Hp</label>
               <input type="text" class="form-control" id="hp" name="hp" value="{{ $s->hp }}">
             </div>
             <div class="col-12">
-              <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>
-              <select class="form-select" name="id_kelompok" id="id_kelompok" aria-label="Default select example">
+              <label for="alamat" class="form-label">Alamat</label>
+              <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $s->alamat }}">
+            </div>
+            <div class="col-12">
+              <label for="id_kelas" class="form-label">-kelompok pelajaran-</label>
+              <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
                 @foreach ($kelas as $k )
                 <option @if($k->id == $si->id_kelas) selected @endif value="{{ $k->id }}">{{ $k->nama }}</option>
                 @endforeach
