@@ -314,6 +314,7 @@ public function hapusguru($id)
         ]);
         return redirect()->route('jadwal_pelajaran');
     }
+    
 
     public function hapus_jadwal_pelajaran($id)
     {
