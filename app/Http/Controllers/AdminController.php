@@ -22,9 +22,10 @@ class AdminController extends Controller
     public function siswa()
     {
         
-        $title = 'Menu Siswa';
+        $title = 'Siswa';
         $kelompok = DB::table('kelas')->get();
-        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat,siswa.id_kelas, siswa.id as id_s, kelas.id as id_k,kelas.nama AS nama_kelas FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
+        $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat,siswa.id_kelas, siswa.id as id_s, kelas.id as id_k,kelas.nama AS nama_kelas 
+                            FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
         $kelas = DB::table('kelas')->get();
         return view('admin.siswa',['kelas'=>$kelas],['siswa'=>$siswa]);
     }
@@ -46,8 +47,7 @@ class AdminController extends Controller
         'hp' => $request->hp,
         'alamat' => $request->alamat
     ]);
-
-        return   redirect()->route('siswa');
+        return redirect()->route('siswa');
     }    
 
     public function edit_siswa(Request $request,$id)
@@ -139,10 +139,9 @@ public function hapusguru($id)
     // view pelajaran
     public function pelajaran()
     {
-        $title = 'Menu Pelajaran';
-        $kelompok = DB::table('kelompok')->get();
-        $pelajaran = DB::select('SELECT pelajaran.nama,pelajaran.kode,pelajaran.id as kp,pelajaran.id_kelompok, kelompok.kelompok , kelompok.id FROM pelajaran, kelompok where pelajaran.id_kelompok=kelompok.id;');
-        return view('admin.pelajaran',['pelajaran'=>$pelajaran],['kelompok'=>$kelompok],$title);
+        $title = 'Pelajaran';
+        $pelajaran = DB::table('pelajaran')->get();
+        return view('admin.pelajaran',compact('title','pelajaran'));
     }
 
     public function tambah_pelajaran(Request $request)
@@ -150,7 +149,7 @@ public function hapusguru($id)
         $data = [
             'nama' => $request->nama,
             'kode' => $request->kode,
-            'id_kelompok' => $request->id_kelompok,
+            'kelompok' => $request->kelompok,
         ];
         DB::table('pelajaran')->insert($data);
         return redirect()->route('pelajaran');
@@ -161,7 +160,7 @@ public function hapusguru($id)
         DB::table('pelajaran')->where('id', $id)->update([
             'nama' => $request->nama,
             'kode' => $request->kode,
-            'id_kelompok' => $request->id_kelompok,
+            'kelompok' => $request->kelompok,
         ]);
         return redirect()->route('pelajaran');
     }
@@ -322,22 +321,86 @@ public function hapusguru($id)
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
         return redirect()->route('jadwal_pelajaran');
     }
-    // view jadwal ujian
-    public function jadwal_ujian()
-    {
-        $title = 'Jadwal Ujian';
-        return view('admin.jadwal_ujian', ['title'=>$title]);
-    }
+    
     // view jadwal kehadiran
     public function kehadiran()
     {
-        $title = 'Menu Jadwal Ujian';
-        return view('admin.kehadiran', ['title'=>$title]);
+        $title = 'Kehadiran';
+
+        $siswa = DB::select('SELECT * FROM users WHERE role=2');
+        $kelas = DB::table('kelas')->get();
+        $pelajaran = DB::table('pelajaran')->get();
+        $kehadiran = DB::select('SELECT kehadiran.id,kehadiran.id_siswa,kehadiran.id_pelajaran,kehadiran.tanggal,kehadiran.status_kehadiran,users.id AS id_u, pelajaran.id AS id_p, users.nama, pelajaran.nama AS nama_pelajaran FROM kehadiran, users, pelajaran WHERE users.id=kehadiran.id_siswa AND kehadiran.id_pelajaran=pelajaran.id;');
+
+        return view('admin.kehadiran', compact('siswa','kelas','title','pelajaran','kehadiran'));
     }
+
+    public function tambah_kehadiran(Request $request)
+    {
+        $data  = [
+            'id_siswa' => $request->id_siswa,
+            'id_pelajaran' => $request->id_pelajaran,
+            'tanggal' => $request->tanggal,
+            'status_kehadiran' => $request->status_kehadiran,
+        ];
+
+        DB::table('kehadiran')->insert($data);
+        return redirect()->route('kehadiran');
+    }
+
+public function edit_kehadiran(Request $request,$id)
+{
+    DB::table('kehadiran')->where('id', $id)->update([
+        'id_siswa' => $request->id_siswa,
+        'id_pelajaran' => $request->id_pelajaran,
+        'tanggal' => $request->tanggal,
+        'status_kehadiran' => $request->status_kehadiran,
+        
+    ]);
+    return redirect()->route('kehadiran');
+}
+
+    public function hapus_kehadiran($id)
+    {
+        DB::table('kehadiran')->where('id', $id)->delete();
+        // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!'); 
+        return redirect()->route('kehadiran');
+    }
+
     // view pengumuman
     public function pengumuman()
     {
-        $title = 'Menu Pengumuman';
-        return view('admin.pengumuman', ['title'=>$title]);
+        $title = 'Pengumuman';
+        $pengumuman = DB::table('pengumuman')->get();
+        return view('admin.pengumuman', compact('title','pengumuman'));
+    }
+
+    public function tambah_pengumuman(Request $request)
+    {
+        $data  = [
+            'tanggal' => $request->tanggal,
+            'judul' => $request->judul,
+            'isi_pengumuman' => $request->isi_pengumuman,
+        ];
+
+        DB::table('pengumuman')->insert($data);
+        return redirect()->route('pengumuman');
+    }
+
+    public function edit_pengumuman(Request $request,$id)
+{
+    DB::table('pengumuman')->where('id', $id)->update([
+        'tanggal' => $request->tanggal,
+        'judul' => $request->judul,
+        'isi_pengumuman' => $request->isi_pengumuman,
+    ]);
+    return redirect()->route('pengumuman');
+}
+
+    public function hapus_pengumuman($id)
+    {
+        DB::table('pengumuman')->where('id', $id)->delete();
+        // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!'); 
+        return redirect()->route('pengumuman');
     }
 }

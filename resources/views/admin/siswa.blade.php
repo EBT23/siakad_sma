@@ -59,13 +59,13 @@
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
       <tr>
-        <th>NO</th>
+        <th width="5%">NO</th>
         <th>NIS</th>
         <th>Nama</th>
         <th>Kelas</th>
         <th>No HandPhone</th>
         <th>Alamat</th>
-        <th>Aksi</th>
+        <th width="10%">Aksi</th>
       </tr>
     </thead>
     <tbody>
@@ -77,15 +77,19 @@
         <td>{{ $si->nama_kelas}}</td>
         <td>{{ $si->hp}}</td>
         <td>{{ $si->alamat}}</td>
-        <td>
-          <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $si->id }}">
-            Edit
-          </button>
-          <form action="hapussiswa/{{$si->id }}" method="POST">
-            {{ csrf_field() }}
-            {{ method_field('DELETE') }}
-            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
-          </form>
+        <td class="d-flex">
+          <span>
+            <button type="button" class="btn btn-primary m-md-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $si->id }}">
+              Edit
+            </button>
+          </span>
+          <span>
+            <form action="hapussiswa/{{$si->id }}" method="POST">
+              {{ csrf_field() }}
+              {{ method_field('DELETE') }}
+              <button class="btn btn-danger mt-2" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+            </form>
+          </span>
         </td>
       </tr>
       @endforeach

@@ -97,15 +97,17 @@
                 <td>Belum Dinilai</td> 
 
                 @endif
-                <td class="">    
+                <td class="d-flex">    
                   <form action="hapusnilai/{{$n->id }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
                 </form>
-                  <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $n->id }}">
+                <span>
+                  <button type="button" class="btn btn-primary mx-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $n->id }}">
                     Edit
                   </button>
+                </span>
                 </td>
               </tr>
               @endforeach

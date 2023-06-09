@@ -41,8 +41,7 @@ Route::middleware(['auth'])->group(function (){
     Route::delete('/hapusguru/{id}', [AdminController::class, 'hapusguru'])->name('hapus.guru');
 
 
-    Route::get('/kehadiran', [AdminController::class, 'kehadiran'])->name('kehadiran');
-
+    
     // ROUTE PELAJARAN
     Route::get('/pelajaran', [AdminController::class, 'pelajaran'])->name('pelajaran');
     Route::post('/tambahpelajaran', [AdminController::class, 'tambah_pelajaran'])->name('pelajaran.post');
@@ -67,7 +66,16 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/tambahjadwalpelajaran', [AdminController::class, 'tambah_jadwal_pelajaran'])->name('jadwal_pelajaran.post');
     Route::post('/editjadwalpelajaran/{id}', [AdminController::class, 'edit_jadwal_pelajaran'])->name('edit.jadwal_pelajaran');
     Route::delete('/hapusjadwalpelajaran/{id}', [AdminController::class, 'hapus_jadwal_pelajaran'])->name('hapus.jadwal_pelajaran');
-
-    Route::get('/jadwalujian', [AdminController::class, 'jadwal_ujian'])->name('jadwal_ujian');
+    
+    // ROUTE KEHADIRAN
+    Route::get('/kehadiran', [AdminController::class, 'kehadiran'])->name('kehadiran');
+    Route::post('/tambahkehadiran', [AdminController::class, 'tambah_kehadiran'])->name('kehadiran.post');
+    Route::post('/editkehadiran/{id}', [AdminController::class, 'edit_kehadiran'])->name('edit.kehadiran');
+    Route::delete('/hapuskehadiran/{id}', [AdminController::class, 'hapus_kehadiran'])->name('hapus.kehadiran');
+    
+    
     Route::get('/pengumuman', [AdminController::class, 'pengumuman'])->name('pengumuman');
+    Route::post('/tambahpengumuman', [AdminController::class, 'tambah_pengumuman'])->name('pengumuman.post');
+    Route::post('/editpengumuman/{id}', [AdminController::class, 'edit_pengumuman'])->name('edit.pengumuman');
+    Route::delete('/hapuspengumuman/{id}', [AdminController::class, 'hapus_pengumuman'])->name('hapus.pengumuman');
 });

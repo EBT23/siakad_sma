@@ -98,15 +98,18 @@
         <td>{{ $g->tmk }}</td>
         <td>{{ $g->jabatan }}</td>
         <td>{{ $g->alamat }}</td>
-        <td>{{ $g->id }}</td>
-        <td><form action="hapusguru/{{$g->id }}" method="POST">
-          {{ csrf_field() }}
-          {{ method_field('DELETE') }}
-          <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
-        </form>
-        <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $g->id }}">
-          Edit
-        </button>
+        <td>{{ $g->ket }}</td>
+        <td class="d-flex" >
+          <form action="hapusguru/{{$g->id }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button class="btn btn-danger " type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+          </form>
+          <span>
+            <button type="button" class="btn btn-primary mx-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $g->id }}">
+              Edit
+            </button>
+          </span>
         <div class="modal fade" id="exampleModal{{ $g->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -137,7 +140,6 @@
                       </div>
                                     
                     </div>
-        
                     <div class="col-6">
                       <label for="pendidikan" class="form-label">Pendidikan</label>
                       <div class="input-group mb-3">

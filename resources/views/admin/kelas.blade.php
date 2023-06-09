@@ -46,15 +46,19 @@
       <tr>
         <td>{{ $index+1 }}</td>
         <td>{{ $kl->nama }}</td>
-        <td class="">    
-          <form action="hapuskelas/{{$kl->id }}" method="POST">
-            @method('DELETE')
-            @csrf
-            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
-          </form>
-          <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $kl->id }}">
-            Edit
-          </button>
+        <td class="d-flex">    
+          <span>
+            <form action="hapuskelas/{{$kl->id }}" method="POST">
+              @method('DELETE')
+              @csrf
+              <button class="btn btn-danger m-md-2" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+            </form>
+          </span>
+          <span>
+            <button type="button" class="btn btn-primary mt-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $kl->id }}">
+              Edit
+            </button>
+          </span>
         </td>
       </tr>
       @endforeach

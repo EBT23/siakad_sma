@@ -33,8 +33,14 @@
                 </div>
               </div>
             </div>
-            <div class="card col-md-5 text-white bg-primary py-5">
-              <div class="card-body text-center my-5">
+            <div class="card col-md-5 text-white">
+              <div align="center" class="mt-5">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="" width="150" height="150">
+                <div class="text-center text-black mx-2">
+                  <h2>SISTEM AKADEMIK SMA Al Fusha</h2>
+                </div>
+              </div>
+              <div class="card-body text-center my-1">
                 <div>
                   <h2>SISTEM AKADEMIK SMA Al Fusha</h2>
                 </div>
