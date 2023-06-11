@@ -83,67 +83,62 @@
               Edit
             </button>
           </span>
-          <span>
             <form action="hapussiswa/{{$si->id }}" method="POST">
               {{ csrf_field() }}
               {{ method_field('DELETE') }}
               <button class="btn btn-danger mt-2" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
             </form>
-          </span>
+            <div class="modal fade" id="exampleModal{{ $si->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
+                    <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{ route('edit.siswa',['id'=>$si->id]) }}" method="POST">
+                      @csrf
+                      <div class="row">
+                        <div class="col-12">
+                          <label for="nama" class="form-label">Nama </label>
+                          <input type="text" class="form-control" id="nama" name="nama" value="{{ $si->nama }}">
+                        </div>
+                        <div class="col-12">
+                          <label for="nis" class="form-label">NIP</label>
+                          <input type="text" class="form-control" id="nis" name="nis" value="{{ $si->username }}">
+                        </div>
+                        <div class="col-12">
+                          <label for="hp" class="form-label">Nomor Hp</label>
+                          <input type="text" class="form-control" id="hp" name="hp" value="{{ $si->hp }}">
+                        </div>
+                        <div class="col-12">
+                          <label for="alamat" class="form-label">Alamat</label>
+                          <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $si->alamat }}">
+                        </div>
+                        <div class="col-12">
+                          <label for="id_kelas" class="form-label">-kelompok pelajaran-</label>
+                          <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
+                            @foreach ($kelas as $k )
+                            <option @if($k->id == $si->id_kelas) selected @endif value="{{ $k->id }}">{{ $k->nama }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
         </td>
       </tr>
       @endforeach
   </table>      
 </div>
-@foreach ($siswa as $s )
-  
-<div class="modal fade" id="exampleModal{{ $si->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
-        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('edit.siswa',['id'=>$s->id]) }}" method="POST">
-          @csrf
-          <div class="row">
-            <div class="col-12">
-              <label for="nama" class="form-label">Nama </label>
-              <input type="text" class="form-control" id="nama" name="nama" value="{{ $s->nama }}">
-            </div>
-            <div class="col-12">
-              <label for="nis" class="form-label">NIP</label>
-              <input type="text" class="form-control" id="nis" name="nis" value="{{ $s->username }}">
-            </div>
-            <div class="col-12">
-              <label for="hp" class="form-label">Nomor Hp</label>
-              <input type="text" class="form-control" id="hp" name="hp" value="{{ $s->hp }}">
-            </div>
-            <div class="col-12">
-              <label for="alamat" class="form-label">Alamat</label>
-              <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $s->alamat }}">
-            </div>
-            <div class="col-12">
-              <label for="id_kelas" class="form-label">-kelompok pelajaran-</label>
-              <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
-                @foreach ($kelas as $k )
-                <option @if($k->id == $si->id_kelas) selected @endif value="{{ $k->id }}">{{ $k->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-        
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-@endforeach
+
 </div>
         
     </div>
