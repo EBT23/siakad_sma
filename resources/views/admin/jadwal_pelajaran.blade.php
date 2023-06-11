@@ -49,10 +49,6 @@
                       <input type="text" class="form-control" id="jumlah_jam"  name="jumlah_jam" aria-describedby="basic-addon3">
                     </div>
   
-                    <label for="tugas_tambahan" class="form-label">Tugas Tambahan</label>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="tugas_tambahan" id="tugas_tambahan" name="tugas_tambahan" aria-describedby="basic-addon3">
-                    </div>
                   </div>
                   <div class="">
                     <button type="submit" class="btn btn-success text-white" >Simpan</button>
@@ -73,7 +69,6 @@
         <th>Pelajaran</th>
         <th>Jam Mengajar</th>
         <th>Jumlah Jam</th>
-        <th>Tugas Tambahan</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -87,7 +82,6 @@
         <td>{{ $jp->nama_pelajaran }}</td>
         <td>{{ $jp->jam_mengajar }}</td>
         <td>{{ $jp->jumlah_jam }}</td>
-        <td>{{ $jp->tugas_tambahan }}</td>
         <td class="d-flex">
           <form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
           {{ csrf_field() }}
@@ -139,10 +133,6 @@
                     <label for="jumlah_jam" class="form-label">Jumlah Jam</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="jumlah_jam" name="jumlah_jam" value="{{ $jp->jumlah_jam }}" aria-describedby="basic-addon3">
-                    </div>
-                    <label for="tugas_tambahan" class="form-label">Tugas Tambahan</label>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="tugas_tambahan" name="tugas_tambahan" value="{{ $jp->tugas_tambahan }}" aria-describedby="basic-addon3">
                     </div>
                   </div>
                   <div>

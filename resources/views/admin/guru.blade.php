@@ -57,9 +57,9 @@
                       <input type="text" class="form-control" id="alamat" name="alamat" aria-describedby="basic-addon3">
                     </div>
   
-                    <label for="ket" class="form-label">Keterangan</label>
+                    <label for="tgs_tam" class="form-label">Tugas Tambahan</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="ket" name="ket" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="tgs_tam" name="tgs_tam" aria-describedby="basic-addon3">
                     </div>
                   </div>
                   <div>
@@ -83,7 +83,7 @@
         <th>TMK</th>
         <th>Jabatan</th>
         <th>Alamat</th>
-        <th>Ket</th>
+        <th>Tgs Tambahan</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -98,7 +98,7 @@
         <td>{{ $g->tmk }}</td>
         <td>{{ $g->jabatan }}</td>
         <td>{{ $g->alamat }}</td>
-        <td>{{ $g->ket }}</td>
+        <td>{{ $g->tgs_tam }}</td>
         <td class="d-flex" >
           <form action="hapusguru/{{$g->id }}" method="POST">
             {{ csrf_field() }}
@@ -159,9 +159,9 @@
                         <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $g->alamat }}" aria-describedby="basic-addon3">
                       </div>
         
-                      <label for="ket" class="form-label">Keterangan</label>
+                      <label for="tgs_tam" class="form-label">Tugas Tambahan</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="ket" name="ket" value="{{ $g->ket }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="tgs_tam" name="tgs_tam" value="{{ $g->tgs_tam }}" aria-describedby="basic-addon3">
                       </div>
                     </div>
                     <div>

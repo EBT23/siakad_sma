@@ -80,7 +80,7 @@ class AdminController extends Controller
         $title = 'Menu Guru';
         $guru = DB::select('SELECT users.id, users.nama, users.username, guru.id AS id_g, 
         guru.id_users,guru.tempat,guru.tgl_lahir,guru.tempat,guru.pendidikan,guru.tmk,guru.jabatan,
-        guru.alamat,guru.ket 
+        guru.alamat,guru.tgs_tam 
         FROM users, guru 
         WHERE users.id=guru.id_users AND users.role=3');
         // dd($guru);
@@ -105,7 +105,7 @@ class AdminController extends Controller
         'pendidikan' => $request->pendidikan,
         'jabatan' => $request->jabatan,
         'tmk' => $request->tmk,
-        'ket' => $request->ket,
+        'tgs_tam' => $request->tgs_tam,
         'alamat' => $request->alamat
     ]);
     return redirect()->route('guru');
@@ -121,10 +121,10 @@ public function edit_guru(Request $request,$id)
     $tmk = $request->tmk;
     $jabatan = $request->jabatan;
     $alamat = $request->alamat;
-    $ket = $request->ket;
+    $tgs_tam = $request->tgs_tam;
 
         DB::select("UPDATE users, guru
-        SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.ket = '$ket'
+        SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.tgs_tam = '$tgs_tam'
         WHERE users.id = guru.id_users
         AND users.id = $id");
     return redirect()->route('guru');
@@ -295,7 +295,7 @@ public function hapusguru($id)
             'jam_mengajar' => $request->jam_mengajar,
             'jumlah_jam' => $request->jumlah_jam,
             'jam_mengajar' => $request->jam_mengajar,
-            'tugas_tambahan' => $request->tugas_tambahan,
+           
         ];
         DB::table('jadwal_pelajaran')->insert($data);
         return redirect()->route('jadwal_pelajaran');
@@ -309,7 +309,7 @@ public function hapusguru($id)
             'id_pelajaran' => $request->id_pelajaran,
             'jam_mengajar' => $request->jam_mengajar,
             'jumlah_jam' => $request->jumlah_jam,
-            'tugas_tambahan' => $request->tugas_tambahan,
+        
         ]);
         return redirect()->route('jadwal_pelajaran');
     }

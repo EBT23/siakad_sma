@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/editsiswa/{id}', [AdminController::class, 'edit_siswa'])->name('edit.siswa');
     Route::delete('/hapussiswa/{id}', [AdminController::class, 'hapussiswa'])->name('hapus.siswa');
 
+    // ROUTE GURU
     Route::get('/guru', [AdminController::class, 'guru'])->name('guru');
     Route::post('/tambahguru', [AdminController::class, 'tambah_guru'])->name('gurupost');
     Route::post('/editguru/{id}', [AdminController::class, 'edit_guru'])->name('edit.guru');
