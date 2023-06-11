@@ -82,20 +82,23 @@
       @foreach ($jadwal_pelajaran as $index=>$jp)
       <tr>
         <td width="5%">{{ $index+1 }}</td>
-        <td>{{ $jp->nama }}</td>
+        <td>{{ $jp->id }}</td>
         <td>{{ $jp->nama_kelas }}</td>
         <td>{{ $jp->nama_pelajaran }}</td>
         <td>{{ $jp->jam_mengajar }}</td>
         <td>{{ $jp->jumlah_jam }}</td>
         <td>{{ $jp->tugas_tambahan }}</td>
-        <td><form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
+        <td class="d-flex">
+          <form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
           <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
       </form>
-      <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $jp->id }}">
-        Edit
-      </button>
+      <span>
+        <button type="button" class="btn btn-primary mx-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $jp->id }}">
+          Edit
+        </button>
+      </span>
       <div class="modal fade" id="exampleModal{{ $jp->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -156,12 +159,9 @@
       @endforeach
   </table>      
 </div>
-  
 </div>
         
-        </div>
+</div>
       </div>
-
-      
       @include('layouts.footer')
     </div>
