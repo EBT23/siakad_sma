@@ -17,49 +17,49 @@
                   <div class="col-6">
                     <label for="nip" class="form-label">NIP</label>
                     <div class="input-group mb-3">
-                      <input type="number" class="form-control" id="nip" name="nip" aria-describedby="basic-addon3">
+                      <input type="number" class="form-control" id="nip" name="nip" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('NIP tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                     <label for="nama" class="form-label">Nama Guru</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Guru tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                     <label for="tempat" class="form-label">Tempat Lahir</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="tempat" name="tempat" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="tempat" name="tempat" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Siswa tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                     <label for="tgl_lahir" class="form-label ">Tanggal Lahir</label>
                     <div class="input-group mb-3">
-                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" aria-describedby="basic-addon3">
+                      <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Tanggal lahir tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                     
                     <label for="password" class="form-label">Password Akun</label>
                     <div class="input-group mb-3">
-                      <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon3">
+                      <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Password Akun tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                   </div>
   
                   <div class="col-6">
                     <label for="pendidikan" class="form-label">Pendidikan</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="pendidikan" name="pendidikan" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="pendidikan" name="pendidikan" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Pendidikan tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                     <label for="tmk" class="form-label">TMK</label>
                     <div class="input-group mb-3">
-                      <input type="date" class="form-control" id="tmk" name="tmk" aria-describedby="basic-addon3">
+                      <input type="date" class="form-control" id="tmk" name="tmk" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('TMK tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                     <label for="jabatan" class="form-label">Jabatan</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="jabatan" name="jabatan" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="jabatan" name="jabatan" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Jabatan tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
   
                     <label for="alamat" class="form-label">Alamat</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="alamat" name="alamat" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="alamat" name="alamat" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Alamat tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
   
                     <label for="tgs_tam" class="form-label">Tugas Tambahan</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="tgs_tam" name="tgs_tam" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="tgs_tam" name="tgs_tam" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Tugas tambahan tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
                   </div>
                   <div>
@@ -176,9 +176,9 @@
       </td>
       </tr>
       @endforeach
-  </table>      
+    </table>      
+  </div>
 </div>
-
 </div>
     </div>
       </div>

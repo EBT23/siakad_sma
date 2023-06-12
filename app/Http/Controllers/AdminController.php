@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\MessageBag;
 
 class AdminController extends Controller
 {
@@ -27,17 +28,17 @@ class AdminController extends Controller
         $siswa = DB::select('SELECT users.*,siswa.id_users,siswa.hp,siswa.alamat,siswa.id_kelas, siswa.id as id_s, kelas.id as id_k,kelas.nama AS nama_kelas 
                             FROM users,siswa,kelas WHERE users.id=siswa.id_users and siswa.id_kelas=kelas.id AND users.role=2;');
         $kelas = DB::table('kelas')->get();
-        return view('admin.siswa',['kelas'=>$kelas],['siswa'=>$siswa]);
+        return view('admin.siswa',compact('title', 'kelompok','siswa','kelas'));
     }
 
     public function tambah_siswa(Request $request)
     {
-        $data = DB::table('users')->insert([
-        'username' => $request->nis,
-        'nama' => $request->nama,
-        'password' => Hash::make($request->password),
-        'role' => 2,
-            ]);
+
+        $request->validate([
+            'username' => 'required|numeric',
+        ], [
+            'username.required' => 'username harus diisi',
+        ]);
 
     $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
     $query = $query[0]->id;
@@ -146,6 +147,8 @@ public function hapusguru($id)
 
     public function tambah_pelajaran(Request $request)
     {
+        
+       
         $data = [
             'nama' => $request->nama,
             'kode' => $request->kode,
@@ -182,6 +185,13 @@ public function hapusguru($id)
 
     public function tambah_kelas(Request $request)
     {
+        $request->validate([
+            'kelas' => 'required',
+         
+        ], [
+            'kelas.required' => 'harap diisi nama kelas',
+          
+        ]);
         $data = [
             'nama' => $request->kelas,
             'date_created' => date('Y-m-d'),
@@ -211,7 +221,7 @@ public function hapusguru($id)
     // view nilai
     public function nilai()
     {
-        $title = 'Menu Nilai';
+        $title = 'Nilai';
         $siswa = DB::select('SELECT * FROM users WHERE role=2');
         $pelajaran = DB::table('pelajaran')->get();
         $nilai = DB::select('SELECT nilai.*, pelajaran.id as id_p,pelajaran.nama as nama_p,pelajaran.kode,users.id as id_u,users.nama from nilai,pelajaran,users WHERE nilai.kd_pelajaran=pelajaran.kode AND users.id=nilai.id_users; ');
@@ -225,6 +235,21 @@ public function hapusguru($id)
         $pat = $request->pat;
         $jumlah = (int)$rph+(int)$pts+(int)$pat;
         $rata_rata = $jumlah/3;
+
+        $request->validate([
+            'id_users' => 'required',
+            'kd_pelajaran' => 'required',
+            'rph' => 'required',
+            'pts' => 'required',
+            'pat' => 'required',
+        ], [
+            'id_users.required' => 'harap pilih siswa',
+            'kd_pelajaran.required' => 'harap pilih pelajaran',
+            'rph.required' => 'harap isi nilai RPH',
+            'pts.required' => 'harap isi nilai PTS',
+            'pat.required' => 'harap isi nilai PAT',
+        ]);
+
         $data = [
             'id_users' => $request->id_users,
             'kd_pelajaran' => $request->kd_pelajaran,
@@ -286,15 +311,25 @@ public function hapusguru($id)
     public function tambah_jadwal_pelajaran(Request $request)
     {
         $request->validate([
-
+            'id_guru' => 'required',
+            'id_kelas' => 'required',
+            'id_pelajaran' => 'required',
+            'jam_mengajar' => 'required',
+            'jumlah_jam' => 'required',
+        ], [
+            'id_guru.required' => 'harap pilih guru',
+            'id_kelas.required' => 'harap pilih kelas',
+            'id_pelajaran.required' => 'harap pilih pelajaran',
+            'jam_mengajar.required' => 'harap diisi jam mengajar',
+            'jumlah_jam.required' => 'harap pilih status kehadiran',
         ]);
+
         $data = [
             'id_guru' => $request->id_guru,
             'id_kelas' => $request->id_kelas,
             'id_pelajaran' => $request->id_pelajaran,
             'jam_mengajar' => $request->jam_mengajar,
             'jumlah_jam' => $request->jumlah_jam,
-            'jam_mengajar' => $request->jam_mengajar,
            
         ];
         DB::table('jadwal_pelajaran')->insert($data);
@@ -337,6 +372,18 @@ public function hapusguru($id)
 
     public function tambah_kehadiran(Request $request)
     {
+        $request->validate([
+            'id_siswa' => 'required',
+            'id_pelajaran' => 'required',
+            'tanggal' => 'required',
+            'status_kehadiran' => 'required',
+        ], [
+            'id_siswa.required' => 'harap pilih siswa',
+            'id_pelajaran.required' => 'harap pilih pelajaran',
+            'tanggal.required' => 'harap diisi tanggal',
+            'status_kehadiran.required' => 'harap pilih status kehadiran',
+        ]);
+
         $data  = [
             'id_siswa' => $request->id_siswa,
             'id_pelajaran' => $request->id_pelajaran,
@@ -377,6 +424,15 @@ public function edit_kehadiran(Request $request,$id)
 
     public function tambah_pengumuman(Request $request)
     {
+        $request->validate([
+            'tanggal' => 'required',
+            'judul' => 'required',
+            'isi_pengumuman' => 'required',
+        ], [
+            'tanggal.required' => 'harap diisi tanggal',
+            'judul.required' => 'harap diisi judul',
+            'isi_pengumuman.required' => 'harap diisi Isi Pengumuman',
+        ]);
         $data  = [
             'tanggal' => $request->tanggal,
             'judul' => $request->judul,

@@ -17,22 +17,21 @@
                   <div class="col-6">
                     <label for="tanggal" class="form-label">Tanggal</label>
                     <div class="input-group mb-3">
-                      <input type="date" class="form-control" id="tanggal" name="tanggal" aria-describedby="basic-addon3" required>
+                      <input type="date" class="form-control" id="tanggal" name="tanggal" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('tanggal tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
-                  
+                                   
                     <label for="judul" class="form-label">Judul </label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="judul" name="judul" aria-describedby="basic-addon3" required>
+                      <input type="text" class="form-control" id="judul" name="judul" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('judul tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
-  
-                    
-                   
-                  </div>
+                 
+                    </div>
                   <div class="col-6">
                     <label for="isi_pengumuman" class="form-label">Isi Pengumuman </label>
                     <div class="input-group mb-3">
-                      <textarea name="isi_pengumuman" class="form-control" id="isi_pengumuman" cols="10" rows="5" required></textarea>
+                      <textarea name="isi_pengumuman" class="form-control" id="isi_pengumuman" cols="10" rows="5" required oninvalid="this.setCustomValidity('Isi pengumuman tidak boleh kosong')" oninput="setCustomValidity('')" ></textarea>
                     </div> 
+                   
                   </div>
                   <div>
                     <button type="submit" class="btn btn-success" >Simpan</button>

@@ -16,23 +16,23 @@
                 <div class="row">
                   <div class="col-6">
                   <label for="id_guru" class="form-label">NIP - Guru</label>
-                    <select class="form-select mb-3" name="id_guru" id="id_guru" aria-label="Default select example">
-                      <option selected>-pilih-</option>
+                    <select class="form-select mb-3" name="id_guru" id="id_guru" aria-label="Default select example" required oninvalid="this.setCustomValidity('NIP - Guru tidak boleh kosong')" oninput="setCustomValidity('')">
+                      <option value="" selected>-pilih-</option>
                       @foreach ($guru as $g )
                       <option value="{{ $g->id }}">{{ $g->username." - ".$g->nama }}</option>
                       @endforeach
                     </select>
                     <label for="id_kelas" class="form-label">Kelas</label>
-                    <select class="form-select mb-3" name="id_kelas" id="id_kelas" aria-label="Default select example">
-                      <option selected>-pilih-</option>
+                    <select class="form-select mb-3" name="id_kelas" id="id_kelas" aria-label="Default select example" required oninvalid="this.setCustomValidity('Kelas tidak boleh kosong')" oninput="setCustomValidity('')">
+                      <option value="" selected>-pilih-</option>
                       @foreach ($kelas as $k )
                       <option value="{{ $k->id }}">{{ $k->nama }}</option>
                       @endforeach
                     </select>
   
                     <label for="id_pelajaran" class="form-label">Pelajaran</label>
-                    <select class="form-select mb-3" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example">
-                      <option selected>-pilih-</option>
+                    <select class="form-select mb-3" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
+                      <option value="" selected>-pilih-</option>
                       @foreach ($pelajaran as $p )
                       <option value="{{ $p->id }}">{{ $p->nama }}</option>
                       @endforeach
@@ -42,13 +42,13 @@
                   <div class="col-6">
                     <label for="jam_mengajar" class="form-label">Jam Mengajar</label>
                     <div class="input-group mb-3">
-                      <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar" aria-describedby="basic-addon3">
+                      <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Jam mengajar tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
-  
+                   
                     <label for="jumlah_jam" class="form-label">Jumlah Jam</label> <div class="input-group mb-3">
-                      <input type="text" class="form-control" id="jumlah_jam"  name="jumlah_jam" aria-describedby="basic-addon3">
+                      <input type="text" class="form-control" id="jumlah_jam"  name="jumlah_jam" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Jumlah jam tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
-  
+                    
                   </div>
                   <div class="">
                     <button type="submit" class="btn btn-success text-white" >Simpan</button>
@@ -83,11 +83,11 @@
         <td>{{ $jp->jam_mengajar }}</td>
         <td>{{ $jp->jumlah_jam }}</td>
         <td class="d-flex">
-          <form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
+        <form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
           <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
-      </form>
+        </form>
       <span>
         <button type="button" class="btn btn-primary mx-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $jp->id }}">
           Edit

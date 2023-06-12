@@ -22,23 +22,29 @@
                       <option value="{{ $s->id }}">{{ $s->nama }}</option>
                       @endforeach
                     </select>
+                    @error('id_siswa')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <label for="id_pelajaran" class="form-label">Pelajaran</label>
-                    <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example">
-                      <option selected>-pilih-</option>
+                    <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
+                      <option value="" selected>-pilih-</option>
                       @foreach ($pelajaran as $p )
                       <option value="{{ $p->id }}">{{ $p->nama }}</option>
                       @endforeach
                     </select>
-                   
+                    @error('id_pelajaran')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                   </div>
                   <div class="col-6">
                     <label for="tanggal" class="form-label">Tanggal</label>
                   <div class="input-group mb-3">
-                    <input type="date" class="form-control" id="tanggal" name="tanggal" aria-describedby="basic-addon3">
+                    <input type="date" class="form-control" id="tanggal" name="tanggal" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Tanggal tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
+                 
                     <label for="status_kehadiran" class="form-label">Status Kehadiran</label>
-                    <select class="form-select" name="status_kehadiran" id="status_kehadiran" aria-label="Default select example">
-                      <option selected>-pilih-</option>
+                    <select class="form-select" name="status_kehadiran" id="status_kehadiran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Status Kehadiran tidak boleh kosong')" oninput="setCustomValidity('')">
+                      <option value="" selected>-pilih-</option>
                       <option value="Hadir">Hadir</option>
                       <option value="Alpa">Alpa</option>
                       <option value="Sakit">Sakit</option>

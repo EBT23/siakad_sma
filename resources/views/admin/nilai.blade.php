@@ -8,23 +8,23 @@
       <!-- /.row-->
       <div class="card mb-4">
         <div class="card-body">
-          <h5>Form Tambah Data Pelajaran</h5>
+          <h5>Form Tambah {{ $title }}</h5>
           <hr>
           <form action="{{ route('nilai.post') }}" method="post" >
             @csrf
             <div class="row">
               <div class="col-6">
                 <label for="id_users" class="form-label">Siswa</label>
-                <select class="form-select" aria-label="Default select example" name="id_users" id="id_users">
-                  <option selected>pilih siswa</option>
+                <select class="form-select" aria-label="Default select example" name="id_users" id="id_users" required oninvalid="this.setCustomValidity('Siswa tidak boleh kosong')" oninput="setCustomValidity('')">
+                  <option value="" selected>pilih siswa</option>
                   @foreach ($siswa as $si )
                   <option value="{{ $si->id }}">{{ $si->nama }}</option>
                   @endforeach
                 </select>
   
                 <label for="kd_pelajaran" class="form-label">Pelajaran</label>
-                <select class="form-select" aria-label="Default select example" name="kd_pelajaran" id="kd_pelajaran">
-                  <option selected>pilih pelajaran</option>
+                <select class="form-select" aria-label="Default select example" name="kd_pelajaran" id="kd_pelajaran" required oninvalid="this.setCustomValidity('pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
+                  <option value="" selected>pilih pelajaran</option>
                   @foreach ($pelajaran as $p )
                   <option value="{{ $p->kode }}">{{ $p->nama }} - {{ $p->kode }} </option>
                   @endforeach
@@ -34,17 +34,19 @@
               <div class="col-6">
                 <label for="rph" class="form-label">Nilai RPH</label>
                 <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="rph" name="rph" aria-describedby="basic-addon3">
+                  <input type="number" class="form-control" id="rph" name="rph" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Nilai RPH tidak boleh kosong')" oninput="setCustomValidity('')">
                 </div>
+                
                 <label for="pts" class="form-label">Nilai PTS</label>
                 <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="pts" name="pts" aria-describedby="basic-addon3">
+                  <input type="number" class="form-control" id="pts" name="pts" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Nilai PTS tidak boleh kosong')" oninput="setCustomValidity('')">
                 </div>
-  
+               
                 <label for="pat" class="form-label">Nilai PAT</label>
                 <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="pat" name="pat" aria-describedby="basic-addon3">
+                  <input type="number" class="form-control" id="pat" name="pat" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Nilai PAT tidak boleh kosong')" oninput="setCustomValidity('')">
                 </div>
+              
               </div>
               <div class="">
                 <button type="submit" class="btn btn-success" >Simpan</button>

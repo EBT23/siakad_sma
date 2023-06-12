@@ -5,11 +5,10 @@
       @include('layouts.header')
       <div class="body flex-grow-1 px-3">
         <div class="container-lg">
-         
           <!-- /.row-->
           <div class="card mb-4">
             <div class="card-body">
-              <h5>Form Tambah Data Siswa</h5>
+              <h5>Form Tambah {{ $title }}</h5>
               <hr>
               <form action="{{ route('siswa.post') }}" method="post">
               @csrf
@@ -17,29 +16,30 @@
                 <div class="col-6">
                   <label for="nis" class="form-label">NIS</label>
                   <div class="input-group mb-3">
-                    <input type="number" class="form-control" id="nis" name="nis" aria-describedby="basic-addon3" required>
+                    <input type="number" class="form-control " id="nis" name="nis" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data NIS tidak boleh kosong')" oninput="setCustomValidity('')" >
+                    
                   </div>
                   <label for="nama" class="form-label">Nama Siswa</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required>
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Nama siswa tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
                   <label for="hp" class="form-label">No HP</label>
                   <div class="input-group mb-3">
-                    <input type="number" class="form-control" id="hp" name="hp" aria-describedby="basic-addon3" required>
+                    <input type="number" class="form-control" id="hp" name="hp" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('No hp tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
                 </div>
                 <div class="col-6">
                   <label for="alamat" class="form-label">Alamat</label>
                   <div class="input-group mb-3">
-                    <input type="alamat" class="form-control" id="alamat" name="alamat" aria-describedby="basic-addon3" required>
+                    <input type="alamat" class="form-control" id="alamat" name="alamat" aria-describedby="basic-addon3"required oninvalid="this.setCustomValidity('alamat tidak boleh kosong')" oninput="setCustomValidity('')" >
                   </div>
                   <label for="password" class="form-label">Password Akun</label>
                   <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon3" required>
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('password tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
                   <label for="id_kelas" class="form-label">Kelas</label>
-                  <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example" required>
-                    <option selected>-pilih-</option>
+                  <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example" required oninvalid="this.setCustomValidity('kelas tidak boleh kosong')" oninput="setCustomValidity('')">
+                    <option value="" selected>-pilih-</option>
                     @foreach ($kelas as $k )
                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
                     @endforeach
@@ -50,7 +50,6 @@
                 </div>
               </div>
               </form>
-             
             </div>
           
           </div>

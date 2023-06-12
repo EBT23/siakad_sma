@@ -18,17 +18,19 @@
                 <div class="col-6">
                   <label for="nama" class="form-label">Nama Pelajaran</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data nama pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
+                 
                   <label for="kode" class="form-label">Kode Pelajaran</label>
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="kode" name="kode" aria-describedby="basic-addon3">
+                    <input type="text" class="form-control" id="kode" name="kode" aria-describedby="basic-addon3"  required oninvalid="this.setCustomValidity('data kode pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
+                
                 </div>
                 <div class="col-6">
                   <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>
-                  <select class="form-select" name="id_kelompok" id="id_kelompok" aria-label="Default select example">
-                    <option selected>-pilih-</option>
+                  <select class="form-select" name="id_kelompok" id="id_kelompok" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                    <option value="" selected>-pilih-</option>
                     <OPtion value="KELOMPOK A (UMUM)">KELOMPOK A (UMUM)</OPtion>
                     <option value="KELOMPOK B (UMUM)">KELOMPOK B (UMUM)</option>
                     <option value="KELOMPOK C (PEMINATAN MIPA)">KELOMPOK C (PEMINATAN MIPA)</option>
