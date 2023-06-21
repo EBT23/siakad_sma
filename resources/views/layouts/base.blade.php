@@ -96,5 +96,15 @@
     myInput.focus()
   })
   </script>
+
+  <script>
+    const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.coreui.modal', () => {
+  myInput.focus()
+})
+
+  </script>
 </body>
 </html>

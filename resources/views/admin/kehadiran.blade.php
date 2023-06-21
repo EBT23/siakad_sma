@@ -7,65 +7,78 @@
         <div class="container-lg">
          
           <!-- /.row-->
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5>Form Tambah {{ $title }}</h5>
+              <h3>Form Tambah {{ $title }}</h3>
               <hr>
               <form action="{{ route('kehadiran.post') }}" method="post">
                 @csrf
-                <div class="row">
-                  <div class="col-6">
-                    <label for="id_siswa" class="form-label">Nama Siswa</label>
-                    <select class="form-select" name="id_siswa" id="id_siswa" aria-label="Default select example">
-                      <option selected>-pilih-</option>
-                      @foreach ($siswa as $s )
-                      <option value="{{ $s->id }}">{{ $s->nama }}</option>
-                      @endforeach
-                    </select>
-                    @error('id_siswa')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                    <label for="id_pelajaran" class="form-label">Pelajaran</label>
-                    <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
-                      <option value="" selected>-pilih-</option>
-                      @foreach ($pelajaran as $p )
-                      <option value="{{ $p->id }}">{{ $p->nama }}</option>
-                      @endforeach
-                    </select>
-                    @error('id_pelajaran')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </div>
-                  <div class="col-6">
-                    <label for="tanggal" class="form-label">Tanggal</label>
-                  <div class="input-group mb-3">
-                    <input type="date" class="form-control" id="tanggal" name="tanggal" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Tanggal tidak boleh kosong')" oninput="setCustomValidity('')">
-                  </div>
-                 
-                    <label for="status_kehadiran" class="form-label">Status Kehadiran</label>
-                    <select class="form-select" name="status_kehadiran" id="status_kehadiran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Status Kehadiran tidak boleh kosong')" oninput="setCustomValidity('')">
-                      <option value="" selected>-pilih-</option>
-                      <option value="Hadir">Hadir</option>
-                      <option value="Alpa">Alpa</option>
-                      <option value="Sakit">Sakit</option>
-                      <option value="Izin">Izin</option>
-                    </select>
-                  </div>
-                </div>
                 <div class="my-2">
-                  <button type="submit" class="btn btn-success" >Simpan</button>
+                  <button type="button" class="btn btn-success text-white" data-coreui-toggle="modal" data-coreui-target="#exampleModal">
+                    Tambah Kehadiran +
+                  </button>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-6">
+                            <label for="id_siswa" class="form-label">Nama Siswa</label>
+                            <select class="form-select" name="id_siswa" id="id_siswa" aria-label="Default select example">
+                              <option selected>-pilih-</option>
+                              @foreach ($siswa as $s )
+                              <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                              @endforeach
+                            </select>
+                            @error('id_siswa')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            <label for="id_pelajaran" class="form-label">Pelajaran</label>
+                            <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
+                              <option value="" selected>-pilih-</option>
+                              @foreach ($pelajaran as $p )
+                              <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                              @endforeach
+                            </select>
+                            @error('id_pelajaran')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                          </div>
+                          <div class="col-6">
+                            <label for="tanggal" class="form-label">Tanggal</label>
+                          <div class="input-group mb-3">
+                            <input type="date" class="form-control" id="tanggal" name="tanggal" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Tanggal tidak boleh kosong')" oninput="setCustomValidity('')">
+                          </div>
+                            <label for="status_kehadiran" class="form-label">Status Kehadiran</label>
+                            <select class="form-select" name="status_kehadiran" id="status_kehadiran" aria-label="Default select example" required oninvalid="this.setCustomValidity('Status Kehadiran tidak boleh kosong')" oninput="setCustomValidity('')">
+                              <option value="" selected>-pilih-</option>
+                              <option value="Hadir">Hadir</option>
+                              <option value="Alpa">Alpa</option>
+                              <option value="Sakit">Sakit</option>
+                              <option value="Izin">Izin</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </form>
-            </div>
           
-          </div>
 <div class="card mb-4">
 <div class="card-body">
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
       <tr>
         <th width="5%">No</th>
-        <th width="5%">Nama</th>
+        <th>Nama</th>
         <th>Nama Pelajaran</th>
         <th>Tanggal</th>
         <th>Status</th>

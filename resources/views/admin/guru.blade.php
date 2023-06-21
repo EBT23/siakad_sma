@@ -65,6 +65,7 @@
                   <div>
                     <button type="submit" class="btn btn-success" >Simpan</button>
                   </div>
+            
                 </div>
               </form>
             </div>
@@ -72,6 +73,7 @@
           </div>
 <div class="card mb-4">
 <div class="card-body">
+ 
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
       <tr>
@@ -179,6 +181,7 @@
     </table>      
   </div>
 </div>
+
 </div>
     </div>
       </div>
