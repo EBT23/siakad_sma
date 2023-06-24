@@ -4,6 +4,9 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
+use App\Models\Nilai;
+use App\Models\Pelajaran;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -196,5 +199,62 @@ class ApiAllController extends Controller
             'data' => $kehadiran
             ], Response::HTTP_OK);
             }
+    }
+
+    public function getSiswa_by_kelas($id_kelas)
+    {
+        // $siswa = Nilai::whereHas('siswa', function ($query) use ($id_kelas) {
+        //     $query->where('id_kelas', $id_kelas);
+        // })->get();
+
+        $kelas = Kelas::findOrFail($id_kelas);
+        $siswa = $kelas->siswa;
+        
+        return response()->json([
+                'success' => true,
+                'message' => 'Data siswa berhasil ditampilkan',
+                'data' => $siswa
+            ],Response::HTTP_OK);
+
+    }
+
+    public function getPelajaran()
+    {
+        $pelajaran = Pelajaran::pluck('kode');
+        
+        return response()
+            ->json([
+                'success' => true,
+                'message' => 'Data siswa berhasil ditampilkan',
+                'data' => $pelajaran
+            ],Response::HTTP_OK);
+    }
+
+    public function nilai(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id_users' => 'required',
+            'kd_pelajaran' => 'required',
+            'rph' => 'required',
+            'pts' => 'required',
+            'pat' => 'required',
+        ]);
+
+        $nilai = new Nilai;
+        $nilai->id_users = $request->id_users;
+        $nilai->kd_pelajaran = $request->kd_pelajaran;
+        $nilai->rph = $request->rph;
+        $nilai->pts = $request->pts;
+        $nilai->pat = $request->pat;
+        $nilai->jumlah = $request->rph + $request->pts + $request->pat;
+        $nilai->rata_rata = ($request->rph + $request->pts + $request->pat) / 3;
+        $nilai->created_at = now();
+        $nilai->save();
+    
+        return response()->json([
+                'success' => true,
+                'message' => 'Data nilai berhasil dimasukan',
+                'data' => $nilai, 201
+            ]);
     }
 }

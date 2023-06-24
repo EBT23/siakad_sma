@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/login', [ApiAuthController::class, 'login']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/jadwal_mengajar/{id}', [ApiAllController::class, 'jadwal_mengajar']);
     Route::get('/jadwal_pelajaran/{id}', [ApiAllController::class, 'jadwal_pelajaran']);
@@ -27,5 +28,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/pelajaran', [ApiAllController::class, 'pelajaran']);
     Route::get('/kehadiran', [ApiAllController::class, 'kehadiran']);
     Route::get('/me', [ApiAuthController::class, 'me']);
+
+    Route::get('/getSiswa_by_kelas/{id_kelas}', [ApiAllController::class,'getSiswa_by_kelas']);
+    Route::get('/getPelajaran', [ApiAllController::class,'getPelajaran']);
+    Route::post('/nilai', [ApiAllController::class,'nilai']);
+
+
 
 });
