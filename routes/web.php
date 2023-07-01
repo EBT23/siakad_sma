@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +82,25 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/tambahpengumuman', [AdminController::class, 'tambah_pengumuman'])->name('pengumuman.post');
     Route::post('/editpengumuman/{id}', [AdminController::class, 'edit_pengumuman'])->name('edit.pengumuman');
     Route::delete('/hapuspengumuman/{id}', [AdminController::class, 'hapus_pengumuman'])->name('hapus.pengumuman');
+});
+
+Route::get('/route-cache', function () {
+    Artisan::call('route:cache');
+    return 'Routes cache cleared';
+});
+Route::get('/config-cache', function () {
+    Artisan::call('config:cache');
+    return 'Config cache cleared';
+});
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    return 'Application cache cleared';
+});
+Route::get('/view-clear', function () {
+    Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+Route::get('/optimize', function () {
+    Artisan::call('optimize');
+    return 'Routes cache cleared';
 });
