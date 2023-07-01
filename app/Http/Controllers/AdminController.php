@@ -2,6 +2,8 @@
 
 
 namespace App\Http\Controllers;
+
+use App\Models\Siswa;
 use Faker\Provider\ar_EG\Company;
 use Termwind\Components\Dd;
     use Illuminate\Http\Request;
@@ -213,13 +215,25 @@ use Termwind\Components\Dd;
     
     
         // view nilai
+        public function getSiswa(Request $request)
+        {
+            $kelasId = $request->input('id_kelas');
+    
+            // Ambil data siswa berdasarkan kelas yang dipilih
+            $siswa = DB::select("SELECT users.id, users.nama FROM users, siswa WHERE siswa.id_users = users.id AND users.role=2 AND siswa.id_kelas = $kelasId");
+    
+            // Kembalikan data dalam format JSON
+            return response()->json($siswa);
+        }
+
         public function nilai()
         {
             $title = 'Menu Nilai';
             $siswa = DB::select('SELECT * FROM users WHERE role=2');
             $pelajaran = DB::table('pelajaran')->get();
+            $kelas = DB::table('kelas')->get();
             $nilai = DB::select('SELECT nilai.*, pelajaran.id as id_p,pelajaran.nama as nama_p,pelajaran.kode,users.id as id_u,users.nama from nilai,pelajaran,users WHERE nilai.kd_pelajaran=pelajaran.kode AND users.id=nilai.id_users; ');
-            return view('admin.nilai',compact('siswa','title','pelajaran','nilai'));
+            return view('admin.nilai',compact('siswa','title','pelajaran','nilai', 'kelas'));
         }
     
         public function tambah_nilai(Request $request)
@@ -237,6 +251,7 @@ use Termwind\Components\Dd;
                 'pat' => $request->pat,
                 'jumlah'=>$jumlah,
                 'rata_rata'=>$rata_rata,
+                'updated_at' => now()
                 
             ];
     
@@ -327,6 +342,16 @@ use Termwind\Components\Dd;
         }
         
         // view jadwal kehadiran
+        public function getKehadiran(Request $request)
+        {
+            $kelasId = $request->input('id_kelas');
+    
+            // Ambil data siswa berdasarkan kelas yang dipilih
+            $siswa = DB::select("SELECT users.id, users.nama FROM users, siswa WHERE siswa.id_users = users.id AND users.role=2 AND siswa.id_kelas = $kelasId");
+    
+            // Kembalikan data dalam format JSON
+            return response()->json($siswa);
+        }
         public function kehadiran()
         {
             $title = 'Kehadiran';

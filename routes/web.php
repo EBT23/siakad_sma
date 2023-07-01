@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/tambahnilai', [AdminController::class, 'tambah_nilai'])->name('nilai.post');
     Route::post('/editnilai/{id}', [AdminController::class, 'edit_nilai'])->name('edit.nilai');
     Route::delete('/hapusnilai/{id}', [AdminController::class, 'hapus_nilai'])->name('hapus.nilai');
+    Route::get('get-siswa', [AdminController::class, 'getSiswa'])->name('get.siswa');
 
     // ROUTE JADWAL PELAJARAN
     Route::get('/jadwalpelajaran', [AdminController::class, 'jadwal_pelajaran'])->name('jadwal_pelajaran');
@@ -69,6 +70,7 @@ Route::middleware(['auth'])->group(function (){
     Route::delete('/hapusjadwalpelajaran/{id}', [AdminController::class, 'hapus_jadwal_pelajaran'])->name('hapus.jadwal_pelajaran');
     
     // ROUTE KEHADIRAN
+    Route::get('get-kehadiran', [AdminController::class, 'getKehadiran'])->name('get.kehadiran');
     Route::get('/kehadiran', [AdminController::class, 'kehadiran'])->name('kehadiran');
     Route::post('/tambahkehadiran', [AdminController::class, 'tambah_kehadiran'])->name('kehadiran.post');
     Route::post('/editkehadiran/{id}', [AdminController::class, 'edit_kehadiran'])->name('edit.kehadiran');
