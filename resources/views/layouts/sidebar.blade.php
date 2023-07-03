@@ -15,7 +15,7 @@
 
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
       <ul>
-        <div class=" my-3" align="center">
+        <div class="my-3" align="center">
           <img class="avatar-img" src="assets/img/logo.png" alt="user@email.com" style="width: 50px; height: 50px;">
          <h6>SMA Al Fusha</h6>
          </div>

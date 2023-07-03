@@ -48,7 +48,16 @@
                     <label for="jumlah_jam" class="form-label">Jumlah Jam</label> <div class="input-group mb-3">
                       <input type="text" class="form-control" id="jumlah_jam"  name="jumlah_jam" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Jumlah jam tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
-                    
+                    <label for="hari" class="form-label">Hari</label>
+                    <select class="form-select mb-3" name="hari" id="hari" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
+                      <option value="" selected>-pilih-</option>
+                      <option value="senin">senin</option>
+                      <option value="selasa">selasa</option>
+                      <option value="rabu">rabu</option>
+                      <option value="kamis">kamis</option>
+                      <option value="sabtu">sabtu</option>
+                      <option value="minggu">minggu</option>
+                    </select>
                   </div>
                   <div class="">
                     <button type="submit" class="btn btn-success text-white" >Simpan</button>
@@ -69,6 +78,7 @@
         <th>Pelajaran</th>
         <th>Jam Mengajar</th>
         <th>Jumlah Jam</th>
+        <th>Hari</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -82,6 +92,7 @@
         <td>{{ $jp->nama_pelajaran }}</td>
         <td>{{ $jp->jam_mengajar }}</td>
         <td>{{ $jp->jumlah_jam }}</td>
+        <td>{{ $jp->hari }}</td>
         <td class="d-flex">
         <form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
           @method('DELETE')

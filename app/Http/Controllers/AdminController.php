@@ -327,6 +327,7 @@ use Faker\Provider\ar_EG\Company;
                 'jam_mengajar' => $request->jam_mengajar,
                 'jumlah_jam' => $request->jumlah_jam,
                 'jam_mengajar' => $request->jam_mengajar,
+                'hari' => $request->hari,
             ];
             DB::table('jadwal_pelajaran')->insert($data);
             return redirect()->route('jadwal_pelajaran');
