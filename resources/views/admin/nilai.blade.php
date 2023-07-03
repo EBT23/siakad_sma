@@ -154,7 +154,7 @@
                                   <form action="{{ route('edit.nilai',['id'=>$n->id]) }}" method="POST">
                                     @csrf
                                     <div class="row">
-                                      <div class="col-6">
+                                      {{-- <div class="col-6">
                                         <label for="id_users" class="form-label">Siswa</label>
                                         <select class="form-select" aria-label="Default select example" name="id_users"
                                           id="id_users" disabled selected>
@@ -174,8 +174,8 @@
                                             }}">{{ $p->kode }} </option>
                                           @endforeach
                                         </select>
+                                      </div> --}}
 
-                                      </div>
                                       <div class="col-6">
                                         <label for="rph" class="form-label">Nilai RPH</label>
                                         <div class="input-group mb-3">

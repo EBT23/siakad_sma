@@ -48,6 +48,7 @@
                     <label for="jumlah_jam" class="form-label">Jumlah Jam</label> <div class="input-group mb-3">
                       <input type="text" class="form-control" id="jumlah_jam"  name="jumlah_jam" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Jumlah jam tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
+
                     <label for="hari" class="form-label">Hari</label>
                     <select class="form-select mb-3" name="hari" id="hari" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
                       <option value="" selected>-pilih-</option>
@@ -141,9 +142,24 @@
                     <div class="input-group mb-3">
                       <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar"value="{{ $jp->jam_mengajar }}" aria-describedby="basic-addon3">
                     </div>
+
                     <label for="jumlah_jam" class="form-label">Jumlah Jam</label>
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="jumlah_jam" name="jumlah_jam" value="{{ $jp->jumlah_jam }}" aria-describedby="basic-addon3">
+                    </div>
+
+                    <label for="hari" class="form-label">Hari</label>
+                    <div class="input-group mb-3">
+                      <select class="form-select mb-3" name="hari" id="hari" aria-label="Default select example" required oninvalid="this.setCustomValidity('Pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
+                        <option value="{{ $jp->hari }}" selected>{{ $jp->hari }}</option>
+                        <option value="senin">senin</option>
+                        <option value="selasa">selasa</option>
+                        <option value="rabu">rabu</option>
+                        <option value="kamis">kamis</option>
+                        <option value="sabtu">sabtu</option>
+                        <option value="minggu">minggu</option>
+                      </select>
+                      
                     </div>
                   </div>
                   <div>

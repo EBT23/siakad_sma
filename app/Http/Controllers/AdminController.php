@@ -341,6 +341,7 @@ use Faker\Provider\ar_EG\Company;
                 'id_pelajaran' => $request->id_pelajaran,
                 'jam_mengajar' => $request->jam_mengajar,
                 'jumlah_jam' => $request->jumlah_jam,
+                'hari' => $request->hari,
             ]);
             return redirect()->route('jadwal_pelajaran');
         }
