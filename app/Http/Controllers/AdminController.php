@@ -4,8 +4,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
-use Faker\Provider\ar_EG\Company;
 use Termwind\Components\Dd;
+use App\Exports\NilaiExport;
+use App\Exports\LaporanExport;
+use Maatwebsite\excel\Facades\Excel;
+use Faker\Provider\ar_EG\Company;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Hash;
@@ -38,17 +41,17 @@ use Termwind\Components\Dd;
     
         public function tambah_siswa(Request $request)
         {
-            $data = DB::table('users')->insert([
+            $data = DB::table('users')->insertGetId([
             'username' => $request->nis,
             'nama' => $request->nama,
             'password' => Hash::make($request->password),
             'role' => 2,
                 ]);
     
-        $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
-        $query = $query[0]->id;
+        // $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
+        // $query = $query[0]->id;
         $data1 = DB::table('siswa')->insert([
-            'id_users' => $query,
+            'id_users' => $data,
             'id_kelas' => $request->id_kelas,
             'hp' => $request->hp,
             'alamat' => $request->alamat
@@ -79,6 +82,16 @@ use Termwind\Components\Dd;
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
             return redirect()->route('siswa');
         }
+
+
+        public function exportNilai(Request $request)
+        {
+            $semester = $request->input('semester', 'default-semester'); // Mengambil nilai semester dari request, default jika tidak ada
+
+            return Excel::download(new NilaiExport($semester), 'nilai_' . $semester . '.xlsx');
+
+            // return Excel::download(new LaporanExport($semester), 'nilai_semester_' . $semester . '.xlsx');
+        }
     
         // view guru
         public function guru()
@@ -95,17 +108,17 @@ use Termwind\Components\Dd;
     
         public function tambah_guru(Request $request)
         {
-            $data = DB::table('users')->insert([
+            $data = DB::table('users')->insertGetId([
                 'username' => $request->nip,
                 'nama' => $request->nama,
                 'password' => Hash::make($request->password),
                 'role' => 3,
             ]);
     
-        $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
-        $query = $query[0]->id;
+        // $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
+        // $query = $query[0]->id;
         $data1 = DB::table('guru')->insert([
-            'id_users' => $query,
+            'id_users' => $data,
             'tempat' => $request->tempat,
             'tgl_lahir' => $request->tgl_lahir,
             'pendidikan' => $request->pendidikan,
@@ -314,7 +327,6 @@ use Termwind\Components\Dd;
                 'jam_mengajar' => $request->jam_mengajar,
                 'jumlah_jam' => $request->jumlah_jam,
                 'jam_mengajar' => $request->jam_mengajar,
-                'tugas_tambahan' => $request->tugas_tambahan,
             ];
             DB::table('jadwal_pelajaran')->insert($data);
             return redirect()->route('jadwal_pelajaran');
@@ -328,7 +340,6 @@ use Termwind\Components\Dd;
                 'id_pelajaran' => $request->id_pelajaran,
                 'jam_mengajar' => $request->jam_mengajar,
                 'jumlah_jam' => $request->jumlah_jam,
-                'tugas_tambahan' => $request->tugas_tambahan,
             ]);
             return redirect()->route('jadwal_pelajaran');
         }

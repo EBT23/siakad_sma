@@ -84,8 +84,8 @@
         <td>{{ $jp->jumlah_jam }}</td>
         <td class="d-flex">
         <form action="hapusjadwalpelajaran/{{$jp->id }}" method="POST">
-          {{ csrf_field() }}
-          {{ method_field('DELETE') }}
+          @method('DELETE')
+          @csrf
           <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
         </form>
       <span>
@@ -101,7 +101,7 @@
               <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="{{ route('edit.jadwal_pelajaran',['id'=>$jp->id]) }}" method="post">
+              <form action="{{ route('edit.jadwal_pelajaran',['id'=>$jp->id]) }}" method="POST">
                 @csrf
                 <div class="row">
                   <div class="col-12">

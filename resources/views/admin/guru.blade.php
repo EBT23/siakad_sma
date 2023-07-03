@@ -181,9 +181,7 @@
     </table>      
   </div>
 </div>
-
 </div>
     </div>
-      </div>
     @include('layouts.footer')
     </div>

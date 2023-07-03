@@ -92,6 +92,7 @@
 
     </div>
     <div class="card mb-4">
+
       <div class="card-body">
         <table id="dataTabel" class="table table-striped" style="width:100%">
           <thead>
@@ -156,7 +157,7 @@
                                       <div class="col-6">
                                         <label for="id_users" class="form-label">Siswa</label>
                                         <select class="form-select" aria-label="Default select example" name="id_users"
-                                          id="id_users">
+                                          id="id_users" disabled selected>
                                           <option selected>pilih siswa</option>
                                           @foreach ($siswa as $si )
                                           <option @if($si->id == $n->id_users )selected @endif value="{{ $si->id }}">{{
@@ -166,7 +167,7 @@
 
                                         <label for="kd_pelajaran" class="form-label">Pelajaran</label>
                                         <select class="form-select" aria-label="Default select example"
-                                          name="kd_pelajaran" id="kd_pelajaran">
+                                          name="kd_pelajaran" id="kd_pelajaran" disabled selected>
                                           <option selected>pilih pelajaran</option>
                                           @foreach ($pelajaran as $p )
                                           <option @if($p->kode == $n->kd_pelajaran) selected @endif value="{{ $p->kode
@@ -211,9 +212,11 @@
       </div>
     </div>
   </div>
+  @include('layouts.footer')
+</div>
+</div>
 
-</div>
-</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
@@ -241,5 +244,4 @@
         });
     });
 </script>
-@include('layouts.footer')
 </div>

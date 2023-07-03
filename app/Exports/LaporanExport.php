@@ -17,25 +17,26 @@ class LaporanExport implements FromCollection, WithHeadings, WithStyles
     {
         //
 
-        return DB::table('pemesanan')
-        ->join('barang','barang.id','=','pemesanan.id_barang')
-        ->join('users','users.id','=','pemesanan.id_user')
-        ->select('barang.nama_barang','pemesanan.jumlah_berat','barang.harga','users.name','pemesanan.status_pemesanan',
-        'pemesanan.created_at','pemesanan.total_harga')
-        ->where('pemesanan.status_pemesanan','=','Selesai')
+        return DB::table('nilai')
+        ->join('users','users.id','=','nilai.id_users')
+        ->join('pelajaran','pelajaran.kode','=','nilai.kd_pelajaran')
+        ->select('users.nama','pelajaran.kode','barang.harga','users.name','nilai.rph', 
+        'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata')
+        ->where('nilai.kd_pelajaran','=','pelajaran.kode')
+        ->AND('nilai.id_users','=','users.id')
         ->get();
     }
 
     public function headings(): array
     {
         return [
-            ['NAMA BARANG', 
-            'JUMLAH BERAT',
-            'HARGA', 
-            'NAMA PEMESAN', 
-            'STATUS PEMBAYARAN',
-            'TANGGAL PEMBELIAN',
-            'TOTAL HARGA',
+            ['NAMA SISWA', 
+            'KODE PELAJARAN',
+            'RPH', 
+            'PTS', 
+            'PAT',
+            'JUMLAH',
+            'RATA-RATA',
         ],
         ];
     }
