@@ -176,7 +176,7 @@
                                         </select>
                                       </div> --}}
 
-                                      <div class="col-6">
+                                      <div class="col-12">
                                         <label for="rph" class="form-label">Nilai RPH</label>
                                         <div class="input-group mb-3">
                                           <input type="number" class="form-control" id="rph" name="rph"

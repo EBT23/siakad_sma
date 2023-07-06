@@ -280,8 +280,6 @@ use Faker\Provider\ar_EG\Company;
             $jumlah = (int)$rph+(int)$pts+(int)$pat;
             $rata_rata = $jumlah/3;
             DB::table('nilai')->where('id', $id)->update([
-                'id_users' => $request->id_users,
-                'kd_pelajaran' => $request->kd_pelajaran,
                 'rph' => $request->rph,
                 'pts' => $request->pts,
                 'pat' => $request->pat,
@@ -333,8 +331,9 @@ use Faker\Provider\ar_EG\Company;
             return redirect()->route('jadwal_pelajaran');
         }
     
-        public function edit_jadwal_pelajaran(Request $request,$id)
+        public function edit_jadwal_pelajaran(Request $request, $id)
         {
+            // dd($id);
             DB::table('jadwal_pelajaran')->where('id', $id)->update([
                 'id_guru' => $request->id_guru,
                 'id_kelas' => $request->id_kelas,
