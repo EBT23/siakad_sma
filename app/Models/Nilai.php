@@ -20,17 +20,22 @@ class Nilai extends Model
     ];
 
     public function user()
-    {
-        return $this->belongsTo(User::class, 'id_users');
-    }
+{
+    return $this->belongsTo(User::class, 'id_users');
+}
 
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class, 'id_users');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'id_users');
+    // }
 
-    public function pelajaran()
-    {
-        return $this->belongsTo(Siswa::class, 'kd_pelajaran');
-    }
+    // public function siswa()
+    // {
+    //     return $this->belongsTo(Siswa::class, 'id_users');
+    // }
+
+    // public function pelajaran()
+    // {
+    //     return $this->belongsTo(Siswa::class, 'kd_pelajaran');
+    // }
 }

@@ -3,17 +3,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\nilaiExport;
 use App\Models\Siswa;
 use Termwind\Components\Dd;
-use App\Exports\NilaiExport;
-use App\Exports\LaporanExport;
-use Maatwebsite\excel\Facades\Excel;
+use Illuminate\Http\Request;
 use Faker\Provider\ar_EG\Company;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Hash;
-    use Illuminate\Console\View\Components\Alert;
-    use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Console\View\Components\Alert;
     
     class AdminController extends Controller
     {
@@ -86,11 +87,13 @@ use Faker\Provider\ar_EG\Company;
 
         public function exportNilai(Request $request)
         {
-            $semester = $request->input('semester', 'default-semester'); // Mengambil nilai semester dari request, default jika tidak ada
+            
 
-            return Excel::download(new NilaiExport($semester), 'nilai_' . $semester . '.xlsx');
-
-            // return Excel::download(new LaporanExport($semester), 'nilai_semester_' . $semester . '.xlsx');
+            $nilai = DB::table('nilai')
+            ->join('users', 'nilai.id_users', '=', 'users.id')
+            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata')->get();
+    
+            return Excel::download(new nilaiExport($nilai), 'nilai.xlsx');
         }
     
         // view guru

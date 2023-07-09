@@ -94,6 +94,7 @@
     <div class="card mb-4">
 
       <div class="card-body">
+        <a href="/export-nilai" class="btn btn-success my-3 text-white" target="_blank">EXPORT EXCEL</a>
         <table id="dataTabel" class="table table-striped" style="width:100%">
           <thead>
             <tr>
