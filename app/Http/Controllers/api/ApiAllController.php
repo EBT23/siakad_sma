@@ -14,7 +14,7 @@ class ApiAllController extends Controller
 {
     public function jadwal_mengajar($id)
     {
-        $jadwal_mengajar = DB::select("SELECT users.nama, pelajaran.nama, kelas.nama, jadwal_pelajaran.jam_mengajar, jadwal_pelajaran.banyak_kelas, jadwal_pelajaran.jumlah_jam, jadwal_pelajaran.tugas_tambahan
+        $jadwal_mengajar = DB::select("SELECT users.nama, pelajaran.nama, kelas.nama, jadwal_pelajaran.jam_mengajar, jadwal_pelajaran.jumlah_jam, jadwal_pelajaran.hari
                                             FROM users, pelajaran, kelas, jadwal_pelajaran
                                             WHERE users.id = jadwal_pelajaran.id_guru
                                             AND pelajaran.id = jadwal_pelajaran.id_pelajaran
@@ -38,13 +38,25 @@ class ApiAllController extends Controller
     }
     public function jadwal_pelajaran($id)
     {
-        $jadwal_pelajaran = DB::select("SELECT users.nama, pelajaran.nama, kelas.nama, jadwal_pelajaran.jam_mengajar, jadwal_pelajaran.banyak_kelas, jadwal_pelajaran.jumlah_jam, jadwal_pelajaran.tugas_tambahan
-                                            FROM users, pelajaran, kelas, jadwal_pelajaran
-                                            WHERE users.id = jadwal_pelajaran.id_guru
-                                            AND pelajaran.id = jadwal_pelajaran.id_pelajaran
-                                            AND kelas.id = jadwal_pelajaran.id_kelas
-                                            AND users.role = 3
-                                            AND kelas.id = $id");
+
+        $jadwal_pelajaran = DB::table('jadwal_pelajaran')
+        ->join('guru','jadwal_pelajaran.id_guru','=','guru.id')
+        ->join('pelajaran','jadwal_pelajaran.id_pelajaran','=','pelajaran.id')
+        ->join('kelas','jadwal_pelajaran.id_kelas','=','kelas.id')
+        ->join('siswa','siswa.id_kelas','=','kelas.id')
+        ->join('users','siswa.id_users','=','users.id')
+        ->select('users.nama', 'pelajaran.nama', 'kelas.nama', 'jadwal_pelajaran.jam_mengajar', 'jadwal_pelajaran.jumlah_jam', 'jadwal_pelajaran.hari')
+        ->where('users.role','=', '2')
+        ->where('kelas.id','=', $id)
+        ->get();
+
+        // select("SELECT users.nama, pelajaran.nama, kelas.nama, jadwal_pelajaran.jam_mengajar, jadwal_pelajaran.jumlah_jam, jadwal_pelajaran.hari
+        // //                                     FROM users, pelajaran, kelas, jadwal_pelajaran
+        // //                                     WHERE users.id = jadwal_pelajaran.id_guru
+        // //                                     AND pelajaran.id = jadwal_pelajaran.id_pelajaran
+        // //                                     AND kelas.id = jadwal_pelajaran.id_kelas
+        // //                                     AND users.role = 2
+        // //                                     AND kelas.id = $id");
 
         if ($jadwal_pelajaran != false) {
             return response()->json([

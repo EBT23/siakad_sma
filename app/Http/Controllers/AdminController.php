@@ -304,7 +304,11 @@ use Illuminate\Console\View\Components\Alert;
         public function jadwal_pelajaran()
         {
             $title = 'Menu Jadwal Pelajaran';
-            $guru = DB::select('SELECT * FROM users Where role=3');
+            $guru = DB::table('guru')
+                ->join('users','guru.id_users','=','users.id')
+                ->select('guru.id','users.username','users.nama')
+                ->get();
+            
             $pelajaran = DB::table('pelajaran')->get();
             $kelas = DB::table('kelas')->get();
             $jadwal_pelajaran = DB::select('SELECT jadwal_pelajaran.*, kelas.id AS id_k, 
@@ -330,6 +334,9 @@ use Illuminate\Console\View\Components\Alert;
                 'jam_mengajar' => $request->jam_mengajar,
                 'hari' => $request->hari,
             ];
+
+            //dd($data);
+
             DB::table('jadwal_pelajaran')->insert($data);
             return redirect()->route('jadwal_pelajaran');
         }
