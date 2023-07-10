@@ -14,13 +14,15 @@ class ApiAllController extends Controller
 {
     public function jadwal_mengajar($id)
     {
-        $jadwal_mengajar = DB::select("SELECT users.nama, pelajaran.nama, kelas.nama, jadwal_pelajaran.jam_mengajar, jadwal_pelajaran.jumlah_jam, jadwal_pelajaran.hari
-                                            FROM users, pelajaran, kelas, jadwal_pelajaran
-                                            WHERE users.id = jadwal_pelajaran.id_guru
-                                            AND pelajaran.id = jadwal_pelajaran.id_pelajaran
-                                            AND kelas.id = jadwal_pelajaran.id_kelas
-                                            AND users.role = 3
-                                            AND users.id = $id");
+        $jadwal_mengajar = DB::table('jadwal_pelajaran')
+            ->join('guru','jadwal_pelajaran.id_guru','=','guru.id')
+            ->join('pelajaran','jadwal_pelajaran.id_pelajaran','=','pelajaran.id')
+            ->join('kelas','jadwal_pelajaran.id_kelas','=','kelas.id')
+            ->join('users','guru.id_users','=','users.id')
+            ->select('users.nama', 'pelajaran.nama AS mapel', 'kelas.nama AS kelas', 'jadwal_pelajaran.jam_mengajar', 'jadwal_pelajaran.jumlah_jam', 'jadwal_pelajaran.hari')
+            ->where('users.role','=', '3')
+            ->where('guru.id','=', $id)
+            ->get();
 
         if ($jadwal_mengajar != false) {
             return response()->json([
@@ -36,27 +38,18 @@ class ApiAllController extends Controller
             ], Response::HTTP_OK);
         }
     }
-    public function jadwal_pelajaran($id)
+    public function jadwal_pelajaran($id, $hari)
     {
 
         $jadwal_pelajaran = DB::table('jadwal_pelajaran')
-        ->join('guru','jadwal_pelajaran.id_guru','=','guru.id')
-        ->join('pelajaran','jadwal_pelajaran.id_pelajaran','=','pelajaran.id')
-        ->join('kelas','jadwal_pelajaran.id_kelas','=','kelas.id')
-        ->join('siswa','siswa.id_kelas','=','kelas.id')
-        ->join('users','siswa.id_users','=','users.id')
-        ->select('users.nama', 'pelajaran.nama', 'kelas.nama', 'jadwal_pelajaran.jam_mengajar', 'jadwal_pelajaran.jumlah_jam', 'jadwal_pelajaran.hari')
-        ->where('users.role','=', '2')
-        ->where('kelas.id','=', $id)
-        ->get();
-
-        // select("SELECT users.nama, pelajaran.nama, kelas.nama, jadwal_pelajaran.jam_mengajar, jadwal_pelajaran.jumlah_jam, jadwal_pelajaran.hari
-        // //                                     FROM users, pelajaran, kelas, jadwal_pelajaran
-        // //                                     WHERE users.id = jadwal_pelajaran.id_guru
-        // //                                     AND pelajaran.id = jadwal_pelajaran.id_pelajaran
-        // //                                     AND kelas.id = jadwal_pelajaran.id_kelas
-        // //                                     AND users.role = 2
-        // //                                     AND kelas.id = $id");
+            ->join('guru','jadwal_pelajaran.id_guru','=','guru.id')
+            ->join('pelajaran','jadwal_pelajaran.id_pelajaran','=','pelajaran.id')
+            ->join('kelas','jadwal_pelajaran.id_kelas','=','kelas.id')
+            ->join('users','guru.id_users','=','users.id')
+            ->select('users.nama AS Guru Pengampu','pelajaran.nama AS mapel', 'kelas.nama AS kelas', 'jadwal_pelajaran.jam_mengajar AS jam', 'jadwal_pelajaran.jumlah_jam', 'jadwal_pelajaran.hari')
+            ->where('kelas.id','=', $id)
+            ->where('jadwal_pelajaran.hari', '=', $hari)
+            ->get();
 
         if ($jadwal_pelajaran != false) {
             return response()->json([
@@ -158,6 +151,25 @@ class ApiAllController extends Controller
             ], Response::HTTP_OK);
             }
     }
+    public function guru()
+    {
+        $guru = DB::select("SELECT * FROM users WHERE users.role = 3");
+
+            if ($guru != false) {
+            return response()->json([
+            'success' => true,
+            'message' => 'Data tersedia',
+            'data' => $guru
+            ], Response::HTTP_OK);
+            } else {
+            return response()->json([
+            'success' => false,
+            'message' => 'Data tidak tersedia',
+            'data' => $guru
+            ], Response::HTTP_OK);
+        }
+    }
+
     public function siswa()
     {
         $siswa = DB::select("SELECT * FROM users WHERE users.role = 2");
