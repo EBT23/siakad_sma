@@ -88,7 +88,7 @@
                             @foreach ($jadwal_pelajaran as $index=>$jp)
                             <tr>
                                 <td width="5%">{{ $index+1 }}</td>
-                                <td>{{ $jp->id }}</td>
+                                <td>{{ $jp->nama_guru }}</td>
                                 <td>{{ $jp->nama_kelas }}</td>
                                 <td>{{ $jp->nama_pelajaran }}</td>
                                 <td>{{ $jp->jam_mengajar }}</td>
@@ -128,7 +128,7 @@
                                                                 <label for="id_kelas" class="form-label">Kelas</label>
                                                                 <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
                                                                     @foreach ($kelas as $k )
-                                                                    <option @if($k->id == $jp->id_kelas) selected @endif value="{{ $g->id }}">{{ $k->nama }}</option>
+                                                                    <option @if($k->id == $jp->id_kelas) selected @endif value="{{ $k->id }}">{{ $k->nama }}</option>
                                                                     @endforeach
                                                                 </select>
 

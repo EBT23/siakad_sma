@@ -307,20 +307,15 @@ use Illuminate\Console\View\Components\Alert;
             $guru = DB::select('SELECT * FROM users Where role=3');
             $pelajaran = DB::table('pelajaran')->get();
             $kelas = DB::table('kelas')->get();
-            $jadwal_pelajaran = DB::select('SELECT jadwal_pelajaran.*, kelas.id AS id_k, 
-            kelas.nama as nama_kelas, 
-            pelajaran.id as id_p, pelajaran.nama AS nama_pelajaran, 
-            users.id AS id_g, users.nama FROM users, pelajaran,kelas,jadwal_pelajaran 
-            WHERE jadwal_pelajaran.id_guru=users.id 
-            AND pelajaran.id=jadwal_pelajaran.id_pelajaran AND kelas.id=jadwal_pelajaran.id_kelas; ');
+            $jadwal_pelajaran = DB::select('SELECT jadwal_pelajaran.*, users.id as id_u,users.role, users.nama as nama_guru, pelajaran.id as id_p, pelajaran.nama as nama_pelajaran,pelajaran.kode, kelas.nama as nama_kelas 
+            from jadwal_pelajaran, users, pelajaran, kelas where jadwal_pelajaran.id_guru=users.id 
+            and pelajaran.id=jadwal_pelajaran.id_pelajaran and kelas.id=jadwal_pelajaran.id_kelas;   ');
             return view('admin.jadwal_pelajaran', compact('title','guru','pelajaran','kelas','jadwal_pelajaran'));
         }
     
         public function tambah_jadwal_pelajaran(Request $request)
         {
-            $request->validate([
-    
-            ]);
+            // dd($request);
             $data = [
                 'id_guru' => $request->id_guru,
                 'id_kelas' => $request->id_kelas,
@@ -374,7 +369,7 @@ use Illuminate\Console\View\Components\Alert;
             $siswa = DB::select('SELECT * FROM users WHERE role=2');
             $kelas = DB::table('kelas')->get();
             $pelajaran = DB::table('pelajaran')->get();
-            $kehadiran = DB::select('SELECT kehadiran.id,kehadiran.id_siswa,kehadiran.id_pelajaran,kehadiran.tanggal,kehadiran.status_kehadiran,users.id AS id_u, pelajaran.id AS id_p, users.nama, pelajaran.nama AS nama_pelajaran FROM kehadiran, users, pelajaran WHERE users.id=kehadiran.id_siswa AND kehadiran.id_pelajaran=pelajaran.id;');
+            $kehadiran = DB::select('SELECT jadwal_pelajaran.*, users.id as id_u, users.nama, pelajaran.id as id_p, pelajaran.nama,pelajaran.kode, kelas.nama, kelas.id as id_k from kelas, jadwal_pelajaran, users, pelajaran where jadwal_pelajaran.id_guru=users.id and pelajaran.id=jadwal_pelajaran.id_pelajaran and jadwal_pelajaran.id_kelas=kelas.id; ');
     
             return view('admin.kehadiran', compact('siswa','kelas','title','pelajaran','kehadiran'));
         }
