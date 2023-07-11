@@ -376,7 +376,7 @@ use Illuminate\Console\View\Components\Alert;
             $siswa = DB::select('SELECT * FROM users WHERE role=2');
             $kelas = DB::table('kelas')->get();
             $pelajaran = DB::table('pelajaran')->get();
-            $kehadiran = DB::select('SELECT jadwal_pelajaran.*, users.id as id_u, users.nama, pelajaran.id as id_p, pelajaran.nama,pelajaran.kode, kelas.nama, kelas.id as id_k from kelas, jadwal_pelajaran, users, pelajaran where jadwal_pelajaran.id_guru=users.id and pelajaran.id=jadwal_pelajaran.id_pelajaran and jadwal_pelajaran.id_kelas=kelas.id; ');
+            $kehadiran = DB::select('SELECT kehadiran.*, users.id as id_u, users.nama, pelajaran.id as id_p, pelajaran.nama as nama_pelajaran,pelajaran.kode, kelas.nama, kelas.id as id_k from kelas, jadwal_pelajaran, users, pelajaran, kehadiran where jadwal_pelajaran.id_guru=users.id and pelajaran.id=jadwal_pelajaran.id_pelajaran and jadwal_pelajaran.id_kelas=kelas.id; ');
     
             return view('admin.kehadiran', compact('siswa','kelas','title','pelajaran','kehadiran'));
         }
