@@ -306,7 +306,7 @@ use Illuminate\Console\View\Components\Alert;
             $title = 'Menu Jadwal Pelajaran';
             $guru = DB::table('guru')
                 ->join('users','guru.id_users','=','users.id')
-                ->select('guru.id','users.username','users.nama')
+                ->select('users.id','users.username','users.nama')
                 ->get();
             
             $pelajaran = DB::table('pelajaran')->get();
@@ -346,7 +346,7 @@ use Illuminate\Console\View\Components\Alert;
                 'jam_mengajar' => $request->jam_mengajar,
                 'jumlah_jam' => $request->jumlah_jam,
                 'hari' => $request->hari,
-            ]);
+            ]); 
             return redirect()->route('jadwal_pelajaran');
         }
         
