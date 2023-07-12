@@ -37,7 +37,7 @@
                     </select>
                     <label for="id_siswa" class="form-label">Nama Siswa</label>
                     <select class="form-select" name="id_siswa" id="id_siswa" aria-label="Default select example"
-                      disabled>
+                      >
                       <option selected>-pilih-</option>
                     </select>
                     @error('id_siswa')

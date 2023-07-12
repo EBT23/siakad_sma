@@ -91,7 +91,13 @@ use Illuminate\Console\View\Components\Alert;
 
             $nilai = DB::table('nilai')
             ->join('users', 'nilai.id_users', '=', 'users.id')
-            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata')->get();
+            ->join('siswa', 'users.id', '=', 'siswa.id_users')
+            ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
+            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.nama as nama_kelas')
+            ->where('kelas.nama', 'X MIPA 1')
+            ->get();
+
+            // dd($nilai);
     
             return Excel::download(new nilaiExport($nilai), 'nilai.xlsx');
         }
