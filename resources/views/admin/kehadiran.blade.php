@@ -30,7 +30,7 @@
                     <select class="form-select" aria-label="Default select example" name="id_kelas" id="id_kelas"
                       required oninvalid="this.setCustomValidity('kelas tidak boleh kosong')"
                       oninput="setCustomValidity('')">
-                      <option value="" selected>pilih kelas</option>
+                      
                       @foreach ($kelas as $si )
                       <option value="{{ $si->id }}">{{ $si->nama }}</option>
                       @endforeach
