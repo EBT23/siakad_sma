@@ -88,18 +88,20 @@ use Illuminate\Console\View\Components\Alert;
         public function exportNilai(Request $request)
         {
             
-
+            $id_kelas = $request->id_kelas;
             $nilai = DB::table('nilai')
             ->join('users', 'nilai.id_users', '=', 'users.id')
             ->join('siswa', 'users.id', '=', 'siswa.id_users')
             ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
-            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.nama as nama_kelas')
-            ->where('kelas.nama', 'X MIPA 1')
+            ->join('pelajaran', 'nilai.kd_pelajaran', '=', 'pelajaran.kode')
+            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.id as nama_kelas')
+            ->where('kelas.id',$id_kelas)
             ->get();
 
             // dd($nilai);
+            
     
-            return Excel::download(new nilaiExport($nilai), 'nilai.xlsx');
+            return Excel::download(new nilaiExport($id_kelas), 'nilai.xlsx');
         }
     
         // view guru
