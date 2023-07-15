@@ -78,18 +78,32 @@
 
         </div>
         <div class="card mb-4">
-
+            @if(session('success'))
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                    <use xlink:href="#check-circle-fill" /></svg>
+                <div>
+                    {{ session('success') }}
+                </div>
+            </div>
+            @endif
             <div class="card-body">
                 <div class="d-flex col-6">
-                  <button type="submit" class="btn btn-success my-2 mx-2 text-white" target="_blank">EXPORT EXCEL</button>
                     <form action="{{ route('exportNilai') }}" method="get">
                         @csrf
-                        <select class="form-select mt-2" aria-label="Default select example" name="id_kelas" id="id_kelas" required oninvalid="this.setCustomValidity('kelas tidak boleh kosong')" oninput="setCustomValidity('')">
-                          <option value="" selected>pilih kelas</option>
-                          @foreach ($kelas as $si )
-                          <option value="{{ $si->id }}">{{ $si->nama }}</option>
-                          @endforeach
-                        </select>
+                        <div class="d-flex">
+                            <div>
+                                <button type="submit" class="btn btn-success my-2 mx-2 text-white" target="_blank">EXPORT EXCEL</button>
+                            </div>
+                            <div>
+                                <select class="form-select mt-2" aria-label="Default select example" name="id_kelas" id="id_kelas" required oninvalid="this.setCustomValidity('kelas tidak boleh kosong')" oninput="setCustomValidity('')">
+                                    <option value="" selected>pilih kelas</option>
+                                    @foreach ($kelas as $si )
+                                    <option value="{{ $si->id }}">{{ $si->nama }}</option>
+                                    @endforeach
+                                  </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <table id="dataTabel" class="table table-striped" style="width:100%">
@@ -131,7 +145,7 @@
                                                     <form action="hapusnilai/{{$n->id }}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+                                                        <button class="btn btn-danger" type="submit" onclick="javascript: return confirm('Anda yakin akan menghapus ini? ')"><i class="fas fa-trash-alt">Hapus</i></button>
                                                     </form>
                                                     <span>
                                                         <button type="button" class="btn btn-primary mx-2" data-coreui-toggle="modal" data-coreui-target="#exampleModal{{ $n->id }}">

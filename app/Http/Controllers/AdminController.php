@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\kehadiranExport;
 use App\Exports\nilaiExport;
 use App\Models\Siswa;
 use Termwind\Components\Dd;
@@ -57,7 +58,7 @@ use Illuminate\Console\View\Components\Alert;
             'hp' => $request->hp,
             'alamat' => $request->alamat
         ]);
-            return redirect()->route('siswa');
+            return redirect()->route('siswa')->with('success','Data siswa Berhasil Ditambah');
         }    
     
         public function edit_siswa(Request $request,$id)
@@ -72,7 +73,7 @@ use Illuminate\Console\View\Components\Alert;
             WHERE users.id = siswa.id_users
             AND kelas.id = siswa.id_kelas
             AND users.id = $id");
-            return redirect()->route('siswa');
+            return redirect()->route('siswa')->with('success','Data siswa Berhasil Diperharui');
             
         }
     
@@ -81,7 +82,7 @@ use Illuminate\Console\View\Components\Alert;
     
             DB::select("DELETE users, siswa FROM users, siswa WHERE users.id = siswa.id_users AND users.id = $id");
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-            return redirect()->route('siswa');
+            return redirect()->route('siswa')->with('success','Data siswa Berhasil Dihapus');
         }
 
 
@@ -89,7 +90,7 @@ use Illuminate\Console\View\Components\Alert;
         {
             
             $id_kelas = $request->id_kelas;
-            $nilai = DB::table('nilai')
+            DB::table('nilai')
             ->join('users', 'nilai.id_users', '=', 'users.id')
             ->join('siswa', 'users.id', '=', 'siswa.id_users')
             ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
@@ -98,9 +99,6 @@ use Illuminate\Console\View\Components\Alert;
             ->where('kelas.id',$id_kelas)
             ->get();
 
-            // dd($nilai);
-            
-    
             return Excel::download(new nilaiExport($id_kelas), 'nilai.xlsx');
         }
     
@@ -138,7 +136,7 @@ use Illuminate\Console\View\Components\Alert;
             'tgs_tam' => $request->tgs_tam,
             'alamat' => $request->alamat
         ]);
-        return redirect()->route('guru');
+        return redirect()->route('guru')->with('success','Data Guru Berhasil Ditambah');
         }
     
     public function edit_guru(Request $request,$id)
@@ -157,14 +155,14 @@ use Illuminate\Console\View\Components\Alert;
             SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.tgs_tam = '$tgs_tam'
             WHERE users.id = guru.id_users
             AND users.id = $id");
-        return redirect()->route('guru');
+        return redirect()->route('guru')->with('success','Data Guru Berhasil Diperbaharui');
     }
     
     public function hapusguru($id)
     {
         DB::select("DELETE users, guru FROM users, guru WHERE users.id = guru.id_users AND users.id = $id");
         // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-        return redirect()->route('guru');
+        return redirect()->route('guru')->with('success','Data Guru Berhasil Dihapus');
     }
         // view pelajaran
         public function pelajaran()
@@ -182,7 +180,7 @@ use Illuminate\Console\View\Components\Alert;
                 'kelompok' => $request->kelompok,
             ];
             DB::table('pelajaran')->insert($data);
-            return redirect()->route('pelajaran');
+            return redirect()->route('pelajaran')->with('success','Data siswa Berhasil Ditambah');
         }
     
         public function edit_pelajaran(Request $request,$id)
@@ -192,14 +190,14 @@ use Illuminate\Console\View\Components\Alert;
                 'kode' => $request->kode,
                 'kelompok' => $request->kelompok,
             ]);
-            return redirect()->route('pelajaran');
+            return redirect()->route('pelajaran')->with('success','Data siswa Berhasil Diperbaharui');
         }
     
         function hapus_pelajaran($id)
         {
             DB::table('pelajaran')->where('id', $id)->delete();
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-            return redirect()->route('pelajaran');
+            return redirect()->route('pelajaran')->with('success','Data siswa Berhasil Dihapus');
         }
     
         // view kelas
@@ -218,7 +216,7 @@ use Illuminate\Console\View\Components\Alert;
                 'update_created' => date('Y-m-d'),
             ];
             DB::table('kelas')->insert($data);
-            return redirect()->route('kelas');
+            return redirect()->route('kelas')->with('success','Data siswa Berhasil Ditambah');
         }
     
         public function edit_kelas(Request $request, $id)
@@ -227,14 +225,14 @@ use Illuminate\Console\View\Components\Alert;
                 'nama' => $request->kelas,
                 'update_created' => date('Y-m-d'),
             ]);
-            return redirect()->route('kelas');
+            return redirect()->route('kelas')->with('success','Data siswa Berhasil Diperbaharui');
         }
     
         function hapus_kelas($id)
         {
             DB::table('kelas')->where('id', $id)->delete();
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-            return redirect()->route('kelas');
+            return redirect()->route('kelas')->with('success','Data siswa Berhasil Dihapus');
         }
     
     
@@ -280,7 +278,7 @@ use Illuminate\Console\View\Components\Alert;
             ];
     
             DB::table('nilai')->insert($data);
-            return redirect()->route('nilai');
+            return redirect()->route('nilai')->with('success','Data siswa Berhasil Ditambah');
         }
     
         public function edit_nilai(Request $request, $id)
@@ -298,7 +296,7 @@ use Illuminate\Console\View\Components\Alert;
                 'rata_rata'=>$rata_rata
     
             ]);
-            return redirect()->route('nilai');
+            return redirect()->route('nilai')->with('success','Data siswa Berhasil Diperbaharui');
         }
         
     
@@ -306,7 +304,7 @@ use Illuminate\Console\View\Components\Alert;
         {
             DB::table('nilai')->where('id', $id)->delete();
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-            return redirect()->route('nilai');
+            return redirect()->route('nilai')->with('success','Data siswa Berhasil Dihapus');
         }
         // view jadwal Pelajaran
         public function jadwal_pelajaran()
@@ -341,7 +339,7 @@ use Illuminate\Console\View\Components\Alert;
             //dd($data);
 
             DB::table('jadwal_pelajaran')->insert($data);
-            return redirect()->route('jadwal_pelajaran');
+            return redirect()->route('jadwal_pelajaran')->with('success','Data siswa Berhasil Ditambah');
         }
     
         public function edit_jadwal_pelajaran(Request $request, $id)
@@ -355,7 +353,7 @@ use Illuminate\Console\View\Components\Alert;
                 'jumlah_jam' => $request->jumlah_jam,
                 'hari' => $request->hari,
             ]); 
-            return redirect()->route('jadwal_pelajaran');
+            return redirect()->route('jadwal_pelajaran')->with('success','Data siswa Berhasil Diperbaharui');
         }
         
     
@@ -363,7 +361,7 @@ use Illuminate\Console\View\Components\Alert;
         {
             DB::table('jadwal_pelajaran')->where('id', $id)->delete();
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
-            return redirect()->route('jadwal_pelajaran');
+            return redirect()->route('jadwal_pelajaran')->with('success','Data siswa Berhasil Dihapus');
         }
         
         // view jadwal kehadiran
@@ -384,7 +382,7 @@ use Illuminate\Console\View\Components\Alert;
             $siswa = DB::select('SELECT * FROM users WHERE role=2');
             $kelas = DB::table('kelas')->get();
             $pelajaran = DB::table('pelajaran')->get();
-            $kehadiran = DB::select('SELECT kehadiran.*, users.id as id_u, users.nama, pelajaran.id as id_p, pelajaran.nama as nama_pelajaran,pelajaran.kode, kelas.nama, kelas.id as id_k from kelas, jadwal_pelajaran, users, pelajaran, kehadiran where jadwal_pelajaran.id_guru=users.id and pelajaran.id=jadwal_pelajaran.id_pelajaran and jadwal_pelajaran.id_kelas=kelas.id; ');
+            $kehadiran = DB::select('SELECT kehadiran.*, users.id as id_u, users.nama as nama_siswa,pelajaran.id as id_p, pelajaran.nama as nama_pelajaran FROM users, pelajaran, kehadiran WHERE users.id=kehadiran.id_siswa AND pelajaran.id=kehadiran.id_pelajaran;  ');
     
             return view('admin.kehadiran', compact('siswa','kelas','title','pelajaran','kehadiran'));
         }
@@ -399,26 +397,43 @@ use Illuminate\Console\View\Components\Alert;
             ];
     
             DB::table('kehadiran')->insert($data);
-            return redirect()->route('kehadiran');
+            return redirect()->route('kehadiran')->with('success','Data siswa Berhasil Ditambah');
         }
     
     public function edit_kehadiran(Request $request,$id)
     {
         DB::table('kehadiran')->where('id', $id)->update([
-            'id_siswa' => $request->id_siswa,
+            // 'id_siswa' => $request->id_siswa,
             'id_pelajaran' => $request->id_pelajaran,
             'tanggal' => $request->tanggal,
             'status_kehadiran' => $request->status_kehadiran,
             
         ]);
-        return redirect()->route('kehadiran');
+        return redirect()->route('kehadiran')->with('success','Data siswa Berhasil Diperbaharui');
     }
     
         public function hapus_kehadiran($id)
         {
             DB::table('kehadiran')->where('id', $id)->delete();
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!'); 
-            return redirect()->route('kehadiran');
+            return redirect()->route('kehadiran')->with('success','Data siswa Berhasil Dihapus');
+        }
+
+        public function exportKehadiran(Request $request)
+        {
+            
+            $id_kelas = $request->id_kelas;
+            DB::table('kehadiran')
+            ->join('users', 'kehadiran.id_siswa', '=', 'users.id')
+            ->join('siswa', 'users.id', '=', 'siswa.id_users')
+            ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
+            ->join('pelajaran', 'kehadiran.id_pelajaran', '=', 'pelajaran.id')
+            ->select( 'users.nama','kehadiran.id_pelajaran', 'kehadiran.tanggal', 'kehadiran.status_kehadiran')
+            ->where('kelas.id',$id_kelas)
+            ->get();
+
+            // dd($id_kelas);   
+            return Excel::download(new kehadiranExport($id_kelas), 'kehadiran.xlsx');
         }
     
         // view pengumuman
@@ -433,15 +448,6 @@ use Illuminate\Console\View\Components\Alert;
         public function tambah_pengumuman(Request $request)
         {
     
-            $request->validate([
-                'tanggal' => 'required|max:255',
-                'judul' => 'required|email|unique:customers,email',
-                'isi_pengumuman' => 'required',
-              ], [
-                'customer.name.required' => 'A customer name is required.',
-                'customer.email.required' => 'A customer email is required',
-             
-              ]);
             
     
             $data  = [
@@ -451,7 +457,7 @@ use Illuminate\Console\View\Components\Alert;
             ];
     
             DB::table('pengumuman')->insert($data);
-            return redirect()->route('pengumuman');
+            return redirect()->route('pengumuman')->with('success','Data siswa Berhasil Ditambah');
         }
     
         public function edit_pengumuman(Request $request,$id)
@@ -461,14 +467,14 @@ use Illuminate\Console\View\Components\Alert;
             'judul' => $request->judul,
             'isi_pengumuman' => $request->isi_pengumuman,
         ]);
-        return redirect()->route('pengumuman');
+        return redirect()->route('pengumuman')->with('success','Data pengumuman Berhasil Diperbaharui');
     }
     
         public function hapus_pengumuman($id)
         {
             DB::table('pengumuman')->where('id', $id)->delete();
             // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!'); 
-            return redirect()->route('pengumuman');
+            return redirect()->route('pengumuman')->with('success','Data siswa Berhasil Dihapus');
         }
     }
     

@@ -50,6 +50,15 @@
           
           </div>
 <div class="card mb-4">
+  @if(session('success'))
+  <div class="alert alert-success d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+          <use xlink:href="#check-circle-fill" /></svg>
+      <div>
+          {{ session('success') }}
+      </div>
+  </div>
+  @endif
 <div class="card-body">
   <table id="dataTabel" class="table table-striped" style="width:100%">
     <thead>
@@ -74,7 +83,7 @@
             <form action="hapuspelajaran/{{$pl->id }}" method="POST">
               @method('DELETE')
               @csrf
-              <button class="btn btn-danger m-md-2" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+              <button class="btn btn-danger m-md-2" type="submit" onclick="javascript: return confirm('Anda yakin akan menghapus ini? ')"><i class="fas fa-trash-alt">Hapus</i></button>
           </form>
             </span>   
             <span>

@@ -13,8 +13,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class nilaiExport implements  FromCollection, WithHeadings, WithStyles
 {
-    protected $id;
-
+ protected $id;
  function __construct($id_kelas) {
         $this->id = $id_kelas;
  }
@@ -29,7 +28,7 @@ class nilaiExport implements  FromCollection, WithHeadings, WithStyles
     ->join('siswa', 'users.id', '=', 'siswa.id_users')
     ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
     ->join('pelajaran', 'nilai.kd_pelajaran', '=', 'pelajaran.kode')
-    ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.id as nama_kelas')
+    ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata')
     ->where('kelas.id',$this->id )
     ->get();
 }

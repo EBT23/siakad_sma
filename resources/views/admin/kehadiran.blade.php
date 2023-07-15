@@ -89,7 +89,34 @@
       </form>
 
       <div class="card mb-4">
+        @if(session('success'))
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill" /></svg>
+            <div>
+                {{ session('success') }}
+            </div>
+        </div>
+        @endif
         <div class="card-body">
+          <div class="d-flex col-6">
+            <form action="{{ route('export.Kehadiran') }}" method="get">
+                @csrf
+                <div class="d-flex">
+                    <div>
+                        <button type="submit" class="btn btn-success my-2 mx-2 text-white" target="_blank">EXPORT EXCEL</button>
+                    </div>
+                    <div>
+                        <select class="form-select mt-2" aria-label="Default select example" name="id_kelas" id="id_kelas" required oninvalid="this.setCustomValidity('kelas tidak boleh kosong')" oninput="setCustomValidity('')">
+                            <option value="" selected>pilih kelas</option>
+                            @foreach ($kelas as $si )
+                            <option value="{{ $si->id }}">{{ $si->nama }}</option>
+                            @endforeach
+                          </select>
+                    </div>
+                </div>
+            </form>
+        </div>
           <table id="dataTabel" class="table table-striped" style="width:100%">
             <thead>
               <tr>
@@ -105,7 +132,7 @@
               @foreach ($kehadiran as $index=> $k )
               <tr>
                 <td>{{ $index +1 }}</td>
-                <td>{{ $k->nama }}</td>
+                <td>{{ $k->nama_siswa }}</td>
                 <td>{{ $k->nama_pelajaran }}</td>
                 <td>{{ $k->tanggal }}</td>
                 <td>{{ $k->status_kehadiran }}</td>
@@ -114,7 +141,7 @@
                     <form action="hapuskehadiran/{{$k->id }}" method="POST">
                       @method('DELETE')
                       @csrf
-                      <button class="btn btn-danger m-md-2" type="submit"><i class="fas fa-trash-alt">Hapus</i></button>
+                      <button class="btn btn-danger m-md-2" type="submit" onclick="javascript: return confirm('Anda yakin akan menghapus ini? ')"><i class="fas fa-trash-alt">Hapus</i></button>
                     </form>
                   </span>
                   <span>
@@ -136,7 +163,7 @@
                           <form action="{{ route('edit.kehadiran',['id'=>$k->id]) }}" method="POST">
                             @csrf
                             <div class="row">
-                              <div class="col-12">
+                              {{-- <div class="col-12">
                                 <label for="id_siswa" class="form-label">Pelajaran</label>
                                 <select class="form-select" name="id_siswa" id="id_siswa"
                                   aria-label="Default select example" required>
@@ -145,7 +172,7 @@
                                     }}</option>
                                   @endforeach
                                 </select>
-                              </div>
+                              </div> --}}
                               <div class="col-12">
                                 <label for="id_pelajaran" class="form-label">Pelajaran</label>
                                 <select class="form-select" name="id_pelajaran" id="id_pelajaran"
