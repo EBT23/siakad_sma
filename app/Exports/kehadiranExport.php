@@ -37,8 +37,8 @@ class kehadiranExport implements FromCollection, WithHeadings,WithStyles
             [
             'Nama Siswa',
             'Nama Pelajaran',
-            'Tanggal',
             'Kelas',
+            'Tanggal',
             'Status Kehadiran',
             ]
         ];

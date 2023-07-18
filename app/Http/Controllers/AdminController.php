@@ -50,8 +50,7 @@ use Illuminate\Console\View\Components\Alert;
             'role' => 2,
                 ]);
     
-        // $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
-        // $query = $query[0]->id;
+        
         $data1 = DB::table('siswa')->insert([
             'id_users' => $data,
             'id_kelas' => $request->id_kelas,
@@ -74,14 +73,13 @@ use Illuminate\Console\View\Components\Alert;
             AND kelas.id = siswa.id_kelas
             AND users.id = $id");
             return redirect()->route('siswa')->with('success','Data siswa Berhasil Diperharui');
-            
         }
     
         function hapussiswa($id)
         {
     
             DB::select("DELETE users, siswa FROM users, siswa WHERE users.id = siswa.id_users AND users.id = $id");
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+         
             return redirect()->route('siswa')->with('success','Data siswa Berhasil Dihapus');
         }
 
@@ -124,8 +122,6 @@ use Illuminate\Console\View\Components\Alert;
                 'role' => 3,
             ]);
     
-        // $query = DB::select('SELECT * FROM users ORDER BY id DESC limit 1');
-        // $query = $query[0]->id;
         $data1 = DB::table('guru')->insert([
             'id_users' => $data,
             'tempat' => $request->tempat,
@@ -161,7 +157,7 @@ use Illuminate\Console\View\Components\Alert;
     public function hapusguru($id)
     {
         DB::select("DELETE users, guru FROM users, guru WHERE users.id = guru.id_users AND users.id = $id");
-        // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+
         return redirect()->route('guru')->with('success','Data Guru Berhasil Dihapus');
     }
         // view pelajaran
@@ -196,7 +192,7 @@ use Illuminate\Console\View\Components\Alert;
         function hapus_pelajaran($id)
         {
             DB::table('pelajaran')->where('id', $id)->delete();
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+
             return redirect()->route('pelajaran')->with('success','Data siswa Berhasil Dihapus');
         }
     
@@ -231,7 +227,6 @@ use Illuminate\Console\View\Components\Alert;
         function hapus_kelas($id)
         {
             DB::table('kelas')->where('id', $id)->delete();
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
             return redirect()->route('kelas')->with('success','Data siswa Berhasil Dihapus');
         }
     
@@ -303,7 +298,7 @@ use Illuminate\Console\View\Components\Alert;
         function hapus_nilai($id)
         {
             DB::table('nilai')->where('id', $id)->delete();
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+  
             return redirect()->route('nilai')->with('success','Data siswa Berhasil Dihapus');
         }
         // view jadwal Pelajaran
@@ -360,7 +355,7 @@ use Illuminate\Console\View\Components\Alert;
         public function hapus_jadwal_pelajaran($id)
         {
             DB::table('jadwal_pelajaran')->where('id', $id)->delete();
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!');
+       
             return redirect()->route('jadwal_pelajaran')->with('success','Data siswa Berhasil Dihapus');
         }
         
@@ -415,7 +410,7 @@ use Illuminate\Console\View\Components\Alert;
         public function hapus_kehadiran($id)
         {
             DB::table('kehadiran')->where('id', $id)->delete();
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!'); 
+
             return redirect()->route('kehadiran')->with('success','Data siswa Berhasil Dihapus');
         }
 
@@ -473,7 +468,7 @@ use Illuminate\Console\View\Components\Alert;
         public function hapus_pengumuman($id)
         {
             DB::table('pengumuman')->where('id', $id)->delete();
-            // Alert::success('Success', 'Jadwal Dokter berhasil dihapus!!'); 
+
             return redirect()->route('pengumuman')->with('success','Data siswa Berhasil Dihapus');
         }
     }

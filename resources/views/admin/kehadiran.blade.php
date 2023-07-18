@@ -163,16 +163,7 @@
                           <form action="{{ route('edit.kehadiran',['id'=>$k->id]) }}" method="POST">
                             @csrf
                             <div class="row">
-                              {{-- <div class="col-12">
-                                <label for="id_siswa" class="form-label">Pelajaran</label>
-                                <select class="form-select" name="id_siswa" id="id_siswa"
-                                  aria-label="Default select example" required>
-                                  @foreach ($siswa as $s )
-                                  <option @if($s->id == $k->id_siswa) selected @endif value="{{ $s->id }}">{{ $s->nama
-                                    }}</option>
-                                  @endforeach
-                                </select>
-                              </div> --}}
+                           
                               <div class="col-12">
                                 <label for="id_pelajaran" class="form-label">Pelajaran</label>
                                 <select class="form-select" name="id_pelajaran" id="id_pelajaran"
