@@ -14,10 +14,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="nis" class="form-label">NIS</label>
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control " id="nis" name="nis" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data NIS tidak boleh kosong')" oninput="setCustomValidity('')">
-
+                                <div class="input-group mb-1">
+                                    <input type="number" class="form-control " id="nis" name="nis" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('NIS tidak boleh kosong')" oninput="setCustomValidity('')">
                                 </div>
+                                @if ($errors->has('nis'))
+                                <p >{{ $errors->first('nis') }}</p>
+                                @endif
                                 <label for="nama" class="form-label">Nama Siswa</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Nama siswa tidak boleh kosong')" oninput="setCustomValidity('')">
@@ -113,6 +115,7 @@
                                                             <div class="col-12">
                                                                 <label for="nis" class="form-label">NIP</label>
                                                                 <input type="text" class="form-control" id="nis" name="nis" value="{{ $si->username }}">
+                                                               
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="hp" class="form-label">Nomor Hp</label>

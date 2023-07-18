@@ -18,7 +18,11 @@ class AuthController extends Controller
     $request->validate([
         'username' => 'required',
         'password' => 'required',
-    ]);
+    ],
+[
+    'username.required' => 'username ini wajib diisi',
+    'password.required' => 'password ini wajib diisi',
+]);
 
     if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
         // Auth::attempt akan mencoba untuk mengotentikasi pengguna dengan data yang diberikan.

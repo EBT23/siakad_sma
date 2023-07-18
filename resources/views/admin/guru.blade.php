@@ -19,6 +19,9 @@
                     <div class="input-group mb-3">
                       <input type="number" class="form-control" id="nip" name="nip" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('NIP tidak boleh kosong')" oninput="setCustomValidity('')">
                     </div>
+                    @if ($errors->has('nip'))
+                    <p >{{ $errors->first('nip') }}</p>
+                    @endif
                     <label for="nama" class="form-label">Nama Guru</label>
                     <div class="input-group mb-3">
                       <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Guru tidak boleh kosong')" oninput="setCustomValidity('')">

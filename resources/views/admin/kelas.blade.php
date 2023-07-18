@@ -19,7 +19,9 @@
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" id="kelas" name="kelas" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('Nama kelas tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
-             
+                  @if ($errors->has('kelas'))
+                  <p >{{ $errors->first('kelas') }}</p>
+                  @endif
                   <div class="my-3">
                     <button type="submit" class="btn btn-success" >Simpan</button>
                   </div>

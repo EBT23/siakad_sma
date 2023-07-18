@@ -20,12 +20,17 @@
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" id="nama" name="nama" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data nama pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
+                  @if ($errors->has('nama'))
+                  <p >{{ $errors->first('nama') }}</p>
+                  @endif
                  
                   <label for="kode" class="form-label">Kode Pelajaran</label>
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" id="kode" name="kode" aria-describedby="basic-addon3"  required oninvalid="this.setCustomValidity('data kode pelajaran tidak boleh kosong')" oninput="setCustomValidity('')">
                   </div>
-                
+                  @if ($errors->has('kode'))
+                  <p >{{ $errors->first('kode') }}</p>
+                  @endif
                 </div>
                 <div class="col-6">
                   <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>

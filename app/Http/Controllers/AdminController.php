@@ -43,6 +43,14 @@ use Illuminate\Console\View\Components\Alert;
     
         public function tambah_siswa(Request $request)
         {
+            
+            $request->validate([
+            'nis' => 'required|unique:users,username|numeric',
+        ],
+            [
+                'nis.unique' => 'NIS ini sudah ada',
+            ]);
+
             $data = DB::table('users')->insertGetId([
             'username' => $request->nis,
             'nama' => $request->nama,
@@ -62,6 +70,8 @@ use Illuminate\Console\View\Components\Alert;
     
         public function edit_siswa(Request $request,$id)
         {
+            
+
             $nama = $request->nama;
             $username = $request->nis;
             $id_kelas = $request->id_kelas;
@@ -115,6 +125,14 @@ use Illuminate\Console\View\Components\Alert;
     
         public function tambah_guru(Request $request)
         {
+
+            $request->validate([
+                'nip' => 'required|unique:users,username|numeric',
+            ],
+                [
+                    'nip.unique' => 'NIP ini sudah ada',
+                ]);
+    
             $data = DB::table('users')->insertGetId([
                 'username' => $request->nip,
                 'nama' => $request->nama,
@@ -170,6 +188,16 @@ use Illuminate\Console\View\Components\Alert;
     
         public function tambah_pelajaran(Request $request)
         {
+
+            $request->validate([
+                'nama' => 'required|unique:pelajaran,nama',
+                'kode' => 'required|unique:pelajaran,kode',
+            ],
+                [
+                    'nama.unique' => 'Nama Pelajaran ini sudah ada',
+                    'kode.unique' => 'Kode Pelajaran ini sudah ada',
+                ]);
+    
             $data = [
                 'nama' => $request->nama,
                 'kode' => $request->kode,
@@ -206,6 +234,13 @@ use Illuminate\Console\View\Components\Alert;
     
         public function tambah_kelas(Request $request)
         {
+
+            $request->validate([
+                'kelas' => 'required|unique:kelas,nama',
+            ],
+                [
+                    'kelas.unique' => 'Nama Kelas ini sudah ada',
+                ]);
             $data = [
                 'nama' => $request->kelas,
                 'date_created' => date('Y-m-d'),
