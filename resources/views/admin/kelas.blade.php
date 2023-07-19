@@ -91,7 +91,7 @@
           <div class="row">
             <div class="col-12">
               <label for="kelas" class="form-label">Nama Kelas</label>
-                <input type="text" class="form-control" id="kelas" name="kelas"  placeholder="ffsufhseid" value="{{ $kl->nama }}">
+                <input type="text" class="form-control" id="kelas" name="kelas"  placeholder="ffsufhseid" value="{{ $kl->nama }}" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
             </div>
           </div>
           <div class="modal-footer">

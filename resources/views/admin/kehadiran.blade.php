@@ -167,7 +167,7 @@
                               <div class="col-12">
                                 <label for="id_pelajaran" class="form-label">Pelajaran</label>
                                 <select class="form-select" name="id_pelajaran" id="id_pelajaran"
-                                  aria-label="Default select example">
+                                  aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                   @foreach ($pelajaran as $p )
                                   <option @if($p->id == $k->id_pelajaran) selected @endif value="{{ $p->id }}">{{
                                     $p->nama }}</option>
@@ -177,12 +177,12 @@
                               <div class="col-12">
                                 <label for="tanggal" class="form-label">Tanggal </label>
                                 <input type="date" class="form-control" id="tanggal" name="tanggal"
-                                  placeholder="ffsufhseid" value="{{ $k->tanggal }}">
+                                  placeholder="ffsufhseid" value="{{ $k->tanggal }}" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                               </div>
                               <div class="col-12">
                                 <label for="status_kehadiran" class="form-label">Status Kehadiran </label>
                                 <select class="form-select" name="status_kehadiran" id="status_kehadiran"
-                                  aria-label="Default select example">
+                                  aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                   <option value="{{ $k->status_kehadiran }}">{{ $k->status_kehadiran }}</option>
                                   <option value="Hadir">Hadir</option>
                                   <option value="Alpa">Alpa</option>

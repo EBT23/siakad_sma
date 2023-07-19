@@ -128,21 +128,21 @@
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <label for="id_guru" class="form-label">NIP - Guru</label>
-                                                                <select class="form-select" name="id_guru" id="id_guru" aria-label="Default select example">
+                                                                <select class="form-select" name="id_guru" id="id_guru" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                     @foreach ($guru as $g )
                                                                     <option @if($g->id == $jp->id_guru) selected @endif value="{{ $g->id }}">{{ $g->nama }}</option>
                                                                     @endforeach
                                                                 </select>
 
                                                                 <label for="id_kelas" class="form-label">Kelas</label>
-                                                                <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example">
+                                                                <select class="form-select" name="id_kelas" id="id_kelas" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                     @foreach ($kelas as $k )
                                                                     <option @if($k->id == $jp->id_kelas) selected @endif value="{{ $k->id }}">{{ $k->nama }}</option>
                                                                     @endforeach
                                                                 </select>
 
                                                                 <label for="id_pelajaran" class="form-label">Pelajaran</label>
-                                                                <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example">
+                                                                <select class="form-select" name="id_pelajaran" id="id_pelajaran" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                     @foreach ($pelajaran as $p )
                                                                     <option @if($p->id == $jp->id_pelajaran) selected @endif value="{{ $p->id }}">{{ $p->nama }}</option>
                                                                     @endforeach
@@ -150,12 +150,12 @@
 
                                                                 <label for="jam_mengajar" class="form-label">Jam Mengajar</label>
                                                                 <div class="input-group mb-3">
-                                                                    <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar" value="{{ $jp->jam_mengajar }}" aria-describedby="basic-addon3">
+                                                                    <input type="time" class="form-control" id="jam_mengajar" name="jam_mengajar" value="{{ $jp->jam_mengajar }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                 </div>
 
                                                                 <label for="jumlah_jam" class="form-label">Jumlah Jam</label>
                                                                 <div class="input-group mb-3">
-                                                                    <input type="number" class="form-control" id="jumlah_jam" name="jumlah_jam" value="{{ $jp->jumlah_jam }}" aria-describedby="basic-addon3">
+                                                                    <input type="number" class="form-control" id="jumlah_jam" name="jumlah_jam" value="{{ $jp->jumlah_jam }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                 </div>
 
                                                                 <label for="hari" class="form-label">Hari</label>

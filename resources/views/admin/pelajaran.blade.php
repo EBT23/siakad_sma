@@ -109,17 +109,17 @@
                     <div class="row">
                       <div class="col-12">
                         <label for="nama" class="form-label">Nama Pelajaran</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $pl->nama }}">
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $pl->nama }}" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                       <div class="col-12">
                         <label for="kode" class="form-label">Kode Pelajaran</label>
-                        <input type="text" class="form-control" id="kode" name="kode" value="{{ $pl->kode }}">
+                        <input type="text" class="form-control" id="kode" name="kode" value="{{ $pl->kode }}" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
 
                       <div class="col-12">
                         <label for="kode" class="form-label">Kode Pelajaran</label>
                         <label for="kelompok" class="form-label">-kelompok pelajaran-</label>
-                            <select class="form-select" name="kelompok" id="kelompok" aria-label="Default select example">
+                            <select class="form-select" name="kelompok" id="kelompok" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                              <option value="{{ $pl->kelompok }}">{{ $pl->kelompok }}</option>
                              <OPtion value="KELOMPOK A (UMUM)">KELOMPOK A (UMUM)</OPtion>
                              <option value="KELOMPOK B (UMUM)">KELOMPOK B (UMUM)</option>

@@ -95,16 +95,16 @@
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <label for="tanggal" class="form-label">Tanggal</label>
-                                                                <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $p->tanggal }}">
+                                                                <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $p->tanggal }}" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="judul" class="form-label">Judul</label>
-                                                                <input type="text" class="form-control" id="judul" name="judul" value="{{ $p->judul }}">
+                                                                <input type="text" class="form-control" id="judul" name="judul" value="{{ $p->judul }}" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="isi_pengumuman" class="form-label">Isi Pengumuman</label>
                                                                 <div class="input-group mb-3">
-                                                                    <textarea name="isi_pengumuman" class="form-control" id="isi_pengumuman" cols="10" rows="5" required>{{ $p->isi_pengumuman }}</textarea>
+                                                                    <textarea name="isi_pengumuman" class="form-control" id="isi_pengumuman" cols="10" rows="5" required required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">{{ $p->isi_pengumuman }}</textarea>
                                                                 </div>
                                                             </div>
 

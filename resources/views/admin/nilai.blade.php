@@ -187,16 +187,16 @@
                                                                         <div class="col-12">
                                                                             <label for="rph" class="form-label">Nilai RPH</label>
                                                                             <div class="input-group mb-3">
-                                                                                <input type="number" class="form-control" id="rph" name="rph" value="{{ $n->rph }}" aria-describedby="basic-addon3">
+                                                                                <input type="number" class="form-control" id="rph" name="rph" value="{{ $n->rph }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                             </div>
                                                                             <label for="pts" class="form-label">Nilai PTS</label>
                                                                             <div class="input-group mb-3">
-                                                                                <input type="number" class="form-control" id="pts" name="pts" value="{{ $n->pts }}" aria-describedby="basic-addon3">
+                                                                                <input type="number" class="form-control" id="pts" name="pts" value="{{ $n->pts }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                             </div>
 
                                                                             <label for="pat" class="form-label">Nilai PAT</label>
                                                                             <div class="input-group mb-3">
-                                                                                <input type="number" class="form-control" id="pat" name="pat" value="{{ $n->pat }}" aria-describedby="basic-addon3">
+                                                                                <input type="number" class="form-control" id="pat" name="pat" value="{{ $n->pat }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                                                                             </div>
                                                                         </div>
                                                                 </div>

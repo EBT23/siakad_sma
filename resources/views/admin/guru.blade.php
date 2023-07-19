@@ -138,44 +138,44 @@
                     <div class="col-6">
                       <label for="nip" class="form-label">NIP</label>
                       <div class="input-group mb-3">
-                        <input type="number" class="form-control" id="nip" name="nip" value="{{ $g->username }}" aria-describedby="basic-addon3">
+                        <input type="number" class="form-control" id="nip" name="nip" value="{{ $g->username }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                       <label for="nama" class="form-label">Nama Guru</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $g->nama }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $g->nama }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                       <label for="tempat" class="form-label">Tempat Lahir</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $g->tempat }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="tempat" name="tempat" value="{{ $g->tempat }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                       <label for="tgl_lahir" class="form-label ">Tanggal Lahir</label>
                       <div class="input-group mb-3">
-                        <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="{{ $g->tgl_lahir }}" aria-describedby="basic-addon3">
+                        <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value="{{ $g->tgl_lahir }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                                     
                     </div>
                     <div class="col-6">
                       <label for="pendidikan" class="form-label">Pendidikan</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="pendidikan" name="pendidikan"value="{{ $g->pendidikan }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="pendidikan" name="pendidikan"value="{{ $g->pendidikan }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                       <label for="tmk" class="form-label">TMK</label>
                       <div class="input-group mb-3">
-                        <input type="date" class="form-control" id="tmk" name="tmk" value="{{ $g->tmk }}" aria-describedby="basic-addon3">
+                        <input type="date" class="form-control" id="tmk" name="tmk" value="{{ $g->tmk }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                       <label for="jabatan" class="form-label">Jabatan</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $g->jabatan }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $g->jabatan }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
         
                       <label for="alamat" class="form-label">Alamat</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $g->alamat }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $g->alamat }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
         
                       <label for="tgs_tam" class="form-label">Tugas Tambahan</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="tgs_tam" name="tgs_tam" value="{{ $g->tgs_tam }}" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="tgs_tam" name="tgs_tam" value="{{ $g->tgs_tam }}" aria-describedby="basic-addon3" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                       </div>
                     </div>
                     <div>
