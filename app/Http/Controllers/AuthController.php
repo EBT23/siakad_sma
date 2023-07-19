@@ -32,7 +32,7 @@ class AuthController extends Controller
         $user = Auth::user();
         if ($user->role == 1) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('success','Selamat anda berhasil login');;
         } else {
             return redirect()->route('login');
         }
