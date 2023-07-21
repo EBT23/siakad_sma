@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Redis;
@@ -68,22 +68,30 @@ use Illuminate\Console\View\Components\Alert;
             return redirect()->route('siswa')->with('success','Data siswa Berhasil Ditambah');
         }    
     
-        public function edit_siswa(Request $request,$id)
-        {
-            
+        public function edit_siswa(Request $request, $id)
+{
+    $request->validate([
+        'nis' => 'required|unique:users,username,' . $id,
+    ], [
+        'nis.unique' => 'NIS ini sudah ada',
+    ]);
 
-            $nama = $request->nama;
-            $username = $request->nis;
-            $id_kelas = $request->id_kelas;
-            $hp = $request->hp;
-            $alamat = $request->alamat;
-            DB::select("UPDATE users, siswa, kelas
-            SET users.nama = '$nama', users.username = '$username', siswa.id_kelas = $id_kelas, siswa.hp = '$hp', siswa.alamat = '$alamat'
-            WHERE users.id = siswa.id_users
-            AND kelas.id = siswa.id_kelas
-            AND users.id = $id");
-            return redirect()->route('siswa')->with('success','Data siswa Berhasil Diperharui');
-        }
+    $nama = $request->nama;
+    $username = $request->nis;
+    $id_kelas = $request->id_kelas;
+    $hp = $request->hp;
+    $alamat = $request->alamat;
+
+    DB::select("
+        UPDATE users, siswa, kelas
+        SET users.nama = '$nama', users.username = '$username', siswa.id_kelas = $id_kelas, siswa.hp = '$hp', siswa.alamat = '$alamat'
+        WHERE users.id = siswa.id_users
+        AND kelas.id = siswa.id_kelas
+        AND users.id = $id
+    ");
+
+    return redirect()->route('siswa')->with('success', 'Data siswa berhasil diperbarui');
+}
     
         function hapussiswa($id)
         {
@@ -153,24 +161,31 @@ use Illuminate\Console\View\Components\Alert;
         return redirect()->route('guru')->with('success','Data Guru Berhasil Ditambah');
         }
     
-    public function edit_guru(Request $request,$id)
-    {
-        $username = $request->nip;
-        $nama = $request->nama;
-        $tempat = $request->tempat;
-        $tgl_lahir = $request->tgl_lahir;
-        $pendidikan = $request->pendidikan;
-        $tmk = $request->tmk;
-        $jabatan = $request->jabatan;
-        $alamat = $request->alamat;
-        $tgs_tam = $request->tgs_tam;
-    
+        public function edit_guru(Request $request, $id)
+        {
+            $request->validate([
+                'nip' => 'required|unique:users,username,' . $id,
+            ], [
+                'nip.unique' => 'NIP ini sudah ada',
+            ]);
+        
+            $username = $request->nip;
+            $nama = $request->nama;
+            $tempat = $request->tempat;
+            $tgl_lahir = $request->tgl_lahir;
+            $pendidikan = $request->pendidikan;
+            $tmk = $request->tmk;
+            $jabatan = $request->jabatan;
+            $alamat = $request->alamat;
+            $tgs_tam = $request->tgs_tam;
+        
             DB::select("UPDATE users, guru
-            SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.tgs_tam = '$tgs_tam'
-            WHERE users.id = guru.id_users
-            AND users.id = $id");
-        return redirect()->route('guru')->with('success','Data Guru Berhasil Diperbaharui');
-    }
+                SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.tgs_tam = '$tgs_tam'
+                WHERE users.id = guru.id_users
+                AND users.id = $id");
+        
+            return redirect()->route('guru')->with('success', 'Data Guru Berhasil Diperbaharui');
+        }
     
     public function hapusguru($id)
     {
