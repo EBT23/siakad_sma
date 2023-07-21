@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-6">
                   <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>
-                  <select class="form-select" name="id_kelompok" id="id_kelompok" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                  <select class="form-select" name="kelompok" id="kelompok" aria-label="Default select example" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
                     <option value="" selected>-pilih-</option>
                     <OPtion value="KELOMPOK A (UMUM)">KELOMPOK A (UMUM)</OPtion>
                     <option value="KELOMPOK B (UMUM)">KELOMPOK B (UMUM)</option>
