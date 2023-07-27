@@ -299,12 +299,14 @@ use Illuminate\Console\View\Components\Alert;
             $siswa = DB::select('SELECT * FROM users WHERE role=2');
             $pelajaran = DB::table('pelajaran')->get();
             $kelas = DB::table('kelas')->get();
-            $nilai = DB::select('SELECT nilai.*, pelajaran.id as id_p,pelajaran.nama as nama_p,pelajaran.kode,users.id as id_u,users.nama from nilai,pelajaran,users WHERE nilai.kd_pelajaran=pelajaran.kode AND users.id=nilai.id_users; ');
+            $nilai = DB::select('SELECT nilai.*, pelajaran.id as id_p,pelajaran.nama as nama_p,pelajaran.kode,users.id as id_u,users.nama, thn_ajaran.id as id_t, thn_ajaran.name_thn_ajaran from nilai,pelajaran,users, thn_ajaran WHERE nilai.kd_pelajaran=pelajaran.kode AND nilai.id_thn_ajaran=thn_ajaran.id AND users.id=nilai.id_users; ');
             return view('admin.nilai',compact('siswa','title','pelajaran','nilai', 'kelas'));
         }
-    
+        
         public function tambah_nilai(Request $request)
         {
+            $thn_ajaran = DB::select('SELECT * FROM thn_ajaran WHERE is_active = 1');
+            $thn_ajaran = $thn_ajaran[0]->id;
             $rph = $request->rph;
             $pts = $request->pts;
             $pat = $request->pat;
@@ -312,6 +314,7 @@ use Illuminate\Console\View\Components\Alert;
             $rata_rata = $jumlah/3;
             $data = [
                 'id_users' => $request->id_users,
+                'id_thn_ajaran' => $thn_ajaran,
                 'kd_pelajaran' => $request->kd_pelajaran,
                 'rph' => $request->rph,
                 'pts' => $request->pts,
@@ -328,6 +331,8 @@ use Illuminate\Console\View\Components\Alert;
     
         public function edit_nilai(Request $request, $id)
         {
+            $thn_ajaran = DB::select('SELECT * FROM thn_ajaran WHERE is_active = 0');
+            $thn_ajaran = $thn_ajaran[0]->id;
             $rph = $request->rph;                                                   
             $pts = $request->pts;
             $pat = $request->pat;
@@ -337,6 +342,7 @@ use Illuminate\Console\View\Components\Alert;
                 'rph' => $request->rph,
                 'pts' => $request->pts,
                 'pat' => $request->pat,
+                'id_thn_ajaran' => $thn_ajaran,
                 'jumlah'=>$jumlah,
                 'rata_rata'=>$rata_rata
     
@@ -390,14 +396,14 @@ use Illuminate\Console\View\Components\Alert;
         public function edit_jadwal_pelajaran(Request $request, $id)
         {
             // dd($id);
-            DB::table('jadwal_pelajaran')->where('id', $id)->update([
-                'id_guru' => $request->id_guru,
-                'id_kelas' => $request->id_kelas,
-                'id_pelajaran' => $request->id_pelajaran,
-                'jam_mengajar' => $request->jam_mengajar,
-                'jumlah_jam' => $request->jumlah_jam,
-                'hari' => $request->hari,
-            ]); 
+                DB::table('jadwal_pelajaran')->where('id', $id)->update([
+                    'id_guru' => $request->id_guru,
+                    'id_kelas' => $request->id_kelas,
+                    'id_pelajaran' => $request->id_pelajaran,
+                    'jam_mengajar' => $request->jam_mengajar,
+                    'jumlah_jam' => $request->jumlah_jam,
+                    'hari' => $request->hari,
+                ]); 
             return redirect()->route('jadwal_pelajaran')->with('success','Data siswa Berhasil Diperbaharui');
         }
         
@@ -492,9 +498,6 @@ use Illuminate\Console\View\Components\Alert;
     
         public function tambah_pengumuman(Request $request)
         {
-    
-            
-    
             $data  = [
                 'tanggal' => $request->tanggal,
                 'judul' => $request->judul,
@@ -519,7 +522,45 @@ use Illuminate\Console\View\Components\Alert;
         {
             DB::table('pengumuman')->where('id', $id)->delete();
 
-            return redirect()->route('pengumuman')->with('success','Data siswa Berhasil Dihapus');
+            return redirect()->route('pengumuman')->with('success','Data Pengumuman Berhasil Dihapus');
         }
+
+         // view tahun ajaran
+         public function tahun_ajaran()
+         {
+     
+             $title = 'Pengumuman';
+             $thn_ajaran = DB::table('thn_ajaran')->get();
+             return view('admin.tahun_ajaran', compact('title','thn_ajaran'));
+         }
+     
+
+         public function tambah_tahun_ajaran(Request $request)
+         {
+             $data  = [
+                 'name_thn_ajaran' => $request->thn_ajaran,
+                 'is_active' => $request->is_active,
+             ];
+     
+             DB::table('thn_ajaran')->insert($data);
+             return redirect()->route('tahun_ajaran')->with('success','Data tahun ajaran Berhasil Ditambah');
+         }
+     
+         public function edit_tahun_ajaran(Request $request,$id)
+     {
+         DB::table('thn_ajaran')->where('id', $id)->update([
+             'name_thn_ajaran' => $request->thn_ajaran,
+             'is_active' => $request->is_active,
+         ]);
+         return redirect()->route('tahun_ajaran')->with('success','Data Tahun Ajaran Berhasil Diperbaharui');
+     }
+     
+         public function hapus_tahun_ajaran($id)
+         {
+             DB::table('thn_ajaran')->where('id', $id)->delete();
+ 
+             return redirect()->route('tahun_ajaran')->with('success','Data tahun ajaran Berhasil Dihapus');
+         }
+
     }
     

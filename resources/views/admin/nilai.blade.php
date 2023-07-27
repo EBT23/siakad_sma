@@ -111,6 +111,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
+                            <th>tahun Ajaran</th>
                             <th>Kode Pelajaran</th>
                             <th>RPH</th>
                             <th>PTS</th>
@@ -126,6 +127,7 @@
                         <tr>
                             <td>{{ $index+1 }}</td>
                             <td>{{ $n->nama}}</td>
+                            <td>{{ $n->name_thn_ajaran}}</td>
                             <td>{{ $n->kode}}</td>
                             <td>{{ $n->rph}}</td>
                             <td>{{ $n->pts}}</td>

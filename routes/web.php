@@ -85,6 +85,12 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/tambahpengumuman', [AdminController::class, 'tambah_pengumuman'])->name('pengumuman.post');
     Route::post('/editpengumuman/{id}', [AdminController::class, 'edit_pengumuman'])->name('edit.pengumuman');
     Route::delete('/hapuspengumuman/{id}', [AdminController::class, 'hapus_pengumuman'])->name('hapus.pengumuman');
+
+    // ROUTE TAHUN AJARAN
+    Route::get('/tahun_ajaran', [AdminController::class, 'tahun_ajaran'])->name('tahun_ajaran');
+    Route::post('/tambahtahun_ajaran', [AdminController::class, 'tambah_tahun_ajaran'])->name('tahun_ajaran.post');
+    Route::post('/edittahun_ajaran/{id}', [AdminController::class, 'edit_tahun_ajaran'])->name('edit.tahun_ajaran');
+    Route::delete('/hapustahun_ajaran/{id}', [AdminController::class, 'hapus_tahun_ajaran'])->name('hapus.tahun_ajaran');
 });
 
 Route::get('/route-cache', function () {
