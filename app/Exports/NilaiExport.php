@@ -14,8 +14,12 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class nilaiExport implements  FromCollection, WithHeadings, WithStyles
 {
  protected $id;
- function __construct($id_kelas) {
+ protected $id_thn_ajaran;
+ protected $nama_ta;
+ function __construct($id_kelas, $id_thn_ajaran, $nama_ta) {
         $this->id = $id_kelas;
+        $this->id_thn_ajaran = $id_thn_ajaran;
+        $this->nama_ta = $nama_ta;
  }
     
     public function collection()
@@ -30,14 +34,16 @@ class nilaiExport implements  FromCollection, WithHeadings, WithStyles
     ->join('pelajaran', 'nilai.kd_pelajaran', '=', 'pelajaran.kode')
     ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata')
     ->where('kelas.id',$this->id )
+    ->where('nilai.id_thn_ajaran',$this->id_thn_ajaran )
     ->get();
 }
 
 
     public function headings(): array
     {
+        $nama_ta = $this->nama_ta;
         return [
-            ['DATA NILAI SMA AL FUSHA', '', '', '','','',''],
+            ["DATA NILAI SMA AL FUSHA $nama_ta", '', '', '','','',''],
             [
             'Nama Siswa',
             'Kode Pelajaran',

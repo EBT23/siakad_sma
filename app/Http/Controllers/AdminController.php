@@ -106,6 +106,9 @@ use Illuminate\Console\View\Components\Alert;
         {
             
             $id_kelas = $request->id_kelas;
+            $id_thn_ajaran = $request->id_thn_ajaran;
+            $nama_ta = DB::select("SELECT thn_ajaran.name_thn_ajaran FROM thn_ajaran WHERE thn_ajaran.id = $id_thn_ajaran");
+            $nama_ta = $nama_ta[0]->name_thn_ajaran;
             DB::table('nilai')
             ->join('users', 'nilai.id_users', '=', 'users.id')
             ->join('siswa', 'users.id', '=', 'siswa.id_users')
@@ -113,9 +116,10 @@ use Illuminate\Console\View\Components\Alert;
             ->join('pelajaran', 'nilai.kd_pelajaran', '=', 'pelajaran.kode')
             ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.id as nama_kelas')
             ->where('kelas.id',$id_kelas)
+            ->where('nilai.id_thn_ajaran',$id_thn_ajaran)
             ->get();
 
-            return Excel::download(new nilaiExport($id_kelas), 'nilai.xlsx');
+            return Excel::download(new nilaiExport($id_kelas, $id_thn_ajaran, $nama_ta), 'nilai.xlsx');
         }
     
         // view guru
@@ -219,7 +223,7 @@ use Illuminate\Console\View\Components\Alert;
                 'kelompok' => $request->kelompok,
             ];
             DB::table('pelajaran')->insert($data);
-            return redirect()->route('pelajaran')->with('success','Data siswa Berhasil Ditambah');
+            return redirect()->route('pelajaran')->with('success','Data pelajaran Berhasil Ditambah');
         }
     
         public function edit_pelajaran(Request $request,$id)
@@ -299,8 +303,9 @@ use Illuminate\Console\View\Components\Alert;
             $siswa = DB::select('SELECT * FROM users WHERE role=2');
             $pelajaran = DB::table('pelajaran')->get();
             $kelas = DB::table('kelas')->get();
+            $thn_ajaran = DB::table('thn_ajaran')->get();
             $nilai = DB::select('SELECT nilai.*, pelajaran.id as id_p,pelajaran.nama as nama_p,pelajaran.kode,users.id as id_u,users.nama, thn_ajaran.id as id_t, thn_ajaran.name_thn_ajaran from nilai,pelajaran,users, thn_ajaran WHERE nilai.kd_pelajaran=pelajaran.kode AND nilai.id_thn_ajaran=thn_ajaran.id AND users.id=nilai.id_users; ');
-            return view('admin.nilai',compact('siswa','title','pelajaran','nilai', 'kelas'));
+            return view('admin.nilai',compact('siswa','title','pelajaran','nilai', 'kelas', 'thn_ajaran'));
         }
         
         public function tambah_nilai(Request $request)
