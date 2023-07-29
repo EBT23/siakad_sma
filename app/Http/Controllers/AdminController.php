@@ -375,27 +375,45 @@ use Illuminate\Console\View\Components\Alert;
             $kelas = DB::table('kelas')->get();
             $jadwal_pelajaran = DB::select('SELECT jadwal_pelajaran.*, users.id as id_u,users.role, users.nama as nama_guru, pelajaran.id as id_p, pelajaran.nama as nama_pelajaran,pelajaran.kode, kelas.nama as nama_kelas 
             from jadwal_pelajaran, users, pelajaran, kelas where jadwal_pelajaran.id_guru=users.id 
-            and pelajaran.id=jadwal_pelajaran.id_pelajaran and kelas.id=jadwal_pelajaran.id_kelas;   ');
+            and pelajaran.id=jadwal_pelajaran.id_pelajaran and kelas.id=jadwal_pelajaran.id_kelas ORDER BY jadwal_pelajaran.id ASC');
             return view('admin.jadwal_pelajaran', compact('title','guru','pelajaran','kelas','jadwal_pelajaran'));
         }
     
         public function tambah_jadwal_pelajaran(Request $request)
         {
-            // dd($request);
-            $data = [
-                'id_guru' => $request->id_guru,
-                'id_kelas' => $request->id_kelas,
-                'id_pelajaran' => $request->id_pelajaran,
-                'jam_mengajar' => $request->jam_mengajar,
-                'jumlah_jam' => $request->jumlah_jam,
-                'jam_mengajar' => $request->jam_mengajar,
-                'hari' => $request->hari,
-            ];
-
-            //dd($data);
-
-            DB::table('jadwal_pelajaran')->insert($data);
-            return redirect()->route('jadwal_pelajaran')->with('success','Data siswa Berhasil Ditambah');
+            $validatedData = $request->validate([
+                'id_guru' => 'required',
+                'id_kelas' => 'required',
+                'id_pelajaran' => 'required',
+                'jam_mengajar' => 'required|date_format:H:i', // Format waktu (jam:menit)
+                'jumlah_jam' => 'required',
+                'hari' => 'required',
+            ]);
+        
+            // Cek apakah ada jadwal lain dengan id_kelas, jam_mengajar, dan hari yang sama
+            $existingJadwal = DB::table('jadwal_pelajaran')
+                ->where('id_kelas', $validatedData['id_kelas'])
+                ->where('jam_mengajar', $validatedData['jam_mengajar'])
+                ->where('hari', $validatedData['hari'])
+                ->exists();
+        
+            // Cek apakah ada jadwal lain dengan id_kelas, dan jam_mengajar yang beda satu jam
+            $adjacentJadwal = DB::table('jadwal_pelajaran')
+                ->where('id_kelas', $validatedData['id_kelas'])
+                ->whereRaw("HOUR(jam_mengajar) = HOUR(?)", [$validatedData['jam_mengajar']])
+                ->where('hari', $validatedData['hari'])
+                ->exists();
+        
+            if ($existingJadwal || $adjacentJadwal) {
+                return redirect()->route('jadwal_pelajaran')
+                    ->with('error', 'Data tidak bisa dimasukkan karena terjadi tabrakan jadwal.');
+            }
+        
+            // Simpan data baru ke dalam tabel jadwal_pelajaran
+            DB::table('jadwal_pelajaran')->insert($validatedData);
+        
+            return redirect()->route('jadwal_pelajaran')
+                ->with('success', 'Data jadwal pelajaran berhasil disimpan.');
         }
     
         public function edit_jadwal_pelajaran(Request $request, $id)
@@ -542,21 +560,30 @@ use Illuminate\Console\View\Components\Alert;
 
          public function tambah_tahun_ajaran(Request $request)
          {
-             $data  = [
-                 'name_thn_ajaran' => $request->thn_ajaran,
-                 'is_active' => $request->is_active,
-             ];
-     
-             DB::table('thn_ajaran')->insert($data);
+            $validatedData = $request->validate([
+                'name_thn_ajaran' => 'required',
+                'is_active' => 'required',
+            ]);
+            // Jika is_active bernilai 1, ubah semua record is_active menjadi 0
+            if ($validatedData['is_active'] == 1) {
+                DB::table('thn_ajaran')->update(['is_active' => 0]);
+            }
+        
+            // Simpan data baru ke dalam tabel
+            DB::table('thn_ajaran')->insert($validatedData);
              return redirect()->route('tahun_ajaran')->with('success','Data tahun ajaran Berhasil Ditambah');
          }
      
          public function edit_tahun_ajaran(Request $request,$id)
      {
+        if ($request->is_active == 1) {
+            DB::table('thn_ajaran')->update(['is_active' => 0]);
+        }
          DB::table('thn_ajaran')->where('id', $id)->update([
-             'name_thn_ajaran' => $request->thn_ajaran,
+             'name_thn_ajaran' => $request->name_thn_ajaran,
              'is_active' => $request->is_active,
          ]);
+         
          return redirect()->route('tahun_ajaran')->with('success','Data Tahun Ajaran Berhasil Diperbaharui');
      }
      
