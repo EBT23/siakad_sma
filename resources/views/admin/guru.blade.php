@@ -239,6 +239,16 @@
                                   oninvalid="this.setCustomValidity('data tidak boleh kosong')"
                                   oninput="setCustomValidity('')">
                               </div>
+                              <div class="form-group">
+                                <label for="kelas" class="form-label">Wali Kelas Di</label>
+                                <select class="form-control" id="kelas" name="kelas" required>
+                                  <option value="">Pilih Kelas</option>
+                                  <option value="0">Bukan Wali Kelas</option>
+                                  @foreach ( $kelas as $k )
+                                  <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                  @endforeach
+                                </select>
+                              </div>
                             </div>
                             <div>
                               <button type="submit" class="btn btn-success">Simpan</button>

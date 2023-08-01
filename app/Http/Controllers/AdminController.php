@@ -186,10 +186,11 @@ use Illuminate\Console\View\Components\Alert;
             $tmk = $request->tmk;
             $jabatan = $request->jabatan;
             $alamat = $request->alamat;
+            $id_kelas = $request->kelas;
             $tgs_tam = $request->tgs_tam;
         
             DB::select("UPDATE users, guru
-                SET users.nama = '$nama', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.tgs_tam = '$tgs_tam'
+                SET users.nama = '$nama', guru.id_kelas = '$id_kelas', users.username = '$username', guru.tempat = '$tempat', guru.tgl_lahir = '$tgl_lahir', guru.pendidikan = '$pendidikan', guru.tmk = '$tmk', guru.jabatan = '$jabatan', guru.alamat = '$alamat', guru.tgs_tam = '$tgs_tam'
                 WHERE users.id = guru.id_users
                 AND users.id = $id");
         
