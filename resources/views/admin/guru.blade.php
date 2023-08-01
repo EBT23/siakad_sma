@@ -127,6 +127,7 @@
               <th>Jabatan</th>
               <th>Alamat</th>
               <th>Tgs Tambahan</th>
+              <th>Wali Kelas Di</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -142,6 +143,7 @@
               <td>{{ $g->jabatan }}</td>
               <td>{{ $g->alamat }}</td>
               <td>{{ $g->tgs_tam }}</td>
+              <td>{{ $g->nama_kelas }}</td>
               <td class="d-flex">
                 <form action="hapusguru/{{$g->id }}" method="POST">
                   {{ csrf_field() }}
@@ -254,6 +256,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 @include('layouts.footer')
 </div>

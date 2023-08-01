@@ -128,9 +128,11 @@ use Illuminate\Console\View\Components\Alert;
             $title = 'Menu Guru';
             $guru = DB::select('SELECT users.id, users.nama, users.username, guru.id AS id_g, 
             guru.id_users,guru.tempat,guru.tgl_lahir,guru.tempat,guru.pendidikan,guru.tmk,guru.jabatan,
-            guru.alamat,guru.tgs_tam 
-            FROM users, guru 
-            WHERE users.id=guru.id_users AND users.role=3');
+            guru.alamat,guru.tgs_tam , kelas.nama AS nama_kelas
+            FROM users 
+            LEFT JOIN guru ON users.id=guru.id_users
+            LEFT JOIN kelas ON guru.id_kelas = kelas.id
+            WHERE users.role=3');
             // dd($guru);
             $kelas = DB::select("SELECT * FROM kelas");
            
