@@ -132,7 +132,9 @@ use Illuminate\Console\View\Components\Alert;
             FROM users, guru 
             WHERE users.id=guru.id_users AND users.role=3');
             // dd($guru);
-            return view('admin.guru', compact('title','guru'));
+            $kelas = DB::select("SELECT * FROM kelas");
+           
+            return view('admin.guru', compact('title','guru', 'kelas'));
         }
     
         public function tambah_guru(Request $request)
@@ -158,6 +160,7 @@ use Illuminate\Console\View\Components\Alert;
             'tgl_lahir' => $request->tgl_lahir,
             'pendidikan' => $request->pendidikan,
             'jabatan' => $request->jabatan,
+            'id_kelas' => $request->kelas,
             'tmk' => $request->tmk,
             'tgs_tam' => $request->tgs_tam,
             'alamat' => $request->alamat
