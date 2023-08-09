@@ -226,7 +226,6 @@ use Illuminate\Console\View\Components\Alert;
             $data = [
                 'nama' => $request->nama,
                 'kode' => $request->kode,
-                'kelompok' => $request->kelompok,
             ];
             DB::table('pelajaran')->insert($data);
             return redirect()->route('pelajaran')->with('success','Data pelajaran Berhasil Ditambah');
@@ -237,7 +236,6 @@ use Illuminate\Console\View\Components\Alert;
             DB::table('pelajaran')->where('id', $id)->update([
                 'nama' => $request->nama,
                 'kode' => $request->kode,
-                'kelompok' => $request->kelompok,
             ]);
             return redirect()->route('pelajaran')->with('success','Data siswa Berhasil Diperbaharui');
         }

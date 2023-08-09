@@ -35,19 +35,7 @@
                 <p>{{ $errors->first('kode') }}</p>
                 @endif
               </div>
-              <div class="col-6">
-                <label for="id_kelompok" class="form-label">-kelompok pelajaran-</label>
-                <select class="form-select" name="kelompok" id="kelompok" aria-label="Default select example" required
-                  oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                  <option value="" selected>-pilih-</option>
-                  <OPtion value="KELOMPOK A (UMUM)">KELOMPOK A (UMUM)</OPtion>
-                  <option value="KELOMPOK B (UMUM)">KELOMPOK B (UMUM)</option>
-                  <option value="KELOMPOK C (PEMINATAN MIPA)">KELOMPOK C (PEMINATAN MIPA)</option>
-                  <option value="KELOMPOK C (PEMINATAN IIS)">KELOMPOK C (PEMINATAN IIS)</option>
-                  <option value="LINTAS MINAT">LINTAS MINAT</option>
-
-                </select>
-              </div>
+          
               <div class="my-3">
                 <button type="submit" class="btn btn-success">Simpan</button>
               </div>
@@ -76,7 +64,6 @@
               <tr>
                 <th width="5%">No</th>
                 <th>Pelajaran</th>
-                <th>Jenis Kelompok</th>
                 <th>Kode Pelajaran</th>
                 <th width="10%">Aksi</th>
               </tr>
@@ -86,7 +73,6 @@
               <tr>
                 <td>{{ $index+1 }}</td>
                 <td>{{ $pl->nama }}</td>
-                <td>{{ $pl->kelompok }}</td>
                 <td>{{ $pl->kode }}</td>
                 <td class="d-flex">
                   <span>
@@ -130,21 +116,7 @@
                                   oninput="setCustomValidity('')">
                               </div>
 
-                              <div class="col-12">
-                                <label for="kode" class="form-label">Kode Pelajaran</label>
-                                <label for="kelompok" class="form-label">-kelompok pelajaran-</label>
-                                <select class="form-select" name="kelompok" id="kelompok"
-                                  aria-label="Default select example" required
-                                  oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                  oninput="setCustomValidity('')">
-                                  <option value="{{ $pl->kelompok }}">{{ $pl->kelompok }}</option>
-                                  <OPtion value="KELOMPOK A (UMUM)">KELOMPOK A (UMUM)</OPtion>
-                                  <option value="KELOMPOK B (UMUM)">KELOMPOK B (UMUM)</option>
-                                  <option value="KELOMPOK C (PEMINATAN MIPA)">KELOMPOK C (PEMINATAN MIPA)</option>
-                                  <option value="KELOMPOK C (PEMINATAN IIS)">KELOMPOK C (PEMINATAN IIS)</option>
-                                  <option value="LINTAS MINAT">LINTAS MINAT</option>
-                                </select>
-                              </div>
+                            
 
                             </div>
                             <div class="modal-footer">
