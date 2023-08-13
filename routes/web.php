@@ -33,8 +33,11 @@ Route::middleware(['auth'])->group(function (){
     // ROUTE SISWA
     Route::get('/siswa', [AdminController::class, 'siswa'])->name('siswa');
     Route::post('/tambahsiswa', [AdminController::class, 'tambah_siswa'])->name('siswa.post');
-    Route::post('/editsiswa/{id}', [AdminController::class, 'edit_siswa'])->name('edit.siswa');
+    Route::put('/editsiswa/{id}', [AdminController::class, 'edit_siswa'])->name('edit.siswa');
     Route::delete('/hapussiswa/{id}', [AdminController::class, 'hapussiswa'])->name('hapus.siswa');
+    Route::get('/search', [AdminController::class, 'searchByClass'])->name('siswa.search');
+    Route::get('/getEditForm/{id}', [AdminController::class, 'getEditForm'])->name('getEditForm');
+    Route::put('/editBysiswa', [AdminController::class, 'editBysiswa'])->name('edit.Bysiswa');
 
     // ROUTE GURU
     Route::get('/guru', [AdminController::class, 'guru'])->name('guru');

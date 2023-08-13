@@ -50,7 +50,7 @@ class nilaiExport implements  FromCollection, WithHeadings, WithStyles
             'RPH',
             'PTS',
             'PAT',
-            'Jumlah',
+            'Jumlah',f
             'Rata-rata',
             ]
         ];

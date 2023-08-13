@@ -70,11 +70,8 @@ use Illuminate\Console\View\Components\Alert;
     
         public function edit_siswa(Request $request, $id)
 {
-    $request->validate([
-        'nis' => 'required|unique:users,username,' . $id,
-    ], [
-        'nis.unique' => 'NIS ini sudah ada',
-    ]);
+
+   dd($id);
 
     $nama = $request->nama;
     $username = $request->nis;
@@ -92,10 +89,31 @@ use Illuminate\Console\View\Components\Alert;
 
     return redirect()->route('siswa')->with('success', 'Data siswa berhasil diperbarui');
 }
+
+        public function editBysiswa(Request $request)
+{
+
+
+    $id = $request->siswa_id;
+    $nama = $request->nama;
+    $username = $request->nis;
+    $id_kelas = $request->id_kelas;
+    $hp = $request->hp;
+    $alamat = $request->alamat;
+
+    DB::select("
+        UPDATE users, siswa, kelas
+        SET users.nama = '$nama', users.username = '$username', siswa.id_kelas = $id_kelas, siswa.hp = '$hp', siswa.alamat = '$alamat'
+        WHERE users.id = siswa.id_users
+        AND kelas.id = siswa.id_kelas
+        AND siswa.id = $id
+    ");
+
+    return redirect()->route('siswa')->with('success', 'Data siswa berhasil diperbarui');
+}
     
         function hapussiswa($id)
         {
-    
             DB::select("DELETE users, siswa FROM users, siswa WHERE users.id = siswa.id_users AND users.id = $id");
          
             return redirect()->route('siswa')->with('success','Data siswa Berhasil Dihapus');
@@ -109,15 +127,6 @@ use Illuminate\Console\View\Components\Alert;
             $id_thn_ajaran = $request->id_thn_ajaran;
             $nama_ta = DB::select("SELECT thn_ajaran.name_thn_ajaran FROM thn_ajaran WHERE thn_ajaran.id = $id_thn_ajaran");
             $nama_ta = $nama_ta[0]->name_thn_ajaran;
-            DB::table('nilai')
-            ->join('users', 'nilai.id_users', '=', 'users.id')
-            ->join('siswa', 'users.id', '=', 'siswa.id_users')
-            ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
-            ->join('pelajaran', 'nilai.kd_pelajaran', '=', 'pelajaran.kode')
-            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.id as nama_kelas')
-            ->where('kelas.id',$id_kelas)
-            ->where('nilai.id_thn_ajaran',$id_thn_ajaran)
-            ->get();
 
             return Excel::download(new nilaiExport($id_kelas, $id_thn_ajaran, $nama_ta), 'nilai.xlsx');
         }
@@ -597,6 +606,33 @@ use Illuminate\Console\View\Components\Alert;
  
              return redirect()->route('tahun_ajaran')->with('success','Data tahun ajaran Berhasil Dihapus');
          }
+
+         public function searchByClass(Request $request)
+{
+    $kelasId = $request->query('kelas');
+
+    // Ambil data siswa berdasarkan kelas yang diberikan dengan Query Builder
+    $siswa = DB::table('siswa')
+        ->join('users', 'siswa.id_users', '=', 'users.id')
+        ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
+        ->where('siswa.id_kelas', $kelasId)
+        ->select('siswa.*', 'users.username', 'users.nama as user_nama', 'kelas.nama as nama_kelas')
+        ->get();
+
+    // Kembalikan data dalam format JSON
+    return response()->json($siswa);
+}
+
+public function getEditForm($id)
+    {
+        // Ambil data siswa berdasarkan ID
+        $siswa = Siswa::find($id);
+        // Jika data siswa tidak ditemukan, mungkin hendaknya Anda menangani kasus ini sesuai kebutuhan
+
+        // Load view formulir edit dan kirimkan data siswa
+        return view('siswa', compact('siswa'));
+    }
+
 
     }
     
