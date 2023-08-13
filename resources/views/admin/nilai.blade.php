@@ -120,9 +120,8 @@
                                     target="_blank">EXPORT EXCEL</button>
                             </div>
                             <div>
-                                <select class="form-select mt-2" aria-label="Default select example" name="id_kelas"
-                                    id="id_kelas" required
-                                    oninvalid="this.setCustomValidity('kelas tidak boleh kosong')"
+                                <select class="form-select mt-2" aria-label="Default select example" name="kelas"
+                                    id="kelas" required oninvalid="this.setCustomValidity('kelas tidak boleh kosong')"
                                     oninput="setCustomValidity('')">
                                     <option value="" selected>pilih kelas</option>
                                     @foreach ($kelas as $si )
@@ -130,12 +129,17 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <select class="form-select" aria-label="Default select example" name="users" id="users"
+                                required oninvalid="this.setCustomValidity('Siswa tidak boleh kosong')"
+                                oninput="setCustomValidity('')" disabled>
+                                <option value="" selected>pilih siswa</option>
+                            </select>
                             <div>
                                 <select class="form-select mt-2" aria-label="Default select example"
-                                    name="id_thn_ajaran" id="id_kelas" required
+                                    name="id_thn_ajaran" id="id_thn_ajaran" required
                                     oninvalid="this.setCustomValidity('kelas tidak boleh kosong')"
                                     oninput="setCustomValidity('')">
-                                    <option value="" selected>pilih kelas</option>
+                                    <option value="" selected>pilih tahun</option>
                                     @foreach ($thn_ajaran as $ta )
                                     <option value="{{ $ta->id }}">{{ $ta->name_thn_ajaran }}</option>
                                     @endforeach
@@ -332,6 +336,36 @@
                     // Tambahkan opsi baru berdasarkan respons dari permintaan Ajax
                     $.each(response, function(key, value) {
                         $('#id_users').append('<option value="' + value.id + '">' + value.nama + '</option>');
+                    });
+                }
+            });
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#kelas').on('change', function() {
+            let kelasId = $(this).val();
+
+            // Buat permintaan Ajax ke rute yang ditentukan sebelumnya
+            $.ajax({
+                url: "{{ route('get.siswa') }}"
+                , type: 'GET'
+                , data: {
+                    id_kelas: kelasId
+                }
+                , success: function(response) {
+                    // Aktifkan select siswa
+                    $('#users').prop('disabled', false);
+
+                    // Hapus semua opsi saat ini
+                    $('#users option').not(':first').remove();
+
+                    // Tambahkan opsi baru berdasarkan respons dari permintaan Ajax
+                    $.each(response, function(key, value) {
+                        $('#users').append('<option value="' + value.id + '">' + value.nama + '</option>');
                     });
                 }
             });

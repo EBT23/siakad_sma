@@ -105,21 +105,22 @@ use Illuminate\Console\View\Components\Alert;
         public function exportNilai(Request $request)
         {
             
-            $id_kelas = $request->id_kelas;
+            $id_kelas = $request->kelas;
             $id_thn_ajaran = $request->id_thn_ajaran;
-            $nama_ta = DB::select("SELECT thn_ajaran.name_thn_ajaran FROM thn_ajaran WHERE thn_ajaran.id = $id_thn_ajaran");
-            $nama_ta = $nama_ta[0]->name_thn_ajaran;
-            DB::table('nilai')
-            ->join('users', 'nilai.id_users', '=', 'users.id')
-            ->join('siswa', 'users.id', '=', 'siswa.id_users')
-            ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id')
-            ->join('pelajaran', 'nilai.kd_pelajaran', '=', 'pelajaran.kode')
-            ->select( 'users.nama','nilai.kd_pelajaran', 'nilai.rph', 'nilai.pts', 'nilai.pat', 'nilai.jumlah', 'nilai.rata_rata', 'kelas.id as nama_kelas')
-            ->where('kelas.id',$id_kelas)
-            ->where('nilai.id_thn_ajaran',$id_thn_ajaran)
-            ->get();
+            $id_users = $request->users;
 
-            return Excel::download(new nilaiExport($id_kelas, $id_thn_ajaran, $nama_ta), 'nilai.xlsx');
+            $nama_ta = DB::table('thn_ajaran')->where('id', $id_thn_ajaran)->value('name_thn_ajaran');
+
+            $id_siswa = DB::table('users')->where('id', $id_users)->value('id');
+            $nama_siswa = DB::table('users')->where('id', $id_users)->value('nama');
+            $nis_siswa = DB::table('users')->where('id', $id_users)->value('username');
+
+            $nama_kelas = DB::table('kelas')->where('id', $id_kelas)->value('nama');
+
+            return Excel::download(new nilaiExport($id_kelas, 
+                                    $id_thn_ajaran, $nama_ta, 
+                                    $id_siswa, $nama_siswa, 
+                                    $nama_kelas, $nis_siswa), 'nilai.xlsx');
         }
     
         // view guru
