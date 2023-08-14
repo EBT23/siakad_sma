@@ -71,7 +71,7 @@ use Illuminate\Console\View\Components\Alert;
         public function edit_siswa(Request $request, $id)
 {
 
-   dd($id);
+//    dd($id);
 
     $nama = $request->nama;
     $username = $request->nis;
